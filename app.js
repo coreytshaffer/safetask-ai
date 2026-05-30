@@ -1110,7 +1110,7 @@ class ConstellationMenu {
            loadPreset('jha', closestNode.cat.id);
         } else {
            // Fallback for types without presets
-           document.getElementById("jhaTaskInput").value = \`Incident Category: \${closestNode.cat.label}\\n\\nDetails: \`;
+           document.getElementById("jhaTaskInput").value = `Incident Category: ${closestNode.cat.label}\n\nDetails: `;
            onInputTextChange("jha");
         }
         document.getElementById("constellationActiveLabel").textContent = closestNode.cat.label;
@@ -1162,7 +1162,7 @@ class ConstellationMenu {
 
         if (distance < 100) {
           this.ctx.beginPath();
-          this.ctx.strokeStyle = \`rgba(0, 242, 254, \${1 - distance/100})\`;
+          this.ctx.strokeStyle = `rgba(0, 242, 254, ${1 - distance/100})`;
           this.ctx.lineWidth = 0.5;
           this.ctx.moveTo(this.nodes[i].x, this.nodes[i].y);
           this.ctx.lineTo(this.nodes[j].x, this.nodes[j].y);
@@ -1177,7 +1177,7 @@ class ConstellationMenu {
         const distance = Math.sqrt(dx*dx + dy*dy);
         if (distance < 120) {
           this.ctx.beginPath();
-          this.ctx.strokeStyle = \`rgba(79, 172, 254, \${0.8 - distance/120})\`;
+          this.ctx.strokeStyle = `rgba(79, 172, 254, ${0.8 - distance/120})`;
           this.ctx.lineWidth = 1;
           this.ctx.moveTo(this.nodes[i].x, this.nodes[i].y);
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
