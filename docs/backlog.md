@@ -31,7 +31,11 @@ SafeTask Core
     ├── safety incident drafting
     ├── SDS and policy reference support
     └── emergency response support
-```
+└── SafeTask Security & Dispatch
+    ├── Dispatch log & officer task tracking
+    ├── Lost and found registry
+    ├── Field incident reporting
+    └── Credential-gated evidence inbox
 
 SafeTask Field should exist both as:
 
@@ -63,6 +67,10 @@ Review activity must never silently displace protected live shots. The product e
 ### 3.6 Make spatial cognition first-class
 
 The interface should capture routes, camera adjacency, blind spots, timestamp pins, evidence quality, and stakeholder reports. Dropdowns should be fallback tools, not the main operating model.
+
+### 3.7 Translate meaning, not only words
+
+Jurisdiction packs must preserve original source language, literal translation, and operational interpretation as separate fields. SafeTask should present the user-facing explanation in the user's preferred language while making clear what is source text, what is a literal translation, and what is reviewer-approved practical guidance.
 
 ## 4. North-star workflow
 
@@ -99,9 +107,9 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 1.2: Define shared event schema
 
 ### Epic 2: Live Continuity Deck
-* Story 2.1: Protected live shot state
-* Story 2.2: Live Continuity Rail
-* Story 2.3: Live coverage interruption warning
+* Story 2.1: Protected live shot state (prototype implemented)
+* Story 2.2: Live Continuity Rail (prototype implemented)
+* Story 2.3: Live coverage interruption warning (prototype implemented)
 
 ### Epic 3: PiP Review Deck
 * Story 3.1: Draggable PiP review panes
@@ -126,16 +134,21 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 7.1: Evidence Registry metadata model
 * Story 7.2: Stakeholder report graph
 * Story 7.3: Retention status tracker
+* Story 7.4: Security mobile evidence intake gateway
+* Story 7.5: Surveillance review queue for field-submitted evidence
+* Story 7.6: Radio traffic audio ingestion and transcription
 
 ### Epic 8: Recall Search for old exports
-* Story 8.1: Natural-language search parser
-* Story 8.2: SQLite full-text search index
-* Story 8.3: Search result cards
+* [x] Story 8.1: Natural-language search parser
+* [x] Story 8.2: SQLite full-text search index (FTS5)
+* [x] Story 8.3: Search result cards
 
 ### Epic 9: Admin Governance Console and policy ingestion
-* Story 9.1: Admin document upload
-* Story 9.2: Source Registry and versioning
-* Story 9.3: Policy retrieval with citation display
+* [x] Story 9.1: Admin document upload
+* [x] Story 9.2: Source Registry and versioning
+* [x] Story 9.3: Policy retrieval with citation display
+* [ ] Story 9.4: Jurisdiction-specific public regulatory packs for `gaming-us-tribal`, `gaming-us-nv`, and `gaming-macau` (stretch)
+* [ ] Story 9.5: Multilingual source, translation, and operational-meaning layers for Macau and other non-English jurisdictions using official public source text plus reviewed operational interpretation (stretch)
 
 ### Epic 10: Emergency Plan Assistant
 * Story 10.1: Emergency plan gap check
@@ -148,9 +161,9 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 11.3: Evacuation voice commands
 
 ### Epic 12: Authority Matrix and Authority Lanes
-* Story 12.1: Authority Matrix configuration
-* Story 12.2: Authority lane routing
-* Story 12.3: Review and approval trail
+* [x] Story 12.1: Authority Matrix configuration (RBAC Module)
+* [x] Story 12.2: Authority lane routing
+* [x] Story 12.3: Review and approval trail (Gaming Commission Signatures & Telephonic)
 
 ### Epic 13: SafeTask Field standalone and SCC module
 * Story 13.1: Field safety event schema
@@ -158,11 +171,31 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 13.3: JHA draft assistant
 
 ### Epic 14: Audit, permissions, and deployment hardening
-* Story 14.1: Role-based access controls
-* Story 14.2: Action audit log
-* Story 14.3: Local-first deployment profile
+* [x] Story 14.1: Role-based access controls (Implemented across Dispatch, Surveillance, Admin, Auditor)
+* [x] Story 14.2: Action audit log (Evidence hashes, authorization timestamps)
+* [x] Story 14.3: Local-first deployment profile
 
 ### Epic 15: Demo data and story-driven validation
 * Story 15.1: Synthetic casino incident scenarios
 * Story 15.2: Demo script for Live Continuity Deck
 * Story 15.3: Demo script for Recall Search
+
+### Epic 16: Security Management & Dispatch (iTrak Competitor)
+* [x] Story 16.1: Role-based evidence and report gating (Credentials check)
+* [ ] Story 16.2: Dispatch log and officer task tracking
+* [ ] Story 16.3: Lost and found registry
+* [x] Story 16.4: Secure distribution queue for photos/video exports (Self-Destructing LE Portal)
+
+### Epic 17: Physical Security Systems Integration (Keywatcher & ACS)
+* Story 17.1: Keywatcher API/syslog ingestion for real-time key events
+* Story 17.2: Overdue key alerts and automatic dispatch routing
+* Story 17.3: Auto-correlation between key pulls and camera timeline pinning
+* Story 17.4: Secure key audit ledger
+* Story 17.5: Access Control System (ACS) integration for badge swipe alerts
+* Story 17.6: High-value key/badge usage triggers automated PiP camera spawn
+
+### Epic 18: Biometric Subject Management
+* [x] Story 18.1: Subject Database with facial hashes and gait profiles
+* [x] Story 18.2: Biometric Profiles Directory
+* [x] Story 18.3: Biometric Camera Feed Scanner
+* [x] Story 18.4: Human-in-the-Loop Verification Module

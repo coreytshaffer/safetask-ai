@@ -1,0 +1,28 @@
+{
+  "id": "inc-gaming-8841",
+  "type": "gaming_surveillance",
+  "date": "2026-05-30T14:00:00Z",
+  "inc_date": "2026-05-30T13:45:00Z",
+  "location": "Pit 4, Table 12",
+  "incident_title": "Dealer Exposed Hole Card",
+  "review_status": "draft",
+  "authority_lanes": ["surveillance", "compliance"],
+  "observations": [
+    {
+      "camera_id": "PTZ-104",
+      "timestamp": "13:45:12",
+      "location": "Table 12",
+      "text": "Dealer Ace lifted the hole card too high while peeking.",
+      "confidence": "High",
+      "evidence_quality": "observed"
+    },
+    {
+      "camera_id": "FIXED-412",
+      "timestamp": "13:45:14",
+      "location": "Seat 3",
+      "text": "Patron in seat 3 appears to lean in and look at the exposed card.",
+      "confidence": "Medium",
+      "evidence_quality": "partial"
+    }
+  ]
+}

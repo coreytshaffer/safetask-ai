@@ -9,7 +9,7 @@ const ASSETS_TO_CACHE = [
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./regulations.json",
+  "/policy-packs/gaming/regulations.json",
   "./manifest.json"
 ];
 

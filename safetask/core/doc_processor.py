@@ -4,7 +4,7 @@ import PyPDF2
 import re
 from collections import Counter
 
-REGULATIONS_FILE = "regulations.json"
+REGULATIONS_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "domains", "gaming", "regulations.json")
 
 # Basic list of English stop words for deterministic keyword generation
 STOP_WORDS = set([
@@ -42,20 +42,29 @@ def append_to_database(code, title, raw_text, keywords):
     else:
         db = []
         
-    # Check if code already exists to avoid duplicates
-    existing_index = next((index for (index, d) in enumerate(db) if d["code"] == code), None)
+    # Epic 9: Versioning Support
+    base_code = code
+    version = 1
+    
+    # Find highest version for this base_code
+    for d in db:
+        if d.get("base_code") == base_code or d["code"] == base_code:
+            v = d.get("version", 1)
+            if v >= version:
+                version = v + 1
+                
+    final_code = f"{base_code}-v{version}" if version > 1 else base_code
     
     new_entry = {
-        "code": code,
+        "code": final_code,
+        "base_code": base_code,
+        "version": version,
         "title": title,
         "summary": raw_text,
         "keywords": keywords
     }
     
-    if existing_index is not None:
-        db[existing_index] = new_entry
-    else:
-        db.append(new_entry)
+    db.append(new_entry)
         
     with open(REGULATIONS_FILE, 'w') as f:
         json.dump(db, f, indent=2)

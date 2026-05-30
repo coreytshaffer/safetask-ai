@@ -1,0 +1,37 @@
+{
+  "id": "gaming-macau",
+  "domain": "gaming_surveillance",
+  "jurisdiction": "Macau",
+  "issuing_authority": "TBD official source authority",
+  "source_policy": "official_public_sources_only",
+  "source_review_model": "official_source_plus_reviewed_operational_interpretation",
+  "official_source_domains": ["gov.mo", "dicj.gov.mo", "bo.dsaj.gov.mo"],
+  "default_language": "zh-Hant-MO",
+  "supported_languages": ["zh-Hant-MO", "pt-PT", "en-US"],
+  "source_url": "https://www.dicj.gov.mo",
+  "effective_date": "TBD",
+  "last_checked": "TBD",
+  "review_status": "draft",
+  "entries": [
+    {
+      "citation": "TBD",
+      "title": "Template entry - replace with reviewed source title",
+      "topic_tags": ["surveillance", "incident_reporting"],
+      "source_language": "zh-Hant-MO",
+      "source_url": "TBD official public source URL",
+      "source_text": "Original Macau source text goes here after source approval.",
+      "literal_translation": {
+        "en-US": "Close literal translation goes here after translation review."
+      },
+      "operational_interpretation": {
+        "en-US": "Reviewer-approved practical meaning for surveillance users goes here."
+      },
+      "applicability_notes": "Describe when this source applies and when it does not.",
+      "required_report_fields": ["timestamp", "location", "camera_id", "source_citation"],
+      "authority_lanes": ["surveillance", "compliance"],
+      "translation_reviewed_by": "TBD",
+      "interpretation_reviewed_by": "TBD",
+      "confidence": "needs_review"
+    }
+  ]
+}

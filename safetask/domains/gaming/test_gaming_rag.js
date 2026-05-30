@@ -5,7 +5,10 @@ const path = require('path');
 let regulationsDatabase = [];
 
 function loadRegulations() {
-  const regPath = path.join(__dirname, 'regulations.json');
+  const regPath = path.normalize(path.join(__dirname, 'regulations.json'));
+  if (!regPath.startsWith(__dirname)) {
+    throw new Error("Invalid path");
+  }
   const data = fs.readFileSync(regPath, 'utf8');
   regulationsDatabase = JSON.parse(data);
   console.log(`Loaded ${regulationsDatabase.length} regulations for testing.`);
@@ -46,24 +49,16 @@ try {
   
   const testCases = [
     {
-      input: "working at heights of 10 feet to repair roof vents on a ladder",
-      expectedCodes: ["Title 8 CCR §1670"]
+      input: "dealer failed to clear hands at blackjack table 4",
+      expectedCodes: ["SICS Section 3.1.4"]
     },
     {
-      input: "working in an outdoor farm during a hot dry summer day with high temperature",
-      expectedCodes: ["Title 8 CCR §3395"]
+      input: "patron faked a slip and fall in liquid near the slot machine bank",
+      expectedCodes: ["Legal & Risk Policy: Constructive Knowledge"]
     },
     {
-      input: "clearing brush near a wildfire with heavy smoke and haze in the air",
-      expectedCodes: ["Title 8 CCR §5141.1"]
-    },
-    {
-      input: "digging a deep excavation ditch trench for plumbing pipes",
-      expectedCodes: ["Title 8 CCR §1541"]
-    },
-    {
-      input: "troubleshooting high voltage electrical wire line in a live cabinet LOTO",
-      expectedCodes: ["Title 8 CCR §2320.2"]
+      input: "unauthorized access to the main cage vault and door propped open",
+      expectedCodes: ["NIGC MICS 25 CFR § 543.21"]
     }
   ];
 
