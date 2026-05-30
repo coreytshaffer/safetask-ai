@@ -1,0 +1,22 @@
+# Database
+safetask.db
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Pycache
+__pycache__/
+*.pyc
+
+# Exports
+exports/
+*.pdf
+
+# API Keys / Environment Variables
+.env
+
+# Temp
+*.txt
+*.json.bak

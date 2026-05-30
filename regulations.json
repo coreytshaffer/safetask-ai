@@ -1,0 +1,50 @@
+[
+  {
+    "code": "NIGC MICS 25 CFR § 543.21",
+    "title": "Surveillance Systems & Access",
+    "keywords": ["surveillance", "access", "server room", "mdf", "idf", "vlan", "agent", "security", "unauthorized"],
+    "summary": "Requires strict physical and logical control over who can access surveillance rooms and equipment. Entry to main server rooms (MDF) requires dual-approval and strict logging."
+  },
+  {
+    "code": "SICS Section 3.1.4",
+    "title": "Table Games: Dealer Procedures (Hand Clearing)",
+    "keywords": ["dealer", "hands", "clear", "clearing", "tapping out", "pit", "blackjack", "craps", "baccarat", "palms"],
+    "summary": "Before leaving a live table game, a dealer must perform a hand-clearing procedure: both hands raised above the table plane, palms open and facing upward toward the PTZ camera, then rotated to show the back of the hands."
+  },
+  {
+    "code": "SICS Section 4.1",
+    "title": "Table Drop Procedures",
+    "keywords": ["table drop", "drop", "cash box", "cart", "escort", "count room", "security officers", "soft count"],
+    "summary": "During a table drop (moving cash boxes from tables to the soft count room), exactly three security officers must be physically present and visible on camera at all times, except under conditions in 4.2."
+  },
+  {
+    "code": "SICS Section 4.2",
+    "title": "Table Drop (Exception)",
+    "keywords": ["exception", "table drop", "drop", "03:00", "04:00", "night shift", "grave shift"],
+    "summary": "If the table drop occurs between 03:00 and 04:00, only two security officers are required to be physically present."
+  },
+  {
+    "code": "TICS Section 9.1",
+    "title": "Incident Reporting Requirements",
+    "keywords": ["incident", "report", "narrative", "log", "timestamp", "badge number", "camera number", "ptz"],
+    "summary": "All incident reports must include exact timestamps, involved employee badge numbers, and specific PTZ camera numbers used to monitor the event. Omission of these facts renders the report non-compliant."
+  },
+  {
+    "code": "Legal & Risk Policy: Constructive Knowledge",
+    "title": "Slip & Fall Liability",
+    "keywords": ["slip", "fall", "hazard", "spill", "wet floor", "liability", "injury", "staged", "fraud", "liquid"],
+    "summary": "Liability for a patron slip-and-fall relies on 'constructive knowledge' (the hazard was present long enough that staff should have noticed). Intentional creation of a hazard by a patron (staged fall) completely negates casino liability. Security must track the origin of the hazard via camera timeline."
+  },
+  {
+    "code": "SICS Section 7.2",
+    "title": "Patron Dispute & Intoxication",
+    "keywords": ["intoxicated", "drunk", "dispute", "fight", "shouting", "altercation", "removed", "detained"],
+    "summary": "Patrons exhibiting signs of severe intoxication who disrupt gaming operations must be asked to leave. If they refuse, they must be detained by Security and removed from the property. A full incident report and camera coverage are required."
+  },
+  {
+    "code": "TICS Section 5.5",
+    "title": "Secure Door Integrity",
+    "keywords": ["door", "propped", "vault", "count room", "cage", "secure", "alarm", "access control"],
+    "summary": "Critical secure doors (Vault, Soft Count, Main Cage) must not be propped open. Any door propped longer than 30 seconds must trigger a priority surveillance alarm and dispatch a security supervisor immediately."
+  }
+]
