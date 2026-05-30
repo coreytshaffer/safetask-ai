@@ -2,13 +2,18 @@
 
 SafeTask AI is an advanced Security Operations Center (SOC) portal built to bridge the gap between Casino Surveillance Code Compliance (MICS/TICS) and Industrial/OSHA Safety. It operates using a fully deterministic Retrieval-Augmented Generation (RAG) architecture running locally, ensuring strict chain-of-custody for regulatory audits.
 
+**Authority Accelerator Principle:** SafeTask is not an AI decision-maker. The human observes. SafeTask structures. Authorized stakeholders review, decide, and approve.
+
+> [!WARNING]
+> **Human Review Disclaimer:** Generated reports are drafts. They must be reviewed and approved by an authorized stakeholder before operational, legal, regulatory, or emergency use. SafeTask does not make independent compliance or liability determinations.
+
 ## Features
 
 - **Spatial Floor Map & Anomaly Detection:** Interactive CSS-Grid map showing Edge AI anomaly beacons across the facility.
 - **Draggable VMS Picture-in-Picture:** Asynchronous multi-feed viewing (Live PTZ, Review Clip, Live Fixed) directly within the reporting interface.
-- **Generative Compliance Reporting:** Automated drafting of incident narratives mapped to MICS regulations, with Physics-based HTML5 Canvas categorization.
-- **Deterministic Admin Policy Deployment:** Leadership can upload official PDFs (SOPs, SDS sheets). The system deterministically extracts the text and metadata to update the RAG database instantly—no LLM abstraction, zero hallucination risk.
-- **TGRA Audit Engine:** Export generated compliance reports to secure, immutable, and watermarked PDFs.
+- **Generative Compliance Reporting:** Automated, citation-constrained drafting of incident narratives to reduce unsupported claims, mapped to MICS regulations.
+- **Deterministic Admin Policy Deployment:** Leadership can upload official PDFs (SOPs, SDS sheets). The system deterministically extracts the text and metadata to update the RAG database instantly.
+- **TGRA Audit Engine:** Export generated compliance reports to watermarked, audit-ready PDFs.
 
 ## Architecture
 
