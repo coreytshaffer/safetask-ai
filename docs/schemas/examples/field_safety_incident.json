@@ -1,0 +1,28 @@
+{
+  "id": "inc-safety-9921",
+  "type": "field_safety",
+  "date": "2026-05-30T15:00:00Z",
+  "inc_date": "2026-05-30T14:45:00Z",
+  "location": "Loading Dock B",
+  "incident_title": "Forklift Hydraulic Leak",
+  "review_status": "pending_review",
+  "authority_lanes": ["safety", "operations"],
+  "observations": [
+    {
+      "camera_id": "EXT-DOCK-1",
+      "timestamp": "14:45:00",
+      "location": "Loading Dock B",
+      "text": "Forklift #4 develops a sudden leak. Puddle forming under the rear axle.",
+      "confidence": "High",
+      "evidence_quality": "observed"
+    },
+    {
+      "camera_id": "EXT-DOCK-2",
+      "timestamp": "14:46:15",
+      "location": "Loading Dock B",
+      "text": "Operator slips on the fluid while exiting the vehicle but catches themselves. No apparent injury.",
+      "confidence": "Medium",
+      "evidence_quality": "partial"
+    }
+  ]
+}

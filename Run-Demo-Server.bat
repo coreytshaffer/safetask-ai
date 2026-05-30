@@ -10,4 +10,5 @@ echo Keep this command window open while using the application.
 echo Close this window to stop the server.
 echo =============================================================
 start "" "http://localhost:8080"
-python server.py
+set PYTHONPATH=%~dp0
+python safetask\apps\surveillance_command_center\server.py

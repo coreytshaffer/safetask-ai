@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeTask | Law Enforcement Evidence Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0e17;
+      --panel-bg: rgba(20, 25, 40, 0.9);
+      --accent-cyan: #00f3ff;
+      --accent-amber: #ffab00;
+      --text-main: #e2e8f0;
+      --text-secondary: #94a3b8;
+    }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 50% 0%, #1a233a 0%, transparent 50%);
+    }
+    .container {
+      background: var(--panel-bg);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      border-radius: 8px;
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+    h2 {
+      color: var(--accent-cyan);
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    input {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 12px;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 300px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+    button {
+      background: var(--accent-cyan);
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    button:hover {
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+    }
+    #errorMsg {
+      color: #ff6b6b;
+      margin-top: 15px;
+      font-size: 14px;
+      display: none;
+    }
+    .evidence-view {
+      display: none;
+      text-align: left;
+    }
+    .evidence-view h3 {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 10px;
+      color: var(--accent-amber);
+    }
+    .video-mock {
+      background: #000;
+      height: 250px;
+      border-radius: 4px;
+      border: 1px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-secondary);
+      margin-top: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .play-btn {
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 243, 255, 0.2);
+      border: 2px solid var(--accent-cyan);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .play-btn::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 15px solid var(--accent-cyan);
+      margin-left: 5px;
+    }
+    .warning-banner {
+      background: rgba(255, 171, 0, 0.1);
+      border: 1px solid rgba(255, 171, 0, 0.3);
+      color: var(--accent-amber);
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="loginView">
+  <h2>DMZ Secure Portal</h2>
+  <div class="subtitle">Law Enforcement & External Agency Access</div>
+  <p style="font-size: 12px; color: var(--accent-amber); margin-bottom: 20px;">
+    <strong>WARNING:</strong> This link is strictly for single-use. The evidence package will self-destruct and become inaccessible after 1 successful verification.
+  </p>
+  <input type="text" id="pinInput" placeholder="ENTER 6-DIGIT PIN" maxlength="6" autocomplete="off">
+  <br>
+  <button onclick="verifyPin()">Decrypt Evidence</button>
+  <div id="errorMsg">Invalid PIN or Link Expired.</div>
+</div>
+
+<div class="container evidence-view" id="evidenceView">
+  <h3>Confidential Evidence Package</h3>
+  <div class="warning-banner">
+    <strong>CHAIN OF CUSTODY SEAL:</strong> <span id="hashDisplay" style="font-family: monospace;"></span><br>
+    This package has been digitally authorized by the Gaming Commission.
+  </div>
+  
+  <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+    <div>
+      <strong style="color: var(--text-secondary); font-size: 12px;">INCIDENT TITLE</strong><br>
+      <span id="incTitle"></span>
+    </div>
+    <div style="text-align: right;">
+      <strong style="color: var(--text-secondary); font-size: 12px;">DATE / TIME</strong><br>
+      <span id="incDate"></span>
+    </div>
+  </div>
+  
+  <div style="margin-top: 20px;">
+    <strong style="color: var(--text-secondary); font-size: 12px;">NARRATIVE SUMMARY</strong><br>
+    <div id="incSummary" style="font-size: 14px; margin-top: 5px; line-height: 1.5; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px;"></div>
+  </div>
+
+  <div class="video-mock">
+    <div class="play-btn"></div>
+    <div style="position: absolute; bottom: 10px; right: 10px; font-family: monospace; font-size: 10px; color: rgba(255,255,255,0.5);">
+      CAM_42_PTZ • 1080P_H264_STREAM
+    </div>
+  </div>
+  
+  <div style="text-align: center;">
+    <button style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3);">Download Package (.ZIP)</button>
+  </div>
+</div>
+
+<script>
+  const token = window.location.pathname.split('/').pop();
+  
+  async function verifyPin() {
+    const pin = document.getElementById('pinInput').value;
+    const errorMsg = document.getElementById('errorMsg');
+    
+    if (pin.length !== 6) {
+      errorMsg.innerText = "PIN must be 6 digits.";
+      errorMsg.style.display = "block";
+      return;
+    }
+    
+    errorMsg.style.display = "none";
+    document.querySelector('#loginView button').innerText = "Decrypting...";
+    
+    try {
+      const res = await fetch('/api/portal/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, pin })
+      });
+      
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('evidenceView').style.display = 'block';
+        
+        document.getElementById('incTitle').innerText = data.incident.title || data.incident.incident_title || 'Incident Report';
+        document.getElementById('incDate').innerText = data.incident.date;
+        document.getElementById('incSummary').innerText = data.incident.summary || data.incident.narrative || '';
+        document.getElementById('hashDisplay').innerText = data.incident.evidence_hash || data.incident.hash || 'N/A';
+        
+      } else {
+        errorMsg.innerText = data.error || "Verification failed.";
+        errorMsg.style.display = "block";
+        document.querySelector('#loginView button').innerText = "Decrypt Evidence";
+      }
+    } catch(e) {
+      errorMsg.innerText = "Network Error.";
+      errorMsg.style.display = "block";
+      document.querySelector('#loginView button').innerText = "Decrypt Evidence";
+    }
+  }
+</script>
+
+</body>
+</html>
