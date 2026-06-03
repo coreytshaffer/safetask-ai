@@ -1,0 +1,6 @@
+role,name,phone,email,escalation_order,incident_type,location_scope
+Safety Officer,Jane Safety,555-0101,jane.safety@example.com,1,chemical_release,all
+Facility Manager,Sam Facility,555-0102,sam.facility@example.com,2,chemical_release,Building 3
+EHS Manager,Morgan EHS,555-0103,morgan.ehs@example.com,3,chemical_release,all
+Maintenance Lead,Riley Maintenance,555-0104,riley.maintenance@example.com,4,equipment_damage,Building 3
+Incident Commander,Alex IC,555-0105,alex.ic@example.com,1,emergency,all

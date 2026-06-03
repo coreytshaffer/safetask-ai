@@ -1,0 +1,786 @@
+{
+    "generatedAt": "2026-05-05T01:44:50.0415334-07:00",
+    "liveCards": [
+        {
+            "label": "Lake level at Lakeport",
+            "value": "7.51 ft Rumsey\n1,325.77 ft above sea level",
+            "note": "USGS station 11450000 on May 3, 2026; elevation shown using Zero Rumsey = 1318.256 ft. 30-day trend down (-0.04 ft)."
+        },
+        {
+            "label": "Cole Creek discharge",
+            "value": "0.44 cfs",
+            "note": "USGS station 11449820 on May 3, 2026; 30-day peak was 10.5 cfs."
+        },
+        {
+            "label": "Latest Clear Lake FHABS report",
+            "value": "September 7, 2025",
+            "note": "Soda Bay was reported as 'Caution' in FHABS. Open or ongoing Clear Lake reports in the file: 69."
+        },
+        {
+            "label": "Latest FHABS lab-linked sample",
+            "value": "January 11, 2024",
+            "note": "Clearlake Oaks near Water Intake (CLOAKS01); analyte Dominant via Microscopy. This dataset appears to lag the current report stream."
+        },
+        {
+            "label": "Registry coverage",
+            "value": "8 / 8",
+            "note": "Recent coordinate markers matched to the site registry. Unmatched: 0. Methods: alias: 8."
+        }
+    ],
+    "hydrologySeries": [
+        {
+            "label": "Lake level",
+            "station": "CLEAR LK A LAKEPORT CA / USGS 11450000",
+            "unit": "ft",
+            "points": [
+                {
+                    "date": "2026-04-05",
+                    "value": 7.55
+                },
+                {
+                    "date": "2026-04-06",
+                    "value": 7.53
+                },
+                {
+                    "date": "2026-04-07",
+                    "value": 7.5
+                },
+                {
+                    "date": "2026-04-08",
+                    "value": 7.48
+                },
+                {
+                    "date": "2026-04-09",
+                    "value": 7.47
+                },
+                {
+                    "date": "2026-04-10",
+                    "value": 7.5
+                },
+                {
+                    "date": "2026-04-11",
+                    "value": 7.55
+                },
+                {
+                    "date": "2026-04-12",
+                    "value": 7.61
+                },
+                {
+                    "date": "2026-04-13",
+                    "value": 7.63
+                },
+                {
+                    "date": "2026-04-14",
+                    "value": 7.62
+                },
+                {
+                    "date": "2026-04-15",
+                    "value": 7.6
+                },
+                {
+                    "date": "2026-04-16",
+                    "value": 7.61
+                },
+                {
+                    "date": "2026-04-17",
+                    "value": 7.59
+                },
+                {
+                    "date": "2026-04-18",
+                    "value": 7.58
+                },
+                {
+                    "date": "2026-04-19",
+                    "value": 7.56
+                },
+                {
+                    "date": "2026-04-20",
+                    "value": 7.59
+                },
+                {
+                    "date": "2026-04-21",
+                    "value": 7.62
+                },
+                {
+                    "date": "2026-04-22",
+                    "value": 7.65
+                },
+                {
+                    "date": "2026-04-23",
+                    "value": 7.64
+                },
+                {
+                    "date": "2026-04-24",
+                    "value": 7.64
+                },
+                {
+                    "date": "2026-04-25",
+                    "value": 7.63
+                },
+                {
+                    "date": "2026-04-26",
+                    "value": 7.61
+                },
+                {
+                    "date": "2026-04-27",
+                    "value": 7.61
+                },
+                {
+                    "date": "2026-04-28",
+                    "value": 7.6
+                },
+                {
+                    "date": "2026-04-29",
+                    "value": 7.58
+                },
+                {
+                    "date": "2026-04-30",
+                    "value": 7.57
+                },
+                {
+                    "date": "2026-05-01",
+                    "value": 7.55
+                },
+                {
+                    "date": "2026-05-02",
+                    "value": 7.53
+                },
+                {
+                    "date": "2026-05-03",
+                    "value": 7.51
+                }
+            ]
+        },
+        {
+            "label": "Cole Creek discharge",
+            "station": "COLE C A KELSEYVILLE CA / USGS 11449820",
+            "unit": "ft3/s",
+            "points": [
+                {
+                    "date": "2026-04-05",
+                    "value": 1.09
+                },
+                {
+                    "date": "2026-04-06",
+                    "value": 0.99
+                },
+                {
+                    "date": "2026-04-07",
+                    "value": 0.79
+                },
+                {
+                    "date": "2026-04-08",
+                    "value": 0.68
+                },
+                {
+                    "date": "2026-04-09",
+                    "value": 0.78
+                },
+                {
+                    "date": "2026-04-10",
+                    "value": 2.06
+                },
+                {
+                    "date": "2026-04-11",
+                    "value": 6.04
+                },
+                {
+                    "date": "2026-04-12",
+                    "value": 10.5
+                },
+                {
+                    "date": "2026-04-13",
+                    "value": 6.24
+                },
+                {
+                    "date": "2026-04-14",
+                    "value": 3.57
+                },
+                {
+                    "date": "2026-04-15",
+                    "value": 2.39
+                },
+                {
+                    "date": "2026-04-16",
+                    "value": 1.84
+                },
+                {
+                    "date": "2026-04-17",
+                    "value": 1.49
+                },
+                {
+                    "date": "2026-04-18",
+                    "value": 1.28
+                },
+                {
+                    "date": "2026-04-19",
+                    "value": 1.13
+                },
+                {
+                    "date": "2026-04-20",
+                    "value": 1.71
+                },
+                {
+                    "date": "2026-04-21",
+                    "value": 5.49
+                },
+                {
+                    "date": "2026-04-22",
+                    "value": 4.4
+                },
+                {
+                    "date": "2026-04-23",
+                    "value": 2.99
+                },
+                {
+                    "date": "2026-04-24",
+                    "value": 2.09
+                },
+                {
+                    "date": "2026-04-25",
+                    "value": 1.67
+                },
+                {
+                    "date": "2026-04-26",
+                    "value": 1.44
+                },
+                {
+                    "date": "2026-04-27",
+                    "value": 1.26
+                },
+                {
+                    "date": "2026-04-28",
+                    "value": 1.1
+                },
+                {
+                    "date": "2026-04-29",
+                    "value": 1.01
+                },
+                {
+                    "date": "2026-04-30",
+                    "value": 0.87
+                },
+                {
+                    "date": "2026-05-01",
+                    "value": 0.67
+                },
+                {
+                    "date": "2026-05-02",
+                    "value": 0.52
+                },
+                {
+                    "date": "2026-05-03",
+                    "value": 0.44
+                }
+            ]
+        }
+    ],
+    "armSummaries": [
+        {
+            "arm": "Upper Arm",
+            "reportCount": 0,
+            "latest": null
+        },
+        {
+            "arm": "Lower Arm",
+            "reportCount": 6,
+            "latest": {
+                "date": "September 7, 2025",
+                "landmark": "Soda Bay",
+                "advisory": "Caution"
+            }
+        },
+        {
+            "arm": "Oaks Arm",
+            "reportCount": 2,
+            "latest": {
+                "date": "June 26, 2025",
+                "landmark": "Clear Lake Keys near Ketch Court",
+                "advisory": "Caution"
+            }
+        },
+        {
+            "arm": "Needs Review",
+            "reportCount": 0,
+            "latest": null
+        }
+    ],
+    "mapMarkers": [
+        {
+            "id": "4864",
+            "siteId": "fhabs-clearlake-oaks",
+            "siteName": "Clearlake Oaks",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 0,
+            "landmark": "Clearlake Oaks west of Blue Heron Ct.",
+            "date": "June 15, 2025",
+            "isoDate": "2025-06-15",
+            "advisory": "Visual observation",
+            "reportType": "Agency/Partner Reporting",
+            "arm": "Oaks Arm",
+            "latitude": 39.021693,
+            "longitude": -122.67152
+        },
+        {
+            "id": "4875",
+            "siteId": "fhabs-clearlake-keys",
+            "siteName": "Clear Lake Keys",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 1.12,
+            "landmark": "Clear Lake Keys near Ketch Court",
+            "date": "June 26, 2025",
+            "isoDate": "2025-06-26",
+            "advisory": "Caution",
+            "reportType": "Public Reporting",
+            "arm": "Oaks Arm",
+            "latitude": 39.017986,
+            "longitude": -122.66123
+        },
+        {
+            "id": "4859",
+            "siteId": "fhabs-henderson-point",
+            "siteName": "Henderson Point / Riviera Point Launch",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 0,
+            "landmark": "Riveria Point Launch at Henderson Point in Soda Bay",
+            "date": "June 10, 2025",
+            "isoDate": "2025-06-10",
+            "advisory": "NA - refer to Report Details",
+            "reportType": "Agency/Partner Reporting",
+            "arm": "Lower Arm",
+            "latitude": 39.0110072,
+            "longitude": -122.77665
+        },
+        {
+            "id": "4862",
+            "siteId": "fhabs-konocti-shores",
+            "siteName": "Konocti Shores",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 0,
+            "landmark": "Konocti Shores",
+            "date": "June 14, 2025",
+            "isoDate": "2025-06-14",
+            "advisory": "NA - refer to Report Details",
+            "reportType": "Public Reporting",
+            "arm": "Lower Arm",
+            "latitude": 38.975761,
+            "longitude": -122.74123
+        },
+        {
+            "id": "4997",
+            "siteId": "fhabs-jones-bay",
+            "siteName": "Jones Bay",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 0.14,
+            "landmark": "Jones bay",
+            "date": "September 4, 2025",
+            "isoDate": "2025-09-04",
+            "advisory": "Caution",
+            "reportType": "Public Reporting",
+            "arm": "Lower Arm",
+            "latitude": 38.94865,
+            "longitude": -122.66005
+        },
+        {
+            "id": "4998",
+            "siteId": "fhabs-soda-bay",
+            "siteName": "Soda Bay",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 1.14,
+            "landmark": "Soda Bay",
+            "date": "September 7, 2025",
+            "isoDate": "2025-09-07",
+            "advisory": "Caution",
+            "reportType": "Public Reporting",
+            "arm": "Lower Arm",
+            "latitude": 39.01056,
+            "longitude": -122.80624
+        },
+        {
+            "id": "4918",
+            "siteId": "fhabs-wheeler-point",
+            "siteName": "Wheeler Point",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 0,
+            "landmark": "Wheeler Point, Kelseyville",
+            "date": "July 24, 2025",
+            "isoDate": "2025-07-24",
+            "advisory": "NA - refer to Report Details",
+            "reportType": "Public Reporting",
+            "arm": "Lower Arm",
+            "latitude": 38.967479,
+            "longitude": -122.71152
+        },
+        {
+            "id": "4934",
+            "siteId": "fhabs-jago-bay",
+            "siteName": "Jago Bay",
+            "matchMethod": "alias",
+            "assignmentStatus": "needs-local-review",
+            "matchDistanceKm": 0.7,
+            "landmark": "Jago Bay",
+            "date": "July 31, 2025",
+            "isoDate": "2025-07-31",
+            "advisory": "Caution",
+            "reportType": "Public Reporting",
+            "arm": "Lower Arm",
+            "latitude": 38.946382,
+            "longitude": -122.66766
+        }
+    ],
+    "analytics": {
+        "generatedAt": "2026-05-05T01:44:49.9967603-07:00",
+        "schemaVersion": 1,
+        "reportTrendByYear": [
+            {
+                "year": 2016,
+                "total": 1,
+                "arms": {
+                    "Upper Arm": 1,
+                    "Lower Arm": 0,
+                    "Oaks Arm": 0,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2017,
+                "total": 9,
+                "arms": {
+                    "Upper Arm": 0,
+                    "Lower Arm": 4,
+                    "Oaks Arm": 5,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2018,
+                "total": 22,
+                "arms": {
+                    "Upper Arm": 11,
+                    "Lower Arm": 5,
+                    "Oaks Arm": 6,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2019,
+                "total": 35,
+                "arms": {
+                    "Upper Arm": 18,
+                    "Lower Arm": 7,
+                    "Oaks Arm": 10,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2020,
+                "total": 40,
+                "arms": {
+                    "Upper Arm": 19,
+                    "Lower Arm": 9,
+                    "Oaks Arm": 12,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2021,
+                "total": 40,
+                "arms": {
+                    "Upper Arm": 19,
+                    "Lower Arm": 8,
+                    "Oaks Arm": 13,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2022,
+                "total": 38,
+                "arms": {
+                    "Upper Arm": 18,
+                    "Lower Arm": 9,
+                    "Oaks Arm": 11,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2023,
+                "total": 19,
+                "arms": {
+                    "Upper Arm": 10,
+                    "Lower Arm": 6,
+                    "Oaks Arm": 3,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2024,
+                "total": 18,
+                "arms": {
+                    "Upper Arm": 6,
+                    "Lower Arm": 3,
+                    "Oaks Arm": 9,
+                    "Needs Review": 0
+                }
+            },
+            {
+                "year": 2025,
+                "total": 8,
+                "arms": {
+                    "Upper Arm": 0,
+                    "Lower Arm": 6,
+                    "Oaks Arm": 2,
+                    "Needs Review": 0
+                }
+            }
+        ],
+        "advisoryDistributionByArm": [
+            {
+                "arm": "Upper Arm",
+                "total": 102,
+                "categories": [
+                    {
+                        "label": "None",
+                        "count": 57
+                    },
+                    {
+                        "label": "Caution",
+                        "count": 18
+                    },
+                    {
+                        "label": "NA - refer to Report Details",
+                        "count": 13
+                    },
+                    {
+                        "label": "Unspecified",
+                        "count": 13
+                    },
+                    {
+                        "label": "Visual observation",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "arm": "Lower Arm",
+                "total": 57,
+                "categories": [
+                    {
+                        "label": "None",
+                        "count": 23
+                    },
+                    {
+                        "label": "Caution",
+                        "count": 14
+                    },
+                    {
+                        "label": "Unspecified",
+                        "count": 8
+                    },
+                    {
+                        "label": "NA - refer to Report Details",
+                        "count": 6
+                    },
+                    {
+                        "label": "Warning",
+                        "count": 4
+                    },
+                    {
+                        "label": "Danger",
+                        "count": 2
+                    }
+                ]
+            },
+            {
+                "arm": "Oaks Arm",
+                "total": 71,
+                "categories": [
+                    {
+                        "label": "None",
+                        "count": 26
+                    },
+                    {
+                        "label": "Caution",
+                        "count": 13
+                    },
+                    {
+                        "label": "Unspecified",
+                        "count": 9
+                    },
+                    {
+                        "label": "Danger",
+                        "count": 7
+                    },
+                    {
+                        "label": "NA - refer to Report Details",
+                        "count": 7
+                    },
+                    {
+                        "label": "Warning",
+                        "count": 7
+                    }
+                ]
+            },
+            {
+                "arm": "Needs Review",
+                "total": 0,
+                "categories": []
+            }
+        ],
+        "observationCoverage": [
+            {
+                "source": "USGS",
+                "siteId": "usgs-11449820",
+                "siteName": "COLE C A KELSEYVILLE CA",
+                "arm": "Lower Arm",
+                "parameterName": "Discharge",
+                "unit": "ft3/s",
+                "count": 29,
+                "firstObservedDate": "2026-04-05",
+                "lastObservedDate": "2026-05-03"
+            },
+            {
+                "source": "USGS",
+                "siteId": "usgs-11450000",
+                "siteName": "CLEAR LK A LAKEPORT CA",
+                "arm": "Upper Arm",
+                "parameterName": "Gage height",
+                "unit": "ft",
+                "count": 29,
+                "firstObservedDate": "2026-04-05",
+                "lastObservedDate": "2026-05-03"
+            },
+            {
+                "source": "FHABS",
+                "siteId": null,
+                "siteName": "Unmatched FHABS result",
+                "arm": "Upper Arm",
+                "parameterName": "Saxitoxin",
+                "unit": "",
+                "count": 1,
+                "firstObservedDate": "2022-08-23",
+                "lastObservedDate": "2022-08-23"
+            },
+            {
+                "source": "FHABS",
+                "siteId": "fhabs-clearlake-oaks",
+                "siteName": "Clearlake Oaks",
+                "arm": "Oaks Arm",
+                "parameterName": "Dominant",
+                "unit": "",
+                "count": 1,
+                "firstObservedDate": "2024-01-11",
+                "lastObservedDate": "2024-01-11"
+            },
+            {
+                "source": "FHABS",
+                "siteId": null,
+                "siteName": "Unmatched FHABS result",
+                "arm": "Upper Arm",
+                "parameterName": "Cylindrospermopsin",
+                "unit": "",
+                "count": 1,
+                "firstObservedDate": "2022-08-23",
+                "lastObservedDate": "2022-08-23"
+            },
+            {
+                "source": "FHABS",
+                "siteId": null,
+                "siteName": "Unmatched FHABS result",
+                "arm": "Upper Arm",
+                "parameterName": "Microcystins total",
+                "unit": "",
+                "count": 1,
+                "firstObservedDate": "2022-08-23",
+                "lastObservedDate": "2022-08-23"
+            }
+        ]
+    },
+    "dataProducts": [
+        {
+            "name": "Normalized reports",
+            "file": "data/reports.json",
+            "recordCount": 230,
+            "description": "FHABS Clear Lake bloom reports with site registry matches, arm assignments, coordinates, advisories, and case metadata."
+        },
+        {
+            "name": "Normalized observations",
+            "file": "data/observations.json",
+            "recordCount": 62,
+            "description": "USGS daily hydrology observations plus FHABS result records normalized into one observation-shaped table."
+        },
+        {
+            "name": "Normalized sites",
+            "file": "data/sites-normalized.json",
+            "recordCount": 11,
+            "description": "Reviewed starter site registry exported with stable IDs, aliases, coordinates, arms, and assignment status."
+        },
+        {
+            "name": "Historical analytics",
+            "file": "data/analytics.json",
+            "recordCount": 20,
+            "description": "Precomputed arm/year report trends, advisory distributions, and observation coverage summaries for dashboard charts."
+        },
+        {
+            "name": "Snapshot manifest",
+            "file": "data/manifest.json",
+            "recordCount": 4,
+            "description": "Machine-readable refresh manifest with source health, source row counts, output row counts, and currentness metadata."
+        }
+    ],
+    "advisoryMix": [
+        {
+            "label": "Caution",
+            "count": 4,
+            "note": "Reports in the last year of Clear Lake FHABS data carrying this recommendation."
+        },
+        {
+            "label": "NA - refer to Report Details",
+            "count": 3,
+            "note": "Reports in the last year of Clear Lake FHABS data carrying this recommendation."
+        },
+        {
+            "label": "Visual observation",
+            "count": 1,
+            "note": "Reports in the last year of Clear Lake FHABS data carrying this recommendation."
+        }
+    ],
+    "recentLocations": [
+        {
+            "landmark": "Soda Bay",
+            "date": "September 7, 2025",
+            "advisory": "Caution",
+            "reportType": "Public Reporting"
+        },
+        {
+            "landmark": "Jones bay",
+            "date": "September 4, 2025",
+            "advisory": "Caution",
+            "reportType": "Public Reporting"
+        },
+        {
+            "landmark": "Jago Bay",
+            "date": "July 31, 2025",
+            "advisory": "Caution",
+            "reportType": "Public Reporting"
+        },
+        {
+            "landmark": "Wheeler Point, Kelseyville",
+            "date": "July 24, 2025",
+            "advisory": "NA - refer to Report Details",
+            "reportType": "Public Reporting"
+        },
+        {
+            "landmark": "Clear Lake Keys near Ketch Court",
+            "date": "June 26, 2025",
+            "advisory": "Caution",
+            "reportType": "Public Reporting"
+        }
+    ]
+}

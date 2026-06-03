@@ -1,0 +1,8 @@
+pydantic
+pydantic-settings
+pandas
+python-dotenv
+requests
+rich
+typer
+PyYAML

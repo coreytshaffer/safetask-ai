@@ -19,13 +19,14 @@ SafeTask AI is an advanced Security Operations Center (SOC) portal built to brid
 - **Law Enforcement DMZ Portal:** Secure, self-destructing, PIN-protected evidence distribution portal for external agencies.
 - **Biometric Subject Management:** Centralized tracking of Facial Recognition and Gait Analysis hashes with Human-in-the-Loop verification for live camera matches.
 - **Multi-Agency Approvals:** E-Signature and Telephonic bypass capabilities for Gaming Commission compliance on evidence release.
+- **AI-Assisted Provisioning:** Automated ONVIF network discovery and AI-assisted naming conventions to streamline deployment.
+- **Vision Analytics Simulation:** Real-time AI CV simulation for proactive hazard detection with a responsive event log.
 
 ## Architecture
 
-- **Backend:** Python Flask REST API
-- **Database:** SQLite (`safetask.db`)
-- **Document Ingestion:** `PyPDF2` (Deterministic extraction)
-- **PDF Engine:** `reportlab` (Watermarked TGRA Audit Exports)
+- **Backend:** Python FastAPI REST API (`router.py`)
+- **Frontend:** 100% Vanilla JavaScript, HTML5, CSS3 (`index.html`, `app.js`, `style.css`)
+- **Database:** SQLite (`safetask.db`) for incident and policy storage
 - **Local AI proxy:** Interfaces with `LM Studio` (Nemotron Model) via port 1234.
 
 ## Setup Instructions
@@ -39,14 +40,11 @@ SafeTask AI is an advanced Security Operations Center (SOC) portal built to brid
    ```
 4. Install the required dependencies:
    ```bash
-   python -m pip install -r requirements.txt
+   python -m pip install fastapi uvicorn requests
    ```
 5. Start your local LLM server (e.g., LM Studio) on `http://127.0.0.1:1234/v1`.
-6. Start the Flask backend from the repository root:
+6. Start the FastAPI backend from the repository root:
    ```powershell
-   python safetask\apps\surveillance_command_center\app.py
+   python safetask/api/router.py
    ```
-   You can also run `Run-Full-Backend.bat`.
 7. Navigate to `http://localhost:8080` in your web browser.
-
-For a static UI plus LM Studio proxy only, run `Run-Demo-Server.bat`. The full backend is required for SQLite incident storage, PDF export, and policy upload.

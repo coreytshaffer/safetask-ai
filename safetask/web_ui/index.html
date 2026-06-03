@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeTask | Incident & Policy Navigator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/safetask/static/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="ph-fill ph-shield-check"></i>
+                <span>SafeTask</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-tab="intake"><i class="ph ph-clipboard-text"></i> Incident Intake</li>
+                <li data-tab="review"><i class="ph ph-magnifying-glass"></i> Policy Navigator</li>
+                <a href="/" style="text-decoration: none; color: inherit;"><li style="margin-top: auto;"><i class="ph ph-arrow-left"></i> Back to FieldAware</li></a>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>SafeTask Incident Documentation</h1>
+                <div class="status-indicator">
+                    <span class="dot active"></span>
+                    RAG Ready
+                </div>
+            </header>
+
+            <!-- Intake Tab -->
+            <section id="intake-tab" class="tab-content active">
+                <div class="glass-panel form-panel">
+                    <h2><i class="ph ph-warning-circle"></i> Report Incident</h2>
+                    <p>Document the incident facts. The system will retrieve relevant regulatory guidance for human review.</p>
+                    
+                    <form id="incident-form">
+                        <div class="form-group">
+                            <label>Short Title</label>
+                            <input type="text" id="inc-title" placeholder="e.g. Worker slipped near loading dock" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="inc-location" placeholder="e.g. Warehouse A" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Equipment Involved (Optional)</label>
+                            <input type="text" id="inc-equipment" placeholder="e.g. Forklift, Conveyor Belt">
+                        </div>
+                        <div class="form-group">
+                            <label>Reporter</label>
+                            <input type="text" id="inc-reporter" placeholder="Name or ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Incident Description</label>
+                            <textarea id="inc-desc" rows="4" placeholder="Describe what happened, any injuries, and immediate actions taken..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn"><i class="ph ph-paper-plane-right"></i> Submit for Review</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Review Tab -->
+            <section id="review-tab" class="tab-content">
+                <div class="glass-panel" id="no-incident-msg">
+                    <h2><i class="ph ph-magnifying-glass"></i> Policy Navigator</h2>
+                    <p>No active incident to review. Submit an incident report to generate a review packet.</p>
+                </div>
+
+                <div id="review-packet" class="hidden">
+                    <div class="glass-panel summary-panel">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h2 id="packet-title">Incident Review Packet</h2>
+                            <span class="badge" id="packet-status">Awaiting Review</span>
+                        </div>
+                        <p><strong>ID:</strong> <span id="packet-id"></span></p>
+                        <p><strong>Location:</strong> <span id="packet-location"></span></p>
+                        <p><strong>Description:</strong> <span id="packet-desc"></span></p>
+                    </div>
+
+                    <div class="escalation-panel">
+                        <h3><i class="ph ph-warning"></i> Escalation Prompt</h3>
+                        <p id="packet-escalation"></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Retrieved Regulatory Guidance</h3>
+                    <p class="subtitle">These documents were retrieved based on the incident description. <strong>Human review is required.</strong></p>
+                    
+                    <div id="policy-list" class="policy-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/safetask/static/app.js"></script>
+</body>
+</html>

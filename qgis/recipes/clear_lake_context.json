@@ -1,0 +1,18 @@
+{
+  "id": "clear_lake_context",
+  "name": "Clear Lake Context Map",
+  "description": "Standard context map for field sampling near Clear Lake North Shore.",
+  "layers": [
+    "clear_lake_bathymetry.shp",
+    "county_roads.geojson",
+    "sampling_sites.gpkg"
+  ],
+  "default_extent": {
+    "xmin": -123.0,
+    "ymin": 38.9,
+    "xmax": -122.7,
+    "ymax": 39.2
+  },
+  "approved_uses": ["internal_review", "field_context"],
+  "requires_review_for_public": true
+}

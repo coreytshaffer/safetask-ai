@@ -1,0 +1,11 @@
+{
+  "recipe_id": "clear_lake_context",
+  "timestamp": "2026-06-02T06:45:01.989527+00:00",
+  "center_coordinates": "39.0, -122.8",
+  "exported_files": [
+    "data\\exports\\clear_lake_context_20260602_064501.png",
+    "data\\exports\\clear_lake_context_20260602_064501_meta.json"
+  ],
+  "harness_decision": "allow",
+  "warnings": []
+}

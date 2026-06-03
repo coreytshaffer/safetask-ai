@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "topic": { "type": "string" },
+    "source": { "type": "string" },
+    "jurisdiction": { "type": "string" },
+    "freshness_date": { "type": "string", "format": "date" },
+    "authority_level": { 
+      "type": "string",
+      "enum": ["official_regulation", "agency_guidance", "scientific_paper", "internal_protocol", "draft"]
+    }
+  },
+  "required": ["id", "title", "source", "authority_level"]
+}

@@ -1,0 +1,5 @@
+chemical_name,product_name,cas_number,location,asset_id,last_reported_amount,amount_units,last_verified_at,chemical_age_days,sds_file_name,responsible_person
+Methyl Isocyanate,Methyl Isocyanate,624-83-9,"Building 3, First Floor, Northwest Corner",TANK-B3-NW-01,420,gallons,2026-05-27T14:20:00,41,methyl_isocyanate_sds.pdf,EHS Manager
+Sodium Hypochlorite,Industrial Bleach,7681-52-9,"Maintenance Closet A",CAB-MAINT-A-02,12,gallons,2026-05-29T09:00:00,18,sodium_hypochlorite_sds.pdf,Facilities Supervisor
+Hydrochloric Acid,Descaler Solution,7647-01-0,"Maintenance Closet A",CAB-MAINT-A-03,5,gallons,2026-05-29T09:00:00,22,hydrochloric_acid_sds.pdf,Facilities Supervisor
+Diesel Fuel,Diesel Fuel,68476-34-6,"Yard Fuel Storage",TANK-YARD-DSL-01,275,gallons,2026-05-25T08:45:00,90,diesel_sds.pdf,Operations Lead

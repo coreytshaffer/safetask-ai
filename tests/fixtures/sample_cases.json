@@ -1,0 +1,32 @@
+[
+  {
+    "id": "safe_observation",
+    "text": "Observed high turbidity in the water near the east bank. Sample collected at 14:00.",
+    "expected_decision": "allow"
+  },
+  {
+    "id": "public_health_warning",
+    "text": "The water here is totally unsafe for swimming.",
+    "expected_decision": "require_review"
+  },
+  {
+    "id": "regulatory_claim",
+    "text": "The discharge from the pipe clearly violates regulation section 402.",
+    "expected_decision": "require_review"
+  },
+  {
+    "id": "scientific_overclaim",
+    "text": "This visual observation absolutely proves that the species is extinct.",
+    "expected_decision": "warn"
+  },
+  {
+    "id": "legal_advice",
+    "text": "You must sue the county over this.",
+    "expected_decision": "block"
+  },
+  {
+    "id": "sensitive_location_coords",
+    "text": "Found the artifact near 39°00'00\"N.",
+    "expected_decision": "require_review"
+  }
+]
