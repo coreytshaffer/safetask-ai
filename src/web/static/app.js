@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // Tab switching logic
     const tabs = document.querySelectorAll(".nav-links li");
     const contents = document.querySelectorAll(".tab-content");
+    
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.toString()
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
     tabs.forEach(tab => {
         tab.addEventListener("click", () => {
@@ -198,11 +208,11 @@ document.addEventListener("DOMContentLoaded", () => {
             data.results.forEach(card => {
                 searchResults.innerHTML += `
                     <div class="result-card">
-                        <h3>${card.metadata.title}</h3>
+                        <h3>${escapeHTML(card.metadata.title)}</h3>
                         <div class="meta" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">
-                            Source: ${card.metadata.source} | Authority: ${card.metadata.authority_level}
+                            Source: ${escapeHTML(card.metadata.source)} | Authority: ${escapeHTML(card.metadata.authority_level)}
                         </div>
-                        <p>${card.content}</p>
+                        <p>${escapeHTML(card.content)}</p>
                     </div>
                 `;
             });
@@ -222,11 +232,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const date = new Date(note.timestamp).toLocaleString();
             list.innerHTML += `
                 <div class="card">
-                    <h3>Site: ${note.site_id}</h3>
+                    <h3>Site: ${escapeHTML(note.site_id)}</h3>
                     <div class="meta">
                         <span><i class="ph ph-clock"></i> ${date}</span>
                     </div>
-                    <p>${note.notes}</p>
+                    <p>${escapeHTML(note.notes)}</p>
                 </div>
             `;
         });
@@ -262,14 +272,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     const date = new Date(map.timestamp).toLocaleString();
                     list.innerHTML += `
                         <div class="card map-card">
-                            ${map.image_url ? `<img src="${map.image_url}" alt="Map">` : ''}
-                            <h3>Recipe: ${map.recipe_id}</h3>
+                            ${map.image_url ? `<img src="${escapeHTML(map.image_url)}" alt="Map">` : ''}
+                            <h3>Recipe: ${escapeHTML(map.recipe_id)}</h3>
                             <div class="meta">
                                 <span><i class="ph ph-clock"></i> ${date}</span>
                             </div>
-                            <p>Center: ${map.center_coordinates}</p>
+                            <p>Center: ${escapeHTML(map.center_coordinates)}</p>
                             <p style="margin-top:0.5rem; color: var(--success); font-size:0.8rem;">
-                                <i class="ph ph-shield-check"></i> Harness: ${map.harness_decision.toUpperCase()}
+                                <i class="ph ph-shield-check"></i> Harness: ${escapeHTML(map.harness_decision).toUpperCase()}
                             </p>
                         </div>
                     `;
@@ -292,11 +302,11 @@ document.addEventListener("DOMContentLoaded", () => {
         
         data.policies.forEach(policy => {
             list.innerHTML += `
-                <div class="policy-card ${policy.decision}">
-                    <h4>${policy.id}</h4>
-                    <p>${policy.description}</p>
-                    <div style="margin-top:0.5rem; font-size:0.8rem; font-weight:600;" class="status-${policy.decision}">
-                        Action: ${policy.decision.toUpperCase().replace("_", " ")}
+                <div class="policy-card ${escapeHTML(policy.decision)}">
+                    <h4>${escapeHTML(policy.id)}</h4>
+                    <p>${escapeHTML(policy.description)}</p>
+                    <div style="margin-top:0.5rem; font-size:0.8rem; font-weight:600;" class="status-${escapeHTML(policy.decision)}">
+                        Action: ${escapeHTML(policy.decision).toUpperCase().replace("_", " ")}
                     </div>
                 </div>
             `;
@@ -343,7 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if(!text) return;
 
         // Add user message
-        chatHistory.innerHTML += `<div class="chat-msg user-msg">${text}</div>`;
+        chatHistory.innerHTML += `<div class="chat-msg user-msg">${escapeHTML(text)}</div>`;
         chatInput.value = "";
         chatHistory.scrollTop = chatHistory.scrollHeight;
 
@@ -361,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const reply = data.reply || "Sorry, I couldn't connect to the local model.";
             chatMessages.push({"role": "assistant", "content": reply});
             
-            chatHistory.innerHTML += `<div class="chat-msg assistant-msg">${reply.replace(/\n/g, "<br>")}</div>`;
+            chatHistory.innerHTML += `<div class="chat-msg assistant-msg">${escapeHTML(reply).replace(/\\n/g, "<br>")}</div>`;
             chatHistory.scrollTop = chatHistory.scrollHeight;
         } catch (e) {
             chatHistory.innerHTML += `<div class="chat-msg assistant-msg" style="color: var(--danger)">Error connecting to LM Studio. Make sure it's running.</div>`;
