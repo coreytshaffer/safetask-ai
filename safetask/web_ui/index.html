@@ -9,32 +9,233 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
+    <!-- Epic 18: Login Screen -->
+    <div id="login-screen" style="position: fixed; inset: 0; background: url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2000&auto=format&fit=crop') center/cover; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div class="glass-panel" style="width: 350px; padding: 2.5rem; text-align: center;">
+            <div class="logo" style="justify-content: center; margin-bottom: 2rem;">
+                <i class="ph-fill ph-shield-check" style="font-size: 2.5rem;"></i>
+                <h1 style="font-size: 1.8rem;">SafeTask</h1>
+            </div>
+            <p style="margin-bottom: 1.5rem; color: #aaa;">Command Center Login</p>
+            
+            <form id="login-form">
+                <input type="text" id="login-username" placeholder="Username (e.g., admin, operator, guard)" required style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: white;">
+                <input type="password" id="login-password" placeholder="Password (password123)" required style="width: 100%; padding: 0.8rem; margin-bottom: 1.5rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: white;">
+                <button type="submit" class="btn primary-btn" style="width: 100%;">Sign In <i class="ph ph-sign-in"></i></button>
+                <div id="login-error" style="color: var(--danger); font-size: 0.85rem; margin-top: 1rem; display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="main-app-container" style="display: none;">
+        <!-- Sidebar Navigation -->
         <nav class="sidebar">
             <div class="logo">
                 <i class="ph-fill ph-shield-check"></i>
                 <span>SafeTask</span>
             </div>
             <ul class="nav-links">
-                <li class="active" data-tab="intake"><i class="ph ph-clipboard-text"></i> Incident Intake</li>
+                <li data-tab="live"><i class="ph ph-monitor-play"></i> Live Surveillance</li>
+                <li data-tab="analytics"><i class="ph ph-eye"></i> Vision Analytics</li>
+                <li data-tab="constellation"><i class="ph ph-graph"></i> Constellation Map</li>
+                <li data-tab="intake"><i class="ph ph-clipboard-text"></i> Incident Intake</li>
                 <li data-tab="review"><i class="ph ph-magnifying-glass"></i> Policy Navigator</li>
-                <a href="/" style="text-decoration: none; color: inherit;"><li style="margin-top: auto;"><i class="ph ph-arrow-left"></i> Back to FieldAware</li></a>
+                <li data-tab="dispatch"><i class="ph ph-headset"></i> Dispatch Console</li>
+                <li data-tab="provision"><i class="ph ph-wrench"></i> Hardware Setup</li>
+                <li data-tab="evidence"><i class="ph ph-vault"></i> Evidence Locker</li>
+                <li data-tab="evac"><i class="ph ph-siren"></i> Evacuation Board</li>
+                <li data-tab="training"><i class="ph ph-student"></i> Training Academy</li>
+                <li style="margin-top: auto;" id="logout-btn"><i class="ph ph-sign-out"></i> Log Out</li>
             </ul>
         </nav>
 
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="main-content" style="position: relative;">
             <header>
-                <h1>SafeTask Incident Documentation</h1>
+                <h1>SafeTask Command Center</h1>
                 <div class="status-indicator">
                     <span class="dot active"></span>
-                    RAG Ready
+                    System Active
                 </div>
             </header>
 
+            <!-- PiP Container (Global Overlay) -->
+            <div id="pip-container"></div>
+
+            <!-- Live Surveillance Tab -->
+            <section id="live-tab" class="tab-content active">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2><i class="ph ph-camera"></i> Live Surveillance</h2>
+                    <button id="spawn-pip-btn" class="btn primary-btn"><i class="ph ph-browsers"></i> Spawn Review Pane</button>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; height: 60vh;">
+                    <!-- Camera Tree Sidebar -->
+                    <div class="glass-panel camera-tree" style="padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; height: 100%; margin-bottom: 0;">
+                        <h3 style="margin-bottom: 1rem;">Camera Tree</h3>
+                        <div class="camera-zone">Zone A - Perimeter</div>
+                        <div class="camera-item" draggable="true" data-cam="cam-1" data-title="CAM-01 MAIN GATE" data-img="https://images.unsplash.com/photo-1541888079-052441999238?q=80&w=800&auto=format&fit=crop"><i class="ph ph-video-camera"></i> CAM-01 Main Gate</div>
+                        <div class="camera-item" draggable="true" data-cam="cam-2" data-title="CAM-02 FENCE NORTH" data-img="https://images.unsplash.com/photo-1555529733-0e67056058ab?q=80&w=800&auto=format&fit=crop"><i class="ph ph-video-camera"></i> CAM-02 Fence North</div>
+                        
+                        <div class="camera-zone" style="margin-top: 1rem;">Zone B - Interior</div>
+                        <div class="camera-item" draggable="true" data-cam="cam-3" data-title="CAM-03 LOBBY" data-img="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop"><i class="ph ph-video-camera"></i> CAM-03 Lobby</div>
+                        <div class="camera-item" draggable="true" data-cam="cam-4" data-title="CAM-04 HALLWAY B" data-img="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop"><i class="ph ph-video-camera"></i> CAM-04 Hallway B</div>
+
+                        <div class="camera-zone" style="margin-top: 1rem;">Zone C - Restricted</div>
+                        <div class="camera-item" draggable="true" data-cam="cam-5" data-title="CAM-05 SERVER ROOM" data-img="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop"><i class="ph ph-video-camera"></i> CAM-05 Server Room</div>
+                    </div>
+
+                    <!-- Main Monitor -->
+                    <div id="main-monitor" class="glass-panel drop-zone" style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #000; border: 1px solid rgba(255,255,255,0.1); position: relative; overflow: hidden; padding: 0; margin-bottom: 0;">
+                        <!-- Fake Video Overlay -->
+                        <div style="position: absolute; top: 1rem; left: 1rem; color: #fff; font-family: monospace; font-size: 1.2rem; text-shadow: 0 0 5px rgba(0,0,0,0.8); z-index: 10;">
+                            <span style="color: red;">&bull; REC</span> <span id="main-monitor-title">CAM-01 MAIN GATE</span>
+                        </div>
+                        <div style="position: absolute; bottom: 1rem; right: 1rem; color: #fff; font-family: monospace; font-size: 1.2rem; text-shadow: 0 0 5px rgba(0,0,0,0.8); z-index: 10;" id="live-clock">
+                            2026-06-03 12:00:00
+                        </div>
+                        
+                        <!-- Epic 21: Numpad HUD -->
+                        <div id="numpad-hud" style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: var(--accent); font-family: monospace; font-size: 2rem; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--accent); opacity: 0; transition: opacity 0.2s; z-index: 15;">
+                            CAM-<span id="numpad-input"></span>
+                        </div>
+
+                        <img id="main-monitor-img" src="https://images.unsplash.com/photo-1541888079-052441999238?q=80&w=1200&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" />
+                        <div id="drop-overlay" style="position: absolute; inset: 0; background: rgba(136,192,208,0.3); display: none; justify-content: center; align-items: center; border: 4px dashed var(--accent); z-index: 20;">
+                            <h2 style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5);"><i class="ph ph-download-simple"></i> Drop to View</h2>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Epic 19: Vision Analytics Tab -->
+            <section id="analytics-tab" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h2><i class="ph ph-eye"></i> Safety Vision Analytics</h2>
+                        <p class="subtitle">AI-driven worksite monitoring for proactive hazard detection.</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <!-- The Simulated Feed -->
+                    <div class="glass-panel" style="padding: 0; overflow: hidden; position: relative; height: 60vh; background: #111;">
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop" alt="Worksite" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" />
+                        <div style="position: absolute; top: 1rem; left: 1rem; color: var(--accent); font-family: monospace; font-size: 1rem; background: rgba(0,0,0,0.6); padding: 0.2rem 0.5rem; border-radius: 4px;">
+                            <i class="ph ph-crosshair"></i> VISION MODEL ACTIVE (Nemotron CV-Mock)
+                        </div>
+                        <!-- Bounding Boxes Container -->
+                        <div id="cv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                            <!-- Boxes injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- The Analytics Event Log -->
+                    <div class="glass-panel" style="display: flex; flex-direction: column; height: 60vh;">
+                        <h3 style="margin-bottom: 1rem; display: flex; justify-content: space-between;">
+                            <span><i class="ph ph-list-dashes"></i> Detection Stream</span>
+                            <span class="pulse" style="width: 10px; height: 10px; background: var(--success); border-radius: 50%; display: inline-block; margin-top: 5px;"></span>
+                        </h3>
+                        <div id="cv-event-log" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; padding-right: 0.5rem;">
+                            <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 2rem;">Awaiting detections...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Epic 22: Hardware Provisioning Tab -->
+            <section id="provision-tab" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h2><i class="ph ph-wrench"></i> Hardware Setup & Discovery</h2>
+                        <p class="subtitle">ONVIF WS-Discovery Network Scan Results</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <div class="glass-panel" style="padding: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem;"><i class="ph ph-magnifying-glass"></i> Discovered Unassigned Devices</h3>
+                        <table class="provision-table" style="width: 100%; text-align: left; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 0.5rem; border-bottom: 1px solid var(--border);">Raw Hostname / MAC</th>
+                                    <th style="padding: 0.5rem; border-bottom: 1px solid var(--border);">IP Address</th>
+                                    <th style="padding: 0.5rem; border-bottom: 1px solid var(--border);">Assigned Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="provision-tbody">
+                                <tr>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border); font-family: monospace;">AXIS_M7104_00408C183B10</td>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border);">192.168.1.55</td>
+                                    <td class="assigned-name" style="padding: 0.5rem; border-bottom: 1px solid var(--border); color: var(--danger);">Unassigned</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border); font-family: monospace;">AXIS_M7104_00408C183B11</td>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border);">192.168.1.56</td>
+                                    <td class="assigned-name" style="padding: 0.5rem; border-bottom: 1px solid var(--border); color: var(--danger);">Unassigned</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border); font-family: monospace;">AXIS_M7104_00408C183B12</td>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border);">192.168.1.57</td>
+                                    <td class="assigned-name" style="padding: 0.5rem; border-bottom: 1px solid var(--border); color: var(--danger);">Unassigned</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border); font-family: monospace;">GENERIC_IPCAM_7F8A</td>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border);">192.168.1.80</td>
+                                    <td class="assigned-name" style="padding: 0.5rem; border-bottom: 1px solid var(--border); color: var(--danger);">Unassigned</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border); font-family: monospace;">GENERIC_IPCAM_7F8B</td>
+                                    <td style="padding: 0.5rem; border-bottom: 1px solid var(--border);">192.168.1.81</td>
+                                    <td class="assigned-name" style="padding: 0.5rem; border-bottom: 1px solid var(--border); color: var(--danger);">Unassigned</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-panel" style="padding: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem;"><i class="ph ph-magic-wand"></i> AI Auto-Provisioning</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            The Nemotron LLM can analyze the hardware discovery list and bulk-assign standardized, aesthetic names based on your field notes.
+                        </p>
+                        <textarea id="provision-notes" placeholder="Enter context notes (e.g., 'The Axis M7104s are in the Main Lobby, the Generic IPCAMs are covering the North Perimeter Fence.')..." style="min-height: 150px;"></textarea>
+                        <button id="btn-ai-name" class="btn primary-btn" style="width: 100%; justify-content: center;">
+                            AI Auto-Name <i class="ph ph-sparkle"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Constellation Map Tab -->
+            <section id="constellation-tab" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h2><i class="ph ph-graph"></i> Constellation Map</h2>
+                        <p class="subtitle">Spatially map incidents. <strong>Double-click a node</strong> to view its live feed.</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="node-name-input" placeholder="Camera Name (e.g. CAM-02)" style="padding: 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white;">
+                        <button id="add-node-btn" class="btn primary-btn"><i class="ph ph-plus"></i> Add Camera</button>
+                        <button id="toggle-link-btn" class="btn secondary-btn"><i class="ph ph-link"></i> Link Mode: OFF</button>
+                    </div>
+                </div>
+
+                <!-- Canvas Area -->
+                <div id="constellation-canvas" class="glass-panel" style="height: 65vh; position: relative; overflow: hidden; background: radial-gradient(circle at center, #1a1a24 0%, #0a0a0f 100%);">
+                    <!-- SVG Overlay for drawing lines -->
+                    <svg id="constellation-lines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="25" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent)" />
+                            </marker>
+                        </defs>
+                    </svg>
+                    <!-- Nodes will be injected here via JS -->
+                </div>
+            </section>
+
             <!-- Intake Tab -->
-            <section id="intake-tab" class="tab-content active">
+            <section id="intake-tab" class="tab-content">
                 <div class="glass-panel form-panel">
                     <h2><i class="ph ph-warning-circle"></i> Report Incident</h2>
                     <p>Document the incident facts. The system will retrieve relevant regulatory guidance for human review.</p>
@@ -57,8 +258,14 @@
                             <input type="text" id="inc-reporter" placeholder="Name or ID" required>
                         </div>
                         <div class="form-group">
-                            <label>Incident Description</label>
-                            <textarea id="inc-desc" rows="4" placeholder="Describe what happened, any injuries, and immediate actions taken..." required></textarea>
+                            <label for="inc-desc">Incident Description</label>
+                            <div style="position: relative;">
+                                <textarea id="inc-desc" rows="4" placeholder="Describe what happened, any injuries, and immediate actions taken..." required></textarea>
+                                <button type="button" id="dictate-btn" class="btn secondary-btn" style="position: absolute; bottom: 10px; right: 10px; padding: 0.4rem 0.6rem; background: rgba(0,0,0,0.5);">
+                                    <i class="ph ph-microphone"></i>
+                                </button>
+                            </div>
+                            <small id="dictation-status" style="color: var(--danger); font-family: monospace; display: none; margin-top: 0.5rem;"><i class="ph ph-record"></i> Listening...</small>
                         </div>
                         <button type="submit" class="btn primary-btn"><i class="ph ph-paper-plane-right"></i> Submit for Review</button>
                     </form>
@@ -93,6 +300,185 @@
                     
                     <div id="policy-list" class="policy-list">
                         <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dispatch Console Tab -->
+            <section id="dispatch-tab" class="tab-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <!-- Dispatch Log -->
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ph ph-walk"></i> Active Dispatch Log</h2>
+                        <form id="dispatch-form" style="margin-bottom: 2rem;">
+                            <div class="form-group">
+                                <label>Task Title</label>
+                                <input type="text" id="dispatch-title" placeholder="e.g. Patrol North Pit" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Assigned Officer</label>
+                                <input type="text" id="dispatch-officer" placeholder="e.g. Ofr. Smith" required>
+                            </div>
+                            <button type="submit" class="btn primary-btn"><i class="ph ph-plus-circle"></i> Dispatch Officer</button>
+                        </form>
+                        
+                        <h3>Current Tasks</h3>
+                        <div id="dispatch-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Lost & Found -->
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ph ph-archive"></i> Lost & Found Registry</h2>
+                        <form id="lnf-form" style="margin-bottom: 2rem;">
+                            <div class="form-group">
+                                <label>Item Description</label>
+                                <input type="text" id="lnf-desc" placeholder="e.g. Black iPhone 14" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Location Found</label>
+                                <input type="text" id="lnf-location" placeholder="e.g. Main Lobby Restroom" required>
+                            </div>
+                            <button type="submit" class="btn primary-btn"><i class="ph ph-archive-box"></i> Log Item</button>
+                        </form>
+                        
+                        <h3>Recent Items</h3>
+                        <div id="lnf-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Evidence Locker Tab -->
+            <section id="evidence-tab" class="tab-content">
+                <div class="glass-panel form-panel" style="margin-bottom: 2rem;">
+                    <h2><i class="ph ph-upload-simple"></i> Upload Secure Evidence</h2>
+                    <p>Files uploaded here are hashed (SHA-256) for legal chain-of-custody verification.</p>
+                    
+                    <form id="evidence-form" style="margin-top: 1.5rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Incident ID Reference</label>
+                                <input type="text" id="evd-incident" placeholder="e.g. INC-2026..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Uploading Officer</label>
+                                <input type="text" id="evd-officer" placeholder="Name or Badge #" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Evidence File</label>
+                            <input type="file" id="evd-file" required style="padding: 0.5rem; background: rgba(255,255,255,0.05); border-radius: 4px; color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); width: 100%;">
+                        </div>
+                        <button type="submit" class="btn primary-btn"><i class="ph ph-lock-key"></i> Seal & Upload</button>
+                    </form>
+                </div>
+
+                <div class="glass-panel">
+                    <h2><i class="ph ph-list-numbers"></i> Cryptographic Evidence Ledger</h2>
+                    <div style="overflow-x: auto; margin-top: 1rem;">
+                        <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.9rem;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <th style="padding: 0.8rem;">Timestamp</th>
+                                    <th style="padding: 0.8rem;">Incident</th>
+                                    <th style="padding: 0.8rem;">Filename</th>
+                                    <th style="padding: 0.8rem;">SHA-256 Hash</th>
+                                    <th style="padding: 0.8rem;">Officer</th>
+                                </tr>
+                            </thead>
+                            <tbody id="evidence-list">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Evacuation Board Tab -->
+            <section id="evac-tab" class="tab-content">
+                <!-- Disclaimer requested by User -->
+                <div style="background: rgba(255, 152, 0, 0.2); border: 1px solid var(--warning); color: var(--warning); padding: 1rem; border-radius: 8px; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: flex-start;">
+                    <i class="ph ph-warning-circle" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <strong>DISCLAIMER:</strong> This digital Evacuation Accountability Board is a supplemental tool. It is <strong>NOT</strong> a replacement for having hard copies and physical binders with reference information on emergency procedures and facility rosters.
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2><i class="ph ph-users-three"></i> Emergency Evacuation Roster</h2>
+                    <button id="seed-roster-btn" class="btn secondary-btn" style="border: 1px dashed rgba(255,255,255,0.2);"><i class="ph ph-plant"></i> Seed Roster (Dev Only)</button>
+                </div>
+
+                <!-- Tally Cards -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                    <div class="glass-panel" style="padding: 1rem; text-align: center; border-bottom: 3px solid var(--text-muted);">
+                        <h3 style="margin: 0; color: var(--text-muted);">Total</h3>
+                        <div id="evac-count-total" style="font-size: 2rem; font-weight: bold; font-family: monospace;">0</div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center; border-bottom: 3px solid var(--success);">
+                        <h3 style="margin: 0; color: var(--success);">Safe</h3>
+                        <div id="evac-count-safe" style="font-size: 2rem; font-weight: bold; font-family: monospace;">0</div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center; border-bottom: 3px solid var(--danger);">
+                        <h3 style="margin: 0; color: var(--danger);">Missing</h3>
+                        <div id="evac-count-missing" style="font-size: 2rem; font-weight: bold; font-family: monospace;">0</div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center; border-bottom: 3px solid var(--warning);">
+                        <h3 style="margin: 0; color: var(--warning);">Injured</h3>
+                        <div id="evac-count-injured" style="font-size: 2rem; font-weight: bold; font-family: monospace;">0</div>
+                    </div>
+                </div>
+
+                <!-- Roster Table -->
+                <div class="glass-panel">
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.95rem;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <th style="padding: 0.8rem;">Name</th>
+                                    <th style="padding: 0.8rem;">Department</th>
+                                    <th style="padding: 0.8rem;">Current Status</th>
+                                    <th style="padding: 0.8rem; text-align: right;">Quick Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="evac-list">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Epic 17: Training Academy Tab -->
+            <section id="training-tab" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h2 style="color: var(--accent);"><i class="ph ph-student"></i> Training Academy</h2>
+                        <p class="subtitle">Interactive AI Advisor powered by LM Studio.</p>
+                    </div>
+                </div>
+
+                <div class="training-container">
+                    <!-- Chat History Area -->
+                    <div id="training-chat-history" class="glass-panel" style="flex-grow: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; border-color: var(--accent);">
+                        <div class="chat-message ai">
+                            <div class="avatar"><i class="ph ph-robot"></i></div>
+                            <div class="bubble">Welcome to the SafeTask Command Center Training Academy! I am your AI Advisor. Type a message to begin your onboarding sequence.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Typing Indicator (Hidden by default) -->
+                    <div id="training-typing-indicator" style="display: none; color: var(--accent); font-size: 0.85rem; margin-top: 0.5rem; font-family: monospace;">
+                        <i class="ph ph-circle-notch ph-spin"></i> Advisor is thinking...
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="glass-panel" style="margin-top: 1rem; padding: 1rem; display: flex; gap: 1rem; background: rgba(0,0,0,0.4);">
+                        <input type="text" id="training-user-input" placeholder="Ask a question or type 'start training'..." style="flex-grow: 1; padding: 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: white; font-size: 1rem;">
+                        <button id="training-send-btn" class="btn primary-btn"><i class="ph ph-paper-plane-tilt"></i> Send</button>
                     </div>
                 </div>
             </section>

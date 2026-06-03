@@ -1,15 +1,29 @@
 :root {
-    --bg-dark: #0a0a0f;
-    --bg-panel: rgba(20, 20, 30, 0.6);
-    --bg-card: rgba(30, 30, 45, 0.8);
-    --text-main: #f0f0f5;
-    --text-muted: #9aa0a6;
-    --accent: #00e5ff;
-    --accent-hover: #00b8cc;
-    --success: #00e676;
-    --warning: #ffea00;
-    --danger: #ff1744;
-    --border: rgba(255, 255, 255, 0.08);
+    /* Ergonomic "Nord" Inspired Dark Theme (Default) */
+    --bg-dark: #2E3440;
+    --bg-panel: rgba(59, 66, 82, 0.6);
+    --bg-card: rgba(67, 76, 94, 0.8);
+    --text-main: #D8DEE9;
+    --text-muted: #81A1C1;
+    --accent: #88C0D0;
+    --accent-hover: #8FBCBB;
+    --success: #A3BE8C;
+    --warning: #EBCB8B;
+    --danger: #BF616A;
+    --border: rgba(216, 222, 233, 0.08);
+}
+
+body.light-mode {
+    /* Nord Light Theme (Snow Storm) */
+    --bg-dark: #ECEFF4;
+    --bg-panel: rgba(229, 233, 240, 0.6);
+    --bg-card: rgba(216, 222, 233, 0.8);
+    --text-main: #2E3440;
+    --text-muted: #4C566A;
+    --border: rgba(46, 52, 64, 0.15);
+    /* Colors stay similar but adapted for light mode */
+    --accent: #5E81AC; 
+    --accent-hover: #81A1C1;
 }
 
 * {
@@ -22,8 +36,8 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    background-image: radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.05), transparent 25%),
-                      radial-gradient(circle at 85% 30%, rgba(0, 230, 118, 0.05), transparent 25%);
+    background-image: radial-gradient(circle at 15% 50%, rgba(136, 192, 208, 0.05), transparent 25%),
+                      radial-gradient(circle at 85% 30%, rgba(163, 190, 140, 0.05), transparent 25%);
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -130,9 +144,9 @@ h1, h2, h3 {
 }
 
 .nav-links li.active {
-    background: rgba(0, 229, 255, 0.1);
+    background: rgba(136, 192, 208, 0.15);
     color: var(--accent);
-    border: 1px solid rgba(0, 229, 255, 0.2);
+    border: 1px solid rgba(136, 192, 208, 0.3);
 }
 
 /* Main Content */
@@ -265,7 +279,7 @@ input[type="text"] {
 
 .primary-btn {
     background: var(--accent);
-    color: #000;
+    color: var(--bg-dark); 
 }
 
 .primary-btn:hover {
@@ -426,3 +440,363 @@ input[type="text"] {
 .hazard-badge.high { background: rgba(255, 23, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
 .hazard-badge.medium { background: rgba(255, 234, 0, 0.15); color: var(--warning); border: 1px solid var(--warning); }
 .hazard-badge.low { background: rgba(0, 230, 118, 0.15); color: var(--success); border: 1px solid var(--success); }
+
+/* Epic 3: PiP Review Deck */
+.pip-window {
+    position: absolute;
+    width: 320px;
+    height: 240px;
+    background: rgba(10, 10, 15, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: box-shadow 0.2s ease;
+}
+
+.pip-window.active {
+    box-shadow: 0 0 0 2px var(--accent), 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.pip-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pip-header:active {
+    cursor: grabbing;
+}
+
+.pip-header-title {
+    font-size: 0.85rem;
+    font-family: monospace;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pip-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pip-close:hover {
+    color: var(--danger);
+}
+
+.pip-content {
+    flex-grow: 1;
+    position: relative;
+    background: #2E3440; /* Ergonomic dark slate instead of pure #000 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pip-overlay {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #fff;
+    text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+
+.pip-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.pip-content:hover .pip-controls {
+    opacity: 1;
+}
+
+.pip-controls i {
+    color: var(--text-main);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.pip-controls i:hover {
+    color: var(--accent);
+}
+
+/* Epic 4: Constellation Map */
+.graph-node {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(30, 30, 40, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    cursor: grab;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    transition: transform 0.1s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.graph-node:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.graph-node.active-link {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.graph-node-label {
+    position: absolute;
+    bottom: -25px;
+    white-space: nowrap;
+    background: rgba(0,0,0,0.8);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: monospace;
+    pointer-events: none;
+}
+
+.constellation-line {
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-dasharray: 5, 5;
+    animation: dash 20s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+/* Epic 5: Voice Dictation UI */
+.pulse-record {
+    animation: pulse-red 1.5s infinite;
+    color: #fff !important;
+    border-color: transparent !important;
+}
+
+@keyframes pulse-red {
+    0% {
+        background-color: rgba(255, 23, 68, 0.4);
+        box-shadow: 0 0 0 0 rgba(255, 23, 68, 0.7);
+    }
+    70% {
+        background-color: rgba(255, 23, 68, 1);
+        box-shadow: 0 0 0 10px rgba(255, 23, 68, 0);
+    }
+    100% {
+        background-color: rgba(255, 23, 68, 0.4);
+        box-shadow: 0 0 0 0 rgba(255, 23, 68, 0);
+    }
+}
+
+/* Epic 17: Training Academy Chat */
+.training-container {
+    display: flex;
+    flex-direction: column;
+    height: 65vh;
+}
+
+.chat-message {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    max-width: 80%;
+}
+
+.chat-message.ai {
+    align-self: flex-start;
+}
+
+.chat-message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.chat-message .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.chat-message.ai .avatar {
+    background: rgba(140, 158, 255, 0.2);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.chat-message.user .avatar {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.chat-message .bubble {
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    line-height: 1.5;
+}
+
+.chat-message.ai .bubble {
+    background: rgba(140, 158, 255, 0.1);
+    border-top-left-radius: 0;
+}
+
+.chat-message.user .bubble {
+    background: rgba(255, 255, 255, 0.15);
+    border-top-right-radius: 0;
+}
+
+/* Epic 19: Safety Vision Analytics */
+.cv-bounding-box {
+    position: absolute;
+    border-width: 2px;
+    border-style: solid;
+    background: rgba(255,255,255,0.05);
+    transition: all 0.3s ease-out;
+}
+
+.cv-bounding-box.safe {
+    border-color: var(--success);
+}
+
+.cv-bounding-box.violation {
+    border-color: var(--danger);
+    background: rgba(191, 97, 106, 0.2); /* Nord Aurora Red light transparent */
+}
+
+.cv-label {
+    position: absolute;
+    top: -20px;
+    left: -2px;
+    background: inherit;
+    background-color: inherit;
+    color: #fff;
+    font-size: 0.7rem;
+    font-family: monospace;
+    padding: 2px 4px;
+    white-space: nowrap;
+}
+
+.cv-bounding-box.safe .cv-label {
+    background-color: var(--success);
+    color: var(--bg-dark);
+}
+
+.cv-bounding-box.violation .cv-label {
+    background-color: var(--danger);
+    color: #fff;
+}
+
+.cv-event-card {
+    background: rgba(0,0,0,0.2);
+    border-left: 3px solid;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Epic 20: Camera Tree Drag and Drop */
+.camera-zone {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.5rem 0.5rem 0.2rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+}
+
+.camera-item {
+    padding: 0.75rem 1rem;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.camera-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: var(--accent);
+}
+
+.camera-item:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+}
+
+.drop-zone.drag-over {
+    box-shadow: 0 0 20px rgba(136,192,208,0.5) inset;
+}
+
+/* Epic 22: Hardware Provisioning Table */
+.provision-table td {
+    color: var(--text-main);
+}
+.provision-table tbody tr:hover {
+    background: rgba(255,255,255,0.05);
+}
+#btn-ai-name.loading {
+    opacity: 0.7;
+    pointer-events: none;
+    cursor: wait;
+}
+#btn-ai-name.loading i {
+    animation: pulse 1s infinite;
+}
+
