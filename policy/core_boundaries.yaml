@@ -1,0 +1,55 @@
+rules:
+  - id: public_health_language_review
+    description: Require review before publishing public-health-adjacent claims.
+    trigger:
+      terms:
+        - unsafe
+        - toxic
+        - public health hazard
+        - cyanobacteria bloom
+        - do not swim
+    decision: require_review
+    message: Public health or water safety language requires human review and official-source grounding.
+
+  - id: regulatory_interpretation
+    description: Flag language that makes definitive claims about regulatory compliance or violations.
+    trigger:
+      terms:
+        - violates regulation
+        - out of compliance
+        - illegal discharge
+    decision: require_review
+    message: Definitively interpreting regulatory compliance requires official review.
+
+  - id: sensitive_location
+    description: Warn or review if exact coordinate patterns or known sensitive sites are mentioned.
+    trigger:
+      terms:
+        - coordinates
+        - GPS
+        - sacred site
+        - burial ground
+      regex: 
+        - "([0-9]{1,3}°[0-9]{1,2}'[0-9]{1,2}\"[NS])"
+    decision: require_review
+    message: Publishing precise coordinates or sensitive locations requires explicit approval.
+
+  - id: scientific_overclaiming
+    description: Warn when preliminary observations are stated as confirmed facts.
+    trigger:
+      terms:
+        - confirmed finding
+        - definitive proof
+        - absolutely proves
+    decision: warn
+    message: Consider softening language. Field observations should not be stated as confirmed findings without lab results.
+
+  - id: legal_advice
+    description: Block direct legal instructions or advice.
+    trigger:
+      terms:
+        - you must sue
+        - legally required to
+        - take legal action
+    decision: block
+    message: Direct legal instruction is prohibited by the system boundaries.

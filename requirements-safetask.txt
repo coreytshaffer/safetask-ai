@@ -1,0 +1,10 @@
+-r requirements-core.txt
+streamlit
+pymupdf
+pypdf
+chromadb
+sentence-transformers
+scikit-learn
+fastapi
+uvicorn
+python-dotenv

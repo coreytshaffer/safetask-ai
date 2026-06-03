@@ -1,0 +1,138 @@
+2026-06-01 23:52:31,784 - fieldaware - DEBUG - ExportEngine initialized with templates: C:\Users\corey\.gemini\antigravity-ide\scratch\field-aware\qgis\recipes, output: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-6\test_export_engine_bundle_gene0\exports
+2026-06-01 23:52:31,806 - fieldaware - INFO - Generated export bundle: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-6\test_export_engine_bundle_gene0\exports\test_export_123_bundle.zip
+2026-06-01 23:52:31,819 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-01 23:52:31,819 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-01 23:52:31,819 - fieldaware - INFO - [SIMULATED] GDAL not found in PATH. Simulating command: gdal_translate C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-6\test_gdal_translate_fallback0\in.tif C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-6\test_gdal_translate_fallback0\out.tif
+2026-06-01 23:52:31,823 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-01 23:52:31,823 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-01 23:52:31,823 - fieldaware - INFO - [SIMULATED] OGR not found in PATH. Simulating command: ogr2ogr C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-6\test_ogr2ogr_fallback0\out.shp C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-6\test_ogr2ogr_fallback0\in.shp
+2026-06-01 23:52:36,246 - fieldaware - INFO - Successfully indexed 2 documents/chunks.
+2026-06-02 00:05:33,008 - fieldaware - INFO - Preparing sandbox for script: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-7\test_sandbox_execution0\dummy_script.py
+2026-06-02 00:05:33,009 - fieldaware - INFO - Executing C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-7\test_sandbox_execution0\dummy_script.py in sandbox...
+2026-06-02 00:05:33,066 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis Test', 'timestamp': '2026-06-01T13:00:00Z', 'notes': 'Counts: {"Site A": 2, "Site B": 1}', 'confidence_level': 'high'}
+2026-06-02 00:05:33,074 - fieldaware - INFO - Saved analysis result to notebook with ID: c142cba6-e9ab-48fa-b718-76690e3fa36c
+2026-06-02 00:05:41,971 - fieldaware - INFO - Running analysis script: scripts\example_analysis.py
+2026-06-02 00:05:41,973 - fieldaware - INFO - Preparing sandbox for script: scripts\example_analysis.py
+2026-06-02 00:05:41,973 - fieldaware - INFO - Executing scripts\example_analysis.py in sandbox...
+2026-06-02 00:05:58,741 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis', 'timestamp': '2026-06-02T07:05:58.690592+00:00', 'notes': 'No field notes available for analysis.', 'confidence_level': 'low'}
+2026-06-02 00:05:58,750 - fieldaware - INFO - Saved analysis result to notebook with ID: af601969-fc34-468d-9689-a9ac550701eb
+2026-06-02 00:06:22,242 - fieldaware - INFO - Parsing dictation with LM Studio...
+2026-06-02 00:06:22,261 - fieldaware - INFO - Saving dictation to local SQLite Database...
+2026-06-02 00:09:15,367 - fieldaware - INFO - Running analysis script: scripts\example_analysis.py
+2026-06-02 00:09:15,370 - fieldaware - INFO - Preparing sandbox for script: scripts\example_analysis.py
+2026-06-02 00:09:15,370 - fieldaware - INFO - Executing scripts\example_analysis.py in sandbox...
+2026-06-02 00:09:15,862 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis', 'timestamp': '2026-06-02T07:09:15.809256+00:00', 'notes': '### Field Data Statistical Summary\n\n- **Total Observations**: 2\n- **Observations by Site**:\n  - `System Analysis`: 1\n  - `Unknown`: 1\n', 'confidence_level': 'high'}
+2026-06-02 00:09:15,869 - fieldaware - INFO - Saved analysis result to notebook with ID: 53d8ae20-5498-4841-a3a3-b2bd016182d4
+2026-06-02 00:18:38,020 - fieldaware - INFO - Generating interactive Folium map...
+2026-06-02 00:18:38,451 - fieldaware - INFO - Gathering field notes for interactive map generation...
+2026-06-02 00:18:38,452 - fieldaware - INFO - Initializing folium map centered at [39.02, -122.75]
+2026-06-02 00:18:38,456 - fieldaware - INFO - Successfully generated interactive map at data\exports\interactive_map.html with 0 markers.
+2026-06-02 00:19:03,523 - fieldaware - INFO - Generating interactive Folium map...
+2026-06-02 00:19:03,831 - fieldaware - INFO - Gathering field notes for interactive map generation...
+2026-06-02 00:19:03,831 - fieldaware - INFO - Initializing folium map centered at [39.05, -122.76]
+2026-06-02 00:19:03,836 - fieldaware - INFO - Successfully generated interactive map at data\exports\interactive_map.html with 1 markers.
+2026-06-02 00:27:52,036 - fieldaware - INFO - Parsing dictation with LM Studio...
+2026-06-02 00:27:52,054 - fieldaware - INFO - Saving dictation to local SQLite Database...
+2026-06-02 00:27:52,055 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-02 00:27:52,151 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 00:27:52,160 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-02 00:27:52,263 - fieldaware - INFO - Committed 53e0eb01-3ba7-4d9a-9e1e-26281000f3d0.md to Git repository.
+2026-06-02 00:28:03,736 - fieldaware - INFO - Generating interactive Folium map...
+2026-06-02 00:28:04,078 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 00:28:04,095 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 00:28:04,096 - fieldaware - INFO - Gathering field notes for interactive map generation...
+2026-06-02 00:28:04,097 - fieldaware - INFO - Initializing folium map centered at [39.02, -122.75]
+2026-06-02 00:28:04,101 - fieldaware - INFO - Successfully generated interactive map at data\exports\interactive_map.html with 0 markers.
+2026-06-02 00:31:09,690 - fieldaware - WARNING - Collection not found. Please run indexer first.
+2026-06-02 00:31:17,888 - fieldaware - INFO - Indexing documents started via CLI.
+2026-06-02 00:31:18,444 - fieldaware - INFO - Successfully indexed 2 documents/chunks.
+2026-06-02 00:40:55,473 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 00:40:55,482 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 00:42:10,589 - fieldaware - INFO - Successfully indexed 3 documents/chunks.
+2026-06-02 01:02:06,083 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-02 01:02:13,174 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-02 01:06:22,265 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 01:06:22,278 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 01:06:26,754 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-02 01:06:27,637 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-02 01:16:22,976 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 01:16:22,985 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 01:16:27,237 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-02 01:16:28,183 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-02 01:16:31,000 - fieldaware - INFO - Syncing Clear Lake Watch data from https://coreytshaffer.github.io/clear-lake-watch/data/live.json...
+2026-06-02 01:16:31,411 - fieldaware - INFO - Successfully synced and cached live.json.
+2026-06-02 01:21:44,540 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 01:21:44,559 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 01:21:44,559 - fieldaware - INFO - Gathering field notes for interactive map generation...
+2026-06-02 01:21:44,560 - fieldaware - INFO - Initializing folium map centered at [39.02, -122.75]
+2026-06-02 01:21:44,562 - fieldaware - INFO - Found offline vector shoreline data. Rendering on map...
+2026-06-02 01:21:44,566 - fieldaware - INFO - Found cached FHABS live data. Rendering markers on map...
+2026-06-02 01:21:44,587 - fieldaware - INFO - Successfully generated interactive map at data\exports\interactive_map.html with 0 markers.
+2026-06-02 01:35:01,928 - fieldaware - INFO - Ingesting spatial file: data\clear-lake-watch-repo\data\lake-shoreline.json
+2026-06-02 01:35:03,894 - fieldaware - ERROR - Failed to ingest spatial file: 'data\clear-lake-watch-repo\data\lake-shoreline.json' not recognized as being in a supported file format.; It might help to specify the correct driver explicitly by prefixing the file path with '<DRIVER>:', e.g. 'CSV:path'.
+2026-06-02 01:35:11,964 - fieldaware - INFO - Ingesting spatial file: test_input.geojson
+2026-06-02 01:35:11,987 - fieldaware - ERROR - Failed to ingest spatial file: 'test_input.geojson' not recognized as being in a supported file format.; It might help to specify the correct driver explicitly by prefixing the file path with '<DRIVER>:', e.g. 'CSV:path'.
+2026-06-02 09:57:18,794 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 09:57:18,803 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 20:44:37,773 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 20:44:37,782 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 20:45:02,127 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-02 20:45:03,166 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-02 20:47:11,207 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 20:47:11,215 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 20:47:15,710 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-02 20:47:16,594 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-02 21:34:03,522 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 21:34:03,530 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 21:34:11,248 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-02 21:34:12,136 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-02 21:34:14,518 - fieldaware - DEBUG - ExportEngine initialized with templates: C:\Users\corey\.gemini\antigravity-ide\scratch\field-aware\qgis\recipes, output: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_export_engine_bundle_gene0\exports
+2026-06-02 21:34:14,534 - fieldaware - INFO - Generated export bundle: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_export_engine_bundle_gene0\exports\test_export_123_bundle.zip
+2026-06-02 21:34:14,545 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-02 21:34:14,545 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-02 21:34:14,545 - fieldaware - INFO - [SIMULATED] GDAL not found in PATH. Simulating command: gdal_translate C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_gdal_translate_fallback0\in.tif C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_gdal_translate_fallback0\out.tif
+2026-06-02 21:34:14,549 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-02 21:34:14,549 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-02 21:34:14,549 - fieldaware - INFO - [SIMULATED] OGR not found in PATH. Simulating command: ogr2ogr C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_ogr2ogr_fallback0\out.shp C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_ogr2ogr_fallback0\in.shp
+2026-06-02 21:34:14,578 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 21:34:14,587 - fieldaware - INFO - Synced 1 notes into SQLite cache.
+2026-06-02 21:34:14,683 - fieldaware - INFO - Committed 7e87bc24-9324-4a39-897a-41ee9185e3da.md to Git repository.
+2026-06-02 21:34:19,412 - fieldaware - INFO - Successfully indexed 3 documents/chunks.
+2026-06-02 21:34:19,609 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 21:34:19,619 - fieldaware - INFO - Synced 2 notes into SQLite cache.
+2026-06-02 21:34:19,717 - fieldaware - INFO - Committed b3857d5a-a138-45e2-b22b-032f970e5ea4.md to Git repository.
+2026-06-02 21:34:19,822 - fieldaware - INFO - Committed f234027a-ca9d-43d6-a5a3-1fc9485ab34b.md to Git repository.
+2026-06-02 21:34:19,922 - fieldaware - INFO - Committed 7a7b9425-fcb9-40bf-b592-3d3e008a2610.md to Git repository.
+2026-06-02 21:34:19,931 - fieldaware - INFO - Preparing sandbox for script: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_sandbox_execution0\dummy_script.py
+2026-06-02 21:34:19,932 - fieldaware - INFO - Executing C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-12\test_sandbox_execution0\dummy_script.py in sandbox...
+2026-06-02 21:34:19,987 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis Test', 'timestamp': '2026-06-01T13:00:00Z', 'notes': 'Counts: {"Unknown": 1, "test_site": 1, "Site A": 2, "Site B": 1}', 'confidence_level': 'high'}
+2026-06-02 21:34:20,076 - fieldaware - INFO - Committed edc09c62-d244-425a-89f9-5da203ce50ff.md to Git repository.
+2026-06-02 21:34:20,084 - fieldaware - INFO - Saved analysis result to notebook with ID: edc09c62-d244-425a-89f9-5da203ce50ff
+2026-06-02 21:37:17,523 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 21:37:17,534 - fieldaware - INFO - Synced 6 notes into SQLite cache.
+2026-06-02 21:37:22,266 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-02 21:37:23,215 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-02 21:37:23,335 - fieldaware - DEBUG - ExportEngine initialized with templates: C:\Users\corey\.gemini\antigravity-ide\scratch\field-aware\qgis\recipes, output: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_export_engine_bundle_gene0\exports
+2026-06-02 21:37:23,351 - fieldaware - INFO - Generated export bundle: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_export_engine_bundle_gene0\exports\test_export_123_bundle.zip
+2026-06-02 21:37:23,362 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-02 21:37:23,362 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-02 21:37:23,362 - fieldaware - INFO - [SIMULATED] GDAL not found in PATH. Simulating command: gdal_translate C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_gdal_translate_fallback0\in.tif C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_gdal_translate_fallback0\out.tif
+2026-06-02 21:37:23,366 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-02 21:37:23,366 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-02 21:37:23,366 - fieldaware - INFO - [SIMULATED] OGR not found in PATH. Simulating command: ogr2ogr C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_ogr2ogr_fallback0\out.shp C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_ogr2ogr_fallback0\in.shp
+2026-06-02 21:37:23,390 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-02 21:37:23,485 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 21:37:23,493 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-02 21:37:23,584 - fieldaware - INFO - Committed c1a98424-2764-42cb-a5a4-d11ce7d45786.md to Git repository.
+2026-06-02 21:37:28,001 - fieldaware - INFO - Successfully indexed 3 documents/chunks.
+2026-06-02 21:37:28,152 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-02 21:37:28,238 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-02 21:37:28,246 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-02 21:37:28,333 - fieldaware - INFO - Committed 3755815c-be76-44f9-9968-35b349d20801.md to Git repository.
+2026-06-02 21:37:28,435 - fieldaware - INFO - Committed dd50b5fb-f38d-472e-9a8d-cecf25525358.md to Git repository.
+2026-06-02 21:37:28,539 - fieldaware - INFO - Committed 4bbfc00d-1641-4e50-9fed-e18c93133478.md to Git repository.
+2026-06-02 21:37:28,548 - fieldaware - INFO - Preparing sandbox for script: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_sandbox_execution0\dummy_script.py
+2026-06-02 21:37:28,549 - fieldaware - INFO - Executing C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-13\test_sandbox_execution0\dummy_script.py in sandbox...
+2026-06-02 21:37:28,602 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis Test', 'timestamp': '2026-06-01T13:00:00Z', 'notes': 'Counts: {"Site A": 2, "Site B": 1}', 'confidence_level': 'high'}
+2026-06-02 21:37:28,697 - fieldaware - INFO - Committed 28d777f4-6fc6-4ff1-b116-9c1ac400ae7a.md to Git repository.
+2026-06-02 21:37:28,705 - fieldaware - INFO - Saved analysis result to notebook with ID: 28d777f4-6fc6-4ff1-b116-9c1ac400ae7a
