@@ -73,16 +73,25 @@ document.addEventListener('DOMContentLoaded', () => {
         policyList.innerHTML = ''; // clear
 
         if (packet.recommended_review && packet.recommended_review.length > 0) {
+            function escapeHTML(str) {
+                if (!str) return '';
+                return str.toString()
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
             packet.recommended_review.forEach(pol => {
                 const card = document.createElement('div');
                 card.className = 'glass-panel policy-card require_review';
                 card.style.marginBottom = '1rem';
                 card.innerHTML = `
-                    <h4><i class="ph ph-file-text"></i> ${pol.title}</h4>
-                    <p class="meta" style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem;">Source: ${pol.source} | Page: ${pol.page}</p>
-                    <p style="color: var(--text-main); line-height: 1.5; font-size: 0.95rem;">"${pol.excerpt}"</p>
+                    <h4><i class="ph ph-file-text"></i> ${escapeHTML(pol.title)}</h4>
+                    <p class="meta" style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem;">Source: ${escapeHTML(pol.source)} | Page: ${escapeHTML(pol.page)}</p>
+                    <p style="color: var(--text-main); line-height: 1.5; font-size: 0.95rem;">"${escapeHTML(pol.excerpt)}"</p>
                     <div style="margin-top: 1rem;">
-                        <button class="btn secondary-btn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="alert('Opening PDF viewer to page ${pol.page}')"><i class="ph ph-arrow-square-out"></i> Open Document</button>
+                        <button class="btn secondary-btn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="alert('Opening PDF viewer to page ${escapeHTML(pol.page)}')"><i class="ph ph-arrow-square-out"></i> Open Document</button>
                     </div>
                 `;
                 policyList.appendChild(card);
