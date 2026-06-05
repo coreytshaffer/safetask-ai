@@ -6,3 +6,5 @@ requests
 rich
 typer
 PyYAML
+pystray
+pillow

@@ -20,3 +20,11 @@ exports/
 # Temp
 *.txt
 *.json.bak
+
+# Nested Standalone Projects
+triagecore/
+
+
+__pycache__/
+*.pyc
+.triagecore/

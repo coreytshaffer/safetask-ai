@@ -51,7 +51,7 @@ def run_desktop():
 
         host_ip = os.environ.get("HOST_IP", "127.0.0.1")
         # Create a chromeless, native window pointing to the local dashboard
-        webview.create_window(
+        window = webview.create_window(
             title="FieldAware Cybernetic Workbench",
             url=f"http://{host_ip}:8000",
             width=1280,
@@ -61,9 +61,15 @@ def run_desktop():
             frameless=False,  # Set to True for a fully custom drag region, False for standard native window
             background_color="#0f172a",  # Matches our dark mode bg
         )
+        
+        # Start the system tray icon in the background
+        from tray_widget import start_tray
+        tray = start_tray(webview_window=window)
 
         # Start the GUI event loop
         webview.start()
+        tray.running = False
+        tray.icon.stop()
         print("Shutting down local intelligence nodes...")
     else:
         print("Critical Failure: Local server could not start.")

@@ -188,6 +188,10 @@ def init_db():
     
     seed_users()
 
+def _hash_password(pw: str) -> str:
+    return hashlib.sha256(pw.encode()).hexdigest()
+
+
 def seed_users():
     conn = get_connection()
     c = conn.cursor()
@@ -196,8 +200,11 @@ def seed_users():
         ("operator", "password123", "OPERATOR"),
         ("guard", "password123", "GUARD")
     ]
-    for u in users:
-        c.execute("INSERT OR IGNORE INTO users (username, password_hash, role) VALUES (?, ?, ?)", u)
+    for username, password, role in users:
+        c.execute(
+            "INSERT OR IGNORE INTO users (username, password_hash, role) VALUES (?, ?, ?)",
+            (username, _hash_password(password), role)
+        )
     conn.commit()
     conn.close()
 
@@ -405,13 +412,14 @@ def create_dispatch_task(task_id: str, title: str, officer: str):
         "status": "active", "timestamp": timestamp
     }
 
-def complete_dispatch_task(task_id: str):
+def complete_dispatch_task(task_id: str) -> bool:
     conn = get_connection()
     c = conn.cursor()
     c.execute("UPDATE dispatch_tasks SET status = 'completed' WHERE id = ?", (task_id,))
+    success = c.rowcount > 0
     conn.commit()
     conn.close()
-    return True
+    return success
 
 def get_lost_and_found_items():
     conn = get_connection()

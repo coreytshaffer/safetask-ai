@@ -132,7 +132,8 @@ async def identify_specimen(file: UploadFile = File(...)):
     
     try:
         # Save uploaded file temporarily
-        temp_path = f"data/samples/temp_{file.filename}"
+        safe_name = re.sub(r"[^\w.\-]", "_", Path(file.filename).name)
+        temp_path = f"data/samples/temp_{safe_name}"
         with open(temp_path, "wb") as buffer:
             buffer.write(await file.read())
         
@@ -255,7 +256,7 @@ async def action_index(req: ActionRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-import requests
+import httpx
 
 
 @app.post("/api/chat")
@@ -264,8 +265,9 @@ async def chat_with_model(req: ChatRequest):
         # Connect to the local LM Studio model
         api_url = os.environ.get("LLM_API_URL", "http://127.0.0.1:1234/v1/chat/completions")
         payload = {"messages": req.messages, "temperature": 0.7, "max_tokens": 500}
-        response = requests.post(api_url, json=payload, timeout=30)
-        response.raise_for_status()
+        async with httpx.AsyncClient(timeout=30) as client:
+            response = await client.post(api_url, json=payload)
+            response.raise_for_status()
         data = response.json()
         content = data["choices"][0]["message"]["content"]
         return {"reply": content}
@@ -331,9 +333,11 @@ async def get_policies():
 @app.get("/api/weather")
 async def get_weather():
     # In a real app, this would fetch from NOAA while online and cache it locally for offline use.
+    # DEMO STUB — replace with NOAA cache fetch on first online request
+    cached_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
     return {
         "location": "Clear Lake, CA",
-        "cached_time": "2026-06-01T08:00:00Z",
+        "cached_time": cached_time,
         "current": {"temp": 82, "condition": "Sunny", "wind": "12 mph NW"},
         "hazards": [
             {

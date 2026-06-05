@@ -1,0 +1,26 @@
+name: gaming-us-tribal
+description: Tribal Gaming Regulatory Standards (MICS/NIGC)
+version: 1.0.0
+jurisdiction: us-tribal
+
+policies:
+  - id: NIGC_MICS_542.16
+    category: surveillance
+    title: Surveillance Systems
+    text: >
+      The surveillance system shall provide coverage of all table games,
+      including the ability to view the table bank, drop box slot, and 
+      dealer chip tray, with sufficient clarity to determine chip values.
+    operational_meaning: >
+      Coverage of table games must be clear enough to read chip stacks and see
+      drop actions. Dead spots on the dealer tray or drop box are compliance failures.
+
+  - id: NIGC_MICS_542.43
+    category: incident
+    title: Suspicious Activity
+    text: >
+      The surveillance department shall notify the tribal gaming regulatory authority
+      of any suspected cheating, theft, or unusual activity immediately.
+    operational_meaning: >
+      If theft or cheating is suspected, TGRA must be notified immediately. Don't
+      wait for shift end.

@@ -1,0 +1,26 @@
+name: gaming-us-nv
+description: Nevada Gaming Control Board (NGCB) Regulatory Standards
+version: 1.0.0
+jurisdiction: us-nv
+
+policies:
+  - id: NGCB_Reg_5.160
+    category: surveillance
+    title: Surveillance Systems
+    text: >
+      Each licensee shall install and operate a surveillance system that meets
+      the standards prescribed by the Board. The system must monitor all casino 
+      operations including count rooms and the cage.
+    operational_meaning: >
+      Count rooms, the cage, and main casino floor must be under 24/7 video surveillance 
+      recording, which must be retained for at least 7 days.
+
+  - id: NGCB_Reg_14.040
+    category: gaming_devices
+    title: Gaming Device Operation
+    text: >
+      A licensee shall not operate any gaming device that has been exposed to 
+      unauthorized tampering or alterations.
+    operational_meaning: >
+      If a device's cabinet is opened without authorization or logic seal broken, 
+      the device must be taken out of service immediately and inspected.

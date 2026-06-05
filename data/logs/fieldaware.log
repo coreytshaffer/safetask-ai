@@ -136,3 +136,91 @@
 2026-06-02 21:37:28,602 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis Test', 'timestamp': '2026-06-01T13:00:00Z', 'notes': 'Counts: {"Site A": 2, "Site B": 1}', 'confidence_level': 'high'}
 2026-06-02 21:37:28,697 - fieldaware - INFO - Committed 28d777f4-6fc6-4ff1-b116-9c1ac400ae7a.md to Git repository.
 2026-06-02 21:37:28,705 - fieldaware - INFO - Saved analysis result to notebook with ID: 28d777f4-6fc6-4ff1-b116-9c1ac400ae7a
+2026-06-03 02:11:48,965 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:11:48,975 - fieldaware - INFO - Synced 6 notes into SQLite cache.
+2026-06-03 02:12:11,646 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-03 02:12:12,942 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-03 02:12:57,496 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:12:57,506 - fieldaware - INFO - Synced 6 notes into SQLite cache.
+2026-06-03 02:13:01,731 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-03 02:13:02,904 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-03 02:13:03,077 - fieldaware - DEBUG - ExportEngine initialized with templates: C:\Users\corey\.gemini\antigravity-ide\scratch\field-aware\qgis\recipes, output: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_export_engine_bundle_gene0\exports
+2026-06-03 02:13:03,093 - fieldaware - INFO - Generated export bundle: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_export_engine_bundle_gene0\exports\test_export_123_bundle.zip
+2026-06-03 02:13:03,104 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:03,104 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:03,104 - fieldaware - INFO - [SIMULATED] GDAL not found in PATH. Simulating command: gdal_translate C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_gdal_translate_fallback0\in.tif C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_gdal_translate_fallback0\out.tif
+2026-06-03 02:13:03,108 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:03,109 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:03,109 - fieldaware - INFO - [SIMULATED] OGR not found in PATH. Simulating command: ogr2ogr C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_ogr2ogr_fallback0\out.shp C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_ogr2ogr_fallback0\in.shp
+2026-06-03 02:13:03,135 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-03 02:13:03,227 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:13:03,236 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-03 02:13:03,326 - fieldaware - INFO - Committed cd46d859-1c27-4743-bd45-c54c348cf99b.md to Git repository.
+2026-06-03 02:13:07,931 - fieldaware - INFO - Successfully indexed 3 documents/chunks.
+2026-06-03 02:13:08,078 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-03 02:13:08,164 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:13:08,173 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-03 02:13:08,259 - fieldaware - INFO - Committed 7894073b-ad36-4609-adc5-90f0092cb00f.md to Git repository.
+2026-06-03 02:13:08,352 - fieldaware - INFO - Committed c5ff32b8-b6a4-4f40-b5bf-23acb5be46e5.md to Git repository.
+2026-06-03 02:13:08,452 - fieldaware - INFO - Committed 1a60b5be-ead0-4ce7-a2f5-aba1557e0eb2.md to Git repository.
+2026-06-03 02:13:08,460 - fieldaware - INFO - Preparing sandbox for script: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_sandbox_execution0\dummy_script.py
+2026-06-03 02:13:08,461 - fieldaware - INFO - Executing C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-14\test_sandbox_execution0\dummy_script.py in sandbox...
+2026-06-03 02:13:08,516 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis Test', 'timestamp': '2026-06-01T13:00:00Z', 'notes': 'Counts: {"Site A": 2, "Site B": 1}', 'confidence_level': 'high'}
+2026-06-03 02:13:08,606 - fieldaware - INFO - Committed 1100ea2e-2e36-4e5e-9e89-dda2cf47036a.md to Git repository.
+2026-06-03 02:13:08,613 - fieldaware - INFO - Saved analysis result to notebook with ID: 1100ea2e-2e36-4e5e-9e89-dda2cf47036a
+2026-06-03 02:13:37,773 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:13:37,783 - fieldaware - INFO - Synced 6 notes into SQLite cache.
+2026-06-03 02:13:42,194 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-03 02:13:43,382 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-03 02:13:43,488 - fieldaware - DEBUG - ExportEngine initialized with templates: C:\Users\corey\.gemini\antigravity-ide\scratch\field-aware\qgis\recipes, output: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_export_engine_bundle_gene0\exports
+2026-06-03 02:13:43,505 - fieldaware - INFO - Generated export bundle: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_export_engine_bundle_gene0\exports\test_export_123_bundle.zip
+2026-06-03 02:13:43,515 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:43,515 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:43,515 - fieldaware - INFO - [SIMULATED] GDAL not found in PATH. Simulating command: gdal_translate C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_gdal_translate_fallback0\in.tif C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_gdal_translate_fallback0\out.tif
+2026-06-03 02:13:43,519 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:43,519 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-03 02:13:43,519 - fieldaware - INFO - [SIMULATED] OGR not found in PATH. Simulating command: ogr2ogr C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_ogr2ogr_fallback0\out.shp C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_ogr2ogr_fallback0\in.shp
+2026-06-03 02:13:43,542 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-03 02:13:43,632 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:13:43,641 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-03 02:13:43,723 - fieldaware - INFO - Committed 0c16acb1-b178-4cfb-b71c-438eda7ffbcd.md to Git repository.
+2026-06-03 02:13:48,224 - fieldaware - INFO - Successfully indexed 3 documents/chunks.
+2026-06-03 02:13:48,393 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-03 02:13:48,477 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:13:48,486 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-03 02:13:48,570 - fieldaware - INFO - Committed cc12383e-84d5-4046-8749-f26cb51fb595.md to Git repository.
+2026-06-03 02:13:48,664 - fieldaware - INFO - Committed 1cafe5d0-9d63-43d0-a514-93a4fb9f61b7.md to Git repository.
+2026-06-03 02:13:48,757 - fieldaware - INFO - Committed 558891fe-5f28-422f-8d39-2784d3bc1b59.md to Git repository.
+2026-06-03 02:13:48,765 - fieldaware - INFO - Preparing sandbox for script: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_sandbox_execution0\dummy_script.py
+2026-06-03 02:13:48,767 - fieldaware - INFO - Executing C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-15\test_sandbox_execution0\dummy_script.py in sandbox...
+2026-06-03 02:13:48,811 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis Test', 'timestamp': '2026-06-01T13:00:00Z', 'notes': 'Counts: {"Site A": 2, "Site B": 1}', 'confidence_level': 'high'}
+2026-06-03 02:13:48,897 - fieldaware - INFO - Committed 5bdf5bd8-b757-401e-b56d-5956aaabd21f.md to Git repository.
+2026-06-03 02:13:48,905 - fieldaware - INFO - Saved analysis result to notebook with ID: 5bdf5bd8-b757-401e-b56d-5956aaabd21f
+2026-06-03 02:14:18,368 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:14:18,378 - fieldaware - INFO - Synced 6 notes into SQLite cache.
+2026-06-03 02:14:22,730 - fieldaware - INFO - Loading local vision model: google/vit-base-patch16-224
+2026-06-03 02:14:23,925 - fieldaware - INFO - Vision model loaded successfully.
+2026-06-03 02:14:24,028 - fieldaware - DEBUG - ExportEngine initialized with templates: C:\Users\corey\.gemini\antigravity-ide\scratch\field-aware\qgis\recipes, output: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_export_engine_bundle_gene0\exports
+2026-06-03 02:14:24,044 - fieldaware - INFO - Generated export bundle: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_export_engine_bundle_gene0\exports\test_export_123_bundle.zip
+2026-06-03 02:14:24,054 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-03 02:14:24,054 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-03 02:14:24,054 - fieldaware - INFO - [SIMULATED] GDAL not found in PATH. Simulating command: gdal_translate C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_gdal_translate_fallback0\in.tif C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_gdal_translate_fallback0\out.tif
+2026-06-03 02:14:24,058 - fieldaware - DEBUG - gdal_translate not found in PATH. Will use simulation fallback.
+2026-06-03 02:14:24,058 - fieldaware - DEBUG - ogr2ogr not found in PATH. Will use simulation fallback.
+2026-06-03 02:14:24,058 - fieldaware - INFO - [SIMULATED] OGR not found in PATH. Simulating command: ogr2ogr C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_ogr2ogr_fallback0\out.shp C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_ogr2ogr_fallback0\in.shp
+2026-06-03 02:14:24,080 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-03 02:14:24,164 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:14:24,172 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-03 02:14:24,258 - fieldaware - INFO - Committed 8560ded4-4dae-4ef4-94db-5a8a10bf1d8a.md to Git repository.
+2026-06-03 02:14:28,734 - fieldaware - INFO - Successfully indexed 3 documents/chunks.
+2026-06-03 02:14:28,897 - fieldaware - INFO - Initializing Git repository for field notes...
+2026-06-03 02:14:28,981 - fieldaware - INFO - Syncing SQLite cache from Markdown files...
+2026-06-03 02:14:28,990 - fieldaware - INFO - Synced 0 notes into SQLite cache.
+2026-06-03 02:14:29,071 - fieldaware - INFO - Committed da921c9a-b9b7-4942-89b5-a2b39207ad86.md to Git repository.
+2026-06-03 02:14:29,160 - fieldaware - INFO - Committed 4a974392-b346-4398-8799-8e1a03253c5b.md to Git repository.
+2026-06-03 02:14:29,250 - fieldaware - INFO - Committed b2902204-27b5-43a8-b2a6-acf1ef51493f.md to Git repository.
+2026-06-03 02:14:29,259 - fieldaware - INFO - Preparing sandbox for script: C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_sandbox_execution0\dummy_script.py
+2026-06-03 02:14:29,260 - fieldaware - INFO - Executing C:\Users\corey\AppData\Local\Temp\pytest-of-corey\pytest-16\test_sandbox_execution0\dummy_script.py in sandbox...
+2026-06-03 02:14:29,304 - fieldaware - INFO - Script completed successfully. Result: {'site_id': 'System Analysis Test', 'timestamp': '2026-06-01T13:00:00Z', 'notes': 'Counts: {"Site A": 2, "Site B": 1}', 'confidence_level': 'high'}
+2026-06-03 02:14:29,385 - fieldaware - INFO - Committed d3b435a8-40ab-47b2-ad8e-98f4d2e13dd3.md to Git repository.
+2026-06-03 02:14:29,392 - fieldaware - INFO - Saved analysis result to notebook with ID: d3b435a8-40ab-47b2-ad8e-98f4d2e13dd3

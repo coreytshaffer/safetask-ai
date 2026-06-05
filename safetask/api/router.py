@@ -1,7 +1,8 @@
 import os
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+import re
+from pathlib import Path
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Depends, Header
 import hashlib
-import os
 from pydantic import BaseModel
 from typing import List, Optional
 import datetime
@@ -23,6 +24,16 @@ except Exception as e:
 
 router = APIRouter()
 
+async def require_auth(authorization: str = Header(None)):
+    """Minimal token gate — checks that the mock-jwt token is present."""
+    if not authorization or not authorization.startswith("mock-jwt-"):
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+
+def _safe_filename(filename: str) -> str:
+    """Strip path components and replace unsafe characters to prevent path traversal."""
+    return re.sub(r"[^\w.\-]", "_", Path(filename).name)
+
 class IncidentReport(BaseModel):
     title: str
     description: str
@@ -30,7 +41,7 @@ class IncidentReport(BaseModel):
     location: str
     equipment_involved: Optional[str] = ""
 
-@router.post("/incident")
+@router.post("/incident", dependencies=[Depends(require_auth)])
 async def report_incident(report: IncidentReport):
     """
     Submit an incident report.
@@ -89,18 +100,18 @@ class DispatchTask(BaseModel):
     title: str
     officer: str
 
-@router.get("/dispatch")
+@router.get("/dispatch", dependencies=[Depends(require_auth)])
 async def get_dispatch_log():
     tasks = db.get_dispatch_tasks()
     return {"tasks": tasks}
 
-@router.post("/dispatch")
+@router.post("/dispatch", dependencies=[Depends(require_auth)])
 async def dispatch_officer(task: DispatchTask):
     task_id = f"TSK-{uuid.uuid4().hex[:6].upper()}"
     new_task = db.create_dispatch_task(task_id, task.title, task.officer)
     return {"status": "success", "task": new_task}
 
-@router.patch("/dispatch/{task_id}/complete")
+@router.patch("/dispatch/{task_id}/complete", dependencies=[Depends(require_auth)])
 async def complete_task(task_id: str):
     success = db.complete_dispatch_task(task_id)
     if not success:
@@ -111,24 +122,24 @@ class LostItem(BaseModel):
     description: str
     location_found: str
 
-@router.get("/lostandfound")
+@router.get("/lostandfound", dependencies=[Depends(require_auth)])
 async def get_lost_items():
     items = db.get_lost_and_found_items()
     return {"items": items}
 
-@router.post("/lostandfound")
+@router.post("/lostandfound", dependencies=[Depends(require_auth)])
 async def log_lost_item(item: LostItem):
     item_id = f"LNF-{uuid.uuid4().hex[:6].upper()}"
     new_item = db.log_lost_and_found_item(item_id, item.description, item.location_found)
     return {"status": "success", "item": new_item}
 
 # Epic 7: Evidence Locker
-@router.get("/evidence")
+@router.get("/evidence", dependencies=[Depends(require_auth)])
 async def get_evidence():
     evidence = db.get_evidence_log()
     return {"evidence": evidence}
 
-@router.post("/evidence/upload")
+@router.post("/evidence/upload", dependencies=[Depends(require_auth)])
 async def upload_evidence(
     incident_id: str = Form(...),
     officer: str = Form(...),
@@ -144,7 +155,7 @@ async def upload_evidence(
     
     # Save the file to disk
     evidence_id = f"EVD-{uuid.uuid4().hex[:6].upper()}"
-    safe_filename = f"{evidence_id}_{file.filename}"
+    safe_filename = f"{evidence_id}_{_safe_filename(file.filename)}"
     file_path = evidence_dir / safe_filename
     
     with open(file_path, "wb") as f:
@@ -164,12 +175,12 @@ async def upload_evidence(
 class StatusUpdate(BaseModel):
     status: str
 
-@router.get("/evacuation/roster")
+@router.get("/evacuation/roster", dependencies=[Depends(require_auth)])
 async def get_evacuation_roster():
     roster = db.get_evacuation_roster()
     return {"roster": roster}
 
-@router.patch("/evacuation/roster/{person_id}/status")
+@router.patch("/evacuation/roster/{person_id}/status", dependencies=[Depends(require_auth)])
 async def update_person_status(person_id: str, payload: StatusUpdate):
     if payload.status not in ["Unknown", "Safe", "Missing", "Injured"]:
         raise HTTPException(status_code=400, detail="Invalid status")
@@ -213,7 +224,7 @@ async def training_chat(payload: ChatRequest):
     # Prepend the system prompt to the user's message history
     messages = [system_prompt] + [msg.model_dump() for msg in payload.messages]
     
-    lm_studio_url = "http://192.168.0.100:1234/v1/chat/completions"
+    lm_studio_url = os.environ.get("LLM_API_URL", "http://127.0.0.1:1234/v1/chat/completions")
     data = json.dumps({
         "model": "local-model", # LM Studio usually ignores this or uses whatever is loaded
         "messages": messages,
@@ -243,7 +254,8 @@ class LoginRequest(BaseModel):
 @router.post("/auth/login")
 async def login(payload: LoginRequest):
     user = db.get_user_by_username(payload.username)
-    if user and user['password_hash'] == payload.password:
+    candidate_hash = hashlib.sha256(payload.password.encode()).hexdigest()
+    if user and user['password_hash'] == candidate_hash:
         return {"status": "success", "token": f"mock-jwt-{user['id']}", "role": user['role'], "username": user['username']}
     else:
         return {"status": "error", "message": "Invalid username or password"}

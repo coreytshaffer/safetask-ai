@@ -1,0 +1,35 @@
+name: gaming-macau
+description: Macau Gaming Inspection and Coordination Bureau (DICJ) Regulatory Standards
+version: 1.0.0
+jurisdiction: macau
+
+policies:
+  - id: DICJ_Inst_2_2005
+    category: surveillance
+    title: Casino Surveillance (Sistema de Vigilância)
+    source_pt: >
+      O sistema de vigilância por vídeo deve abranger todas as mesas de jogo, 
+      caixas, e salas de contagem. O equipamento deve gravar em tempo real.
+    source_zh: >
+      視頻監控系統必須覆蓋所有賭桌、出納櫃檯和點鈔室。設備必須實時記錄。
+    translation_en: >
+      The video surveillance system must cover all gaming tables, 
+      cages, and count rooms. The equipment must record in real time.
+    operational_meaning: >
+      Real-time, continuous video recording is mandatory for tables, cages, and count rooms. 
+      Any loss of video requires immediate halt of gaming at the affected table.
+
+  - id: DICJ_Lei_16_2001
+    category: operations
+    title: Legal Framework (Quadro Legal)
+    source_pt: >
+      As concessionárias devem assegurar a idoneidade, transparência e 
+      justiça nos jogos de fortuna ou azar.
+    source_zh: >
+      承批公司必須確保幸運博彩的適當性、透明度和公平性。
+    translation_en: >
+      Concessionaires must ensure the suitability, transparency, and 
+      fairness in games of chance.
+    operational_meaning: >
+      General compliance mandate ensuring all game equipment is verified and fair. 
+      Any suspicious manipulation must be reported immediately.

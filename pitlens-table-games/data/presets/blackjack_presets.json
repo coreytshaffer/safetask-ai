@@ -1,0 +1,50 @@
+[
+  {
+    "preset_id": "6d_h17_das_ls",
+    "name": "6D H17 DAS Late Surrender",
+    "deck_count": 6,
+    "dealer_hits_soft_17": true,
+    "double_after_split_allowed": true,
+    "surrender_type": "late",
+    "resplit_aces_allowed": false,
+    "blackjack_payout": "3:2",
+    "side_bets": ["21+3", "Perfect Pairs"],
+    "notes": "Standard 6-deck game with H17 and late surrender."
+  },
+  {
+    "preset_id": "6d_s17_das_ns",
+    "name": "6D S17 DAS No Surrender",
+    "deck_count": 6,
+    "dealer_hits_soft_17": false,
+    "double_after_split_allowed": true,
+    "surrender_type": "none",
+    "resplit_aces_allowed": false,
+    "blackjack_payout": "3:2",
+    "side_bets": [],
+    "notes": "Standard 6-deck game with S17 and no surrender."
+  },
+  {
+    "preset_id": "dd_h17_das",
+    "name": "Double Deck H17 DAS",
+    "deck_count": 2,
+    "dealer_hits_soft_17": true,
+    "double_after_split_allowed": true,
+    "surrender_type": "none",
+    "resplit_aces_allowed": false,
+    "blackjack_payout": "3:2",
+    "side_bets": [],
+    "notes": "Double deck pitch game."
+  },
+  {
+    "preset_id": "dd_h17_no_das",
+    "name": "Double Deck H17 No DAS",
+    "deck_count": 2,
+    "dealer_hits_soft_17": true,
+    "double_after_split_allowed": false,
+    "surrender_type": "none",
+    "resplit_aces_allowed": false,
+    "blackjack_payout": "3:2",
+    "side_bets": [],
+    "notes": "Double deck pitch game with no double after split."
+  }
+]

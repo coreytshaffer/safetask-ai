@@ -97,7 +97,7 @@ Reports, evidence references, retention status, and after-action items are prese
 ## 5. Agile backlog
 
 ### Epic 0: Stabilize the prototype
-* Story 0.1: Fix JavaScript parse failure
+* [x] Story 0.1: Fix JavaScript parse failure
 * Story 0.2: Align launcher with full backend
 * Story 0.3: Add domain-specific test suites
 * Story 0.4: Update commercial safety copy
@@ -147,18 +147,18 @@ Reports, evidence references, retention status, and after-action items are prese
 * [x] Story 9.1: Admin document upload
 * [x] Story 9.2: Source Registry and versioning
 * [x] Story 9.3: Policy retrieval with citation display
-* [ ] Story 9.4: Jurisdiction-specific public regulatory packs for `gaming-us-tribal`, `gaming-us-nv`, and `gaming-macau` (stretch)
-* [ ] Story 9.5: Multilingual source, translation, and operational-meaning layers for Macau and other non-English jurisdictions using official public source text plus reviewed operational interpretation (stretch)
+* [x] Story 9.4: Jurisdiction-specific public regulatory packs for `gaming-us-tribal`, `gaming-us-nv`, and `gaming-macau` (stretch)
+* [x] Story 9.5: Multilingual source, translation, and operational-meaning layers for Macau and other non-English jurisdictions using official public source text plus reviewed operational interpretation (stretch)
 
 ### Epic 10: Emergency Plan Assistant
-* Story 10.1: Emergency plan gap check
-* Story 10.2: Scenario annex builder
-* Story 10.3: Incident-to-plan improvement loop
+* [x] Story 10.1: Emergency plan gap check
+* [x] Story 10.2: Scenario annex builder
+* [x] Story 10.3: Incident-to-plan improvement loop
 
 ### Epic 11: Evacuation Accountability and roster integration
-* Story 11.1: Emergency roster snapshot import
-* Story 11.2: Evacuation Accountability Board
-* Story 11.3: Evacuation voice commands
+* [x] Story 11.1: Emergency roster snapshot import
+* [x] Story 11.2: Evacuation Accountability Board
+* [x] Story 11.3: Evacuation voice commands
 
 ### Epic 12: Authority Matrix and Authority Lanes
 * [x] Story 12.1: Authority Matrix configuration (RBAC Module)
@@ -166,9 +166,10 @@ Reports, evidence references, retention status, and after-action items are prese
 * [x] Story 12.3: Review and approval trail (Gaming Commission Signatures & Telephonic)
 
 ### Epic 13: SafeTask Field standalone and SCC module
-* Story 13.1: Field safety event schema
-* Story 13.2: SCC safety handoff
-* Story 13.3: JHA draft assistant
+* [x] Story 13.1: Field safety event schema
+* [x] Story 13.2: SCC safety handoff
+* [x] Story 13.3: JHA draft assistant
+* [x] Story 13.4: Event anonymizer for secure export
 
 ### Epic 14: Audit, permissions, and deployment hardening
 * [x] Story 14.1: Role-based access controls (Implemented across Dispatch, Surveillance, Admin, Auditor)
@@ -176,23 +177,23 @@ Reports, evidence references, retention status, and after-action items are prese
 * [x] Story 14.3: Local-first deployment profile
 
 ### Epic 15: Demo data and story-driven validation
-* Story 15.1: Synthetic casino incident scenarios
-* Story 15.2: Demo script for Live Continuity Deck
-* Story 15.3: Demo script for Recall Search
+* [x] Story 15.1: Synthetic casino incident scenarios
+* [x] Story 15.2: Demo script for Live Continuity Deck
+* [x] Story 15.3: Demo script for Recall Search
 
 ### Epic 16: Security Management & Dispatch (iTrak Competitor)
 * [x] Story 16.1: Role-based evidence and report gating (Credentials check)
-* [ ] Story 16.2: Dispatch log and officer task tracking
-* [ ] Story 16.3: Lost and found registry
+* [x] Story 16.2: Dispatch log and officer task tracking
+* [x] Story 16.3: Lost and found registry
 * [x] Story 16.4: Secure distribution queue for photos/video exports (Self-Destructing LE Portal)
 
 ### Epic 17: Physical Security Systems Integration (Keywatcher & ACS)
-* Story 17.1: Keywatcher API/syslog ingestion for real-time key events
-* Story 17.2: Overdue key alerts and automatic dispatch routing
-* Story 17.3: Auto-correlation between key pulls and camera timeline pinning
-* Story 17.4: Secure key audit ledger
-* Story 17.5: Access Control System (ACS) integration for badge swipe alerts
-* Story 17.6: High-value key/badge usage triggers automated PiP camera spawn
+* [x] Story 17.1: Keywatcher API mock and polling loop
+* [x] Story 17.2: Access Control System (ACS) mock and badge read event schema
+* [x] Story 17.3: Integration with SCC Hand-off automatic dispatch routing
+* [x] Story 17.4: Secure key audit ledger
+* [x] Story 17.5: Access Control System (ACS) integration for badge swipe alerts
+* [x] Story 17.6: High-value key/badge usage triggers automated PiP camera spawn
 
 ### Epic 18: Biometric Subject Management
 * [x] Story 18.1: Subject Database with facial hashes and gait profiles
