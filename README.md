@@ -1,39 +1,63 @@
-# SafeTask AI - Surveillance Command Portal
+# SafeTask-AI
 
-SafeTask AI is an advanced Security Operations Center (SOC) portal built to bridge the gap between Casino Surveillance Code Compliance (MICS/TICS) and Industrial/OSHA Safety. It operates using a fully deterministic Retrieval-Augmented Generation (RAG) architecture running locally, ensuring strict chain-of-custody for regulatory audits.
+SafeTask-AI is a private, local-first household safety workbench for human-reviewed event records, notes, retention decisions, and tamper-evident evidence logs.
 
-**Authority Accelerator Principle:** SafeTask is not an AI decision-maker. The human observes. SafeTask structures. Authorized stakeholders review, decide, and approve.
+It is not a surveillance platform, law-enforcement tool, biometric identification system, public monitoring service, or automated escalation system.
 
-> [!WARNING]
-> **Human Review Disclaimer:** Generated reports are drafts. They must be reviewed and approved by an authorized stakeholder before operational, legal, regulatory, or emergency use. SafeTask does not make independent compliance or liability determinations.
+## Safety and Privacy Boundaries
 
-## Features
+SafeTask operates under a strict set of ethical and functional boundaries:
+- **No biometrics**
+- **No ALPR (Automated License Plate Recognition)**
+- **No face recognition**
+- **No weapon detection**
+- **No automated escalation**
+- **No law-enforcement workflow**
+- **No public surveillance deployment**
+- **No cloud dependency**
+- **No deletion execution** (Dry-run evaluation only)
 
-- **Spatial Floor Map & Anomaly Detection:** Interactive CSS-Grid map showing Edge AI anomaly beacons across the facility.
-- **Draggable VMS Picture-in-Picture:** Asynchronous multi-feed viewing (Live PTZ, Review Clip, Live Fixed) directly within the reporting interface.
-- **Generative Compliance Reporting:** Automated, citation-constrained drafting of incident narratives to reduce unsupported claims, mapped to MICS regulations.
-- **Deterministic Admin Policy Deployment:** Leadership can upload official PDFs (SOPs, SDS sheets). The system deterministically extracts the text and metadata to update the RAG database instantly.
-- **TGRA Audit Engine:** Export generated compliance reports to watermarked, audit-ready PDFs.
+## Current Implemented Capabilities
+- **Event Schema**: A rigidly defined standard for generic event envelopes (`safetask.events`).
+- **Evidence Ledger**: An append-only JSONL data store to securely record events and human actions (`safetask.ledger`).
+- **Ledger Replay and Review State**: Reconstruction of an event's active state based on ledger history.
+- **Ledger Integrity Hash Chain**: Deterministic verification of ledger mutations to prevent silent tampering.
+- **Retention Sweeper (Dry-Run)**: Evaluates retention eligibility for stored events according to retention policy rules, without executing destruction of files.
+- **Human Review CLI**: A command-line tool for local operators to inspect states, add notes, update policies, and perform dry-runs.
 
-## Architecture
+## Current Non-Capabilities
+- Does not ingest directly from cameras (no RTSP, ONVIF, VicoHome, Frigate, or Synology integrations yet).
+- Does not execute physical file deletions.
+- No Graphical User Interface (GUI), TUI, web server, or dashboards.
+- No network broadcasting or alerting channels.
+- No claims of VicoHome or other camera system compatibility.
 
-- **Backend:** Python Flask REST API
-- **Database:** SQLite (`safetask.db`)
-- **Document Ingestion:** `PyPDF2` (Deterministic extraction)
-- **PDF Engine:** `reportlab` (Watermarked TGRA Audit Exports)
-- **Local AI proxy:** Interfaces with `LM Studio` (Nemotron Model) via port 1234.
+## Architecture Summary
+The system expects data to arrive via an upstream local VMS boundary.
+```text
+Local VMS → SafeTask Event Envelope → Evidence Ledger → Event Review State → Operator Action
+```
+SafeTask itself purely manages the post-VMS workflow—verifying evidence validity, accepting human operator reviews, maintaining an audit-ready hash chain, and determining lifecycle expiration.
 
-## Setup Instructions
+## Quickstart
 
-1. Ensure Python 3.10+ is installed.
-2. Clone the repository.
-3. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Start your local LLM server (e.g., LM Studio) on `http://127.0.0.1:1234/v1`.
-5. Start the Flask backend:
-   ```bash
-   python app.py
-   ```
-6. Navigate to `http://localhost:8080` in your web browser.
+### Verification
+Run the core test suite to ensure the baseline dependencies work correctly:
+```powershell
+python -m unittest discover tests
+```
+
+### CLI
+Interact with an existing local ledger:
+
+1. **Verify Integrity**:
+```powershell
+python -m safetask.cli verify-ledger --ledger .safetask/evidence.jsonl
+```
+
+2. **Check Review State**:
+```powershell
+python -m safetask.cli review-state --ledger .safetask/evidence.jsonl --event-id <EVENT_ID>
+```
+
+For more details, see the [Operator Quickstart](docs/operator_quickstart.md).
