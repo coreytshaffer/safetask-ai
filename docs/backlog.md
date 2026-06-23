@@ -170,3 +170,4 @@ Reports, evidence references, retention status, and after-action items are prese
 ### Epic 16: Local VMS Boundary and Future Ingestion
 * Story 16.1 (CR-ST-003): Local VMS boundary and evidence scaffold
 * Story 16.2 (CR-ST-004): SafeTask Event Envelope
+* Story 16.3 (CR-ST-005): Local Evidence Ledger
