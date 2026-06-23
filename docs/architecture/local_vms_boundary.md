@@ -29,17 +29,6 @@ flowchart TD
 **Note on VicoHome / VisionWell:**
 Existing VicoHome cameras may or may not be usable locally. Treat them as an uncertain future compatibility investigation, not as a current dependency. We will not attempt to bypass vendor camera restrictions or reverse engineer cloud services.
 
-## Adapter Design Note: Future Event Ingestion
+## Adapter Contract: Future Event Ingestion
 
-To prepare for future VMS integration, SafeTask will ingest a normalized event object with the following schema:
-- `source_system`: The origin VMS (e.g., "frigate", "zoneminder")
-- `camera_id`: Identifier for the camera
-- `event_id`: Unique identifier from the VMS
-- `event_type`: The classification (e.g., "person", "motion")
-- `start_time`: Timestamp of the event start
-- `end_time`: Timestamp of the event end
-- `clip_uri` / `clip_path`: Local path or URI to the video clip
-- `snapshot_uri` / `snapshot_path`: Local path or URI to the snapshot image
-- `confidence`: Optional confidence score (e.g., 0.85)
-- `human_review_status`: State of review (e.g., "pending", "reviewed")
-- `retention_policy`: Assigned retention rule (e.g., "default", "keep_indefinitely")
+To prepare for future VMS integration, SafeTask requires adapters to meet a strict contract. For full details on adapter schemas, prohibited capability flags, and mapping logic, refer to the [Adapter Contract](adapter_contract.md).
