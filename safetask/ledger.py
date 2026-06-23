@@ -1,10 +1,10 @@
 import json
 import uuid
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, List, Iterator
 
 class ActionType(str, Enum):
     EVENT_CREATED = "event_created"
@@ -21,8 +21,11 @@ class LedgerRecord:
     payload: Dict[str, Any]
 
     def __post_init__(self):
-        if not isinstance(self.action_type, ActionType):
-            self.action_type = ActionType(self.action_type)
+        try:
+            if not isinstance(self.action_type, ActionType):
+                self.action_type = ActionType(self.action_type)
+        except ValueError as e:
+            raise ValueError(f"Unknown action type: {self.action_type}") from e
 
     def to_json(self) -> str:
         d = asdict(self)
@@ -31,9 +34,26 @@ class LedgerRecord:
 
     @classmethod
     def from_json(cls, json_str: str) -> 'LedgerRecord':
-        d = json.loads(json_str)
-        d['timestamp'] = datetime.fromisoformat(d['timestamp'])
+        try:
+            d = json.loads(json_str)
+        except json.JSONDecodeError as e:
+            raise ValueError("Malformed JSONL record") from e
+
+        try:
+            d['timestamp'] = datetime.fromisoformat(d['timestamp'])
+        except (KeyError, ValueError) as e:
+            raise ValueError("Malformed record data") from e
+
         return cls(**d)
+
+@dataclass
+class EventReviewState:
+    event_id: str
+    latest_review_status: str = "pending"
+    latest_retention_policy: str = "default"
+    notes: List[str] = field(default_factory=list)
+    created_record_id: Union[str, None] = None
+    updated_at: Union[datetime, None] = None
 
 class EvidenceLedger:
     def __init__(self, file_path: Union[str, Path]):
@@ -49,8 +69,49 @@ class EvidenceLedger:
             action_type=ActionType(action_type),
             payload=payload
         )
-        
+
         with self.file_path.open("a", encoding="utf-8") as f:
             f.write(record.to_json() + "\n")
-            
+
         return record
+
+    def iter_records(self) -> Iterator[LedgerRecord]:
+        if not self.file_path.exists():
+            return
+
+        with self.file_path.open("r", encoding="utf-8") as f:
+            for line_number, line in enumerate(f, start=1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    yield LedgerRecord.from_json(line)
+                except Exception as e:
+                    raise ValueError(f"Malformed record at line {line_number}: {str(e)}") from e
+
+    def read_records(self) -> List[LedgerRecord]:
+        return list(self.iter_records())
+
+    def records_for_event(self, event_id: str) -> List[LedgerRecord]:
+        return [record for record in self.iter_records() if record.event_id == event_id]
+
+    def reconstruct_event_state(self, event_id: str) -> EventReviewState:
+        records = self.records_for_event(event_id)
+        state = EventReviewState(event_id=event_id)
+
+        for record in records:
+            if record.action_type == ActionType.EVENT_CREATED:
+                state.created_record_id = record.record_id
+            elif record.action_type == ActionType.REVIEW_STATUS_CHANGED:
+                if "status" in record.payload:
+                    state.latest_review_status = record.payload["status"]
+            elif record.action_type == ActionType.RETENTION_POLICY_CHANGED:
+                if "policy" in record.payload:
+                    state.latest_retention_policy = record.payload["policy"]
+            elif record.action_type == ActionType.NOTE_ADDED:
+                if "text" in record.payload:
+                    state.notes.append(record.payload["text"])
+
+            state.updated_at = record.timestamp
+
+        return state

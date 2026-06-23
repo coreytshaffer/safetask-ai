@@ -15,56 +15,83 @@ class TestEvidenceLedger(unittest.TestCase):
         self.temp_dir.cleanup()
 
     def test_append_record_success(self):
-        """Test that a valid record appends correctly."""
         record = self.ledger.append_record(
             event_id="evt_123",
             action_type=ActionType.EVENT_CREATED,
             payload={"source": "frigate"}
         )
-        
         self.assertTrue(os.path.exists(self.ledger_path))
-        
-        with open(self.ledger_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-            
-        self.assertEqual(len(lines), 1)
-        loaded_record = LedgerRecord.from_json(lines[0])
-        
-        self.assertEqual(loaded_record.record_id, record.record_id)
-        self.assertEqual(loaded_record.event_id, "evt_123")
-        self.assertEqual(loaded_record.action_type, ActionType.EVENT_CREATED)
-        self.assertEqual(loaded_record.payload, {"source": "frigate"})
-
-    def test_append_multiple_records(self):
-        """Test appending multiple records."""
-        self.ledger.append_record("evt_1", "event_created", {})
-        self.ledger.append_record("evt_1", "note_added", {"text": "suspicious"})
-        self.ledger.append_record("evt_1", "review_status_changed", {"status": "reviewed"})
-        
-        with open(self.ledger_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-            
-        self.assertEqual(len(lines), 3)
+        records = self.ledger.read_records()
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0].record_id, record.record_id)
+        self.assertEqual(records[0].action_type, ActionType.EVENT_CREATED)
 
     def test_invalid_action_type(self):
-        """Test that an invalid action type raises an error."""
         with self.assertRaises(ValueError):
             self.ledger.append_record(
                 event_id="evt_123",
                 action_type="invalid_action",
                 payload={}
             )
-            
-    def test_ledger_record_validation(self):
-        """Test that LedgerRecord validates action_type upon instantiation."""
-        with self.assertRaises(ValueError):
-            LedgerRecord(
-                timestamp=datetime.now(),
-                record_id="rec_1",
-                event_id="evt_1",
-                action_type="bad_type",
-                payload={}
-            )
+
+    def test_read_multiple_records(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
+        self.ledger.append_record("evt_2", ActionType.EVENT_CREATED, {})
+        self.ledger.append_record("evt_1", ActionType.NOTE_ADDED, {"text": "suspicious"})
+
+        records = self.ledger.read_records()
+        self.assertEqual(len(records), 3)
+
+    def test_filter_records_by_event(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
+        self.ledger.append_record("evt_2", ActionType.EVENT_CREATED, {})
+        self.ledger.append_record("evt_1", ActionType.NOTE_ADDED, {"text": "suspicious"})
+
+        evt_1_records = self.ledger.records_for_event("evt_1")
+        self.assertEqual(len(evt_1_records), 2)
+        for r in evt_1_records:
+            self.assertEqual(r.event_id, "evt_1")
+
+    def test_reconstruct_event_state(self):
+        # Create event
+        rec1 = self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {"source": "frigate"})
+        # Add note
+        self.ledger.append_record("evt_1", ActionType.NOTE_ADDED, {"text": "person detected"})
+        # Change review status
+        self.ledger.append_record("evt_1", ActionType.REVIEW_STATUS_CHANGED, {"status": "reviewed"})
+        # Add another note
+        self.ledger.append_record("evt_1", ActionType.NOTE_ADDED, {"text": "all clear"})
+        # Change retention policy
+        rec5 = self.ledger.append_record("evt_1", ActionType.RETENTION_POLICY_CHANGED, {"policy": "delete_after_review"})
+
+        # Interleave another event
+        self.ledger.append_record("evt_2", ActionType.EVENT_CREATED, {})
+
+        state = self.ledger.reconstruct_event_state("evt_1")
+        self.assertEqual(state.event_id, "evt_1")
+        self.assertEqual(state.created_record_id, rec1.record_id)
+        self.assertEqual(state.latest_review_status, "reviewed")
+        self.assertEqual(state.latest_retention_policy, "delete_after_review")
+        self.assertEqual(state.notes, ["person detected", "all clear"])
+        self.assertEqual(state.updated_at, rec5.timestamp)
+
+    def test_malformed_ledger_line(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
+        # Corrupt the file
+        with open(self.ledger_path, "a", encoding="utf-8") as f:
+            f.write("this is not json\n")
+
+        with self.assertRaises(ValueError) as context:
+            self.ledger.read_records()
+        self.assertIn("Malformed record at line 2", str(context.exception))
+
+    def test_malformed_record_data(self):
+        with open(self.ledger_path, "a", encoding="utf-8") as f:
+            f.write('{"record_id": "1", "event_id": "evt_1", "action_type": "event_created", "payload": {}}\n')
+
+        with self.assertRaises(ValueError) as context:
+            self.ledger.read_records()
+        self.assertIn("Malformed record data", str(context.exception))
 
 if __name__ == '__main__':
     unittest.main()
