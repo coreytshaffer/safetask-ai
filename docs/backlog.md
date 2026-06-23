@@ -166,3 +166,7 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 15.1: Synthetic casino incident scenarios
 * Story 15.2: Demo script for Live Continuity Deck
 * Story 15.3: Demo script for Recall Search
+
+### Epic 16: Local VMS Boundary and Future Ingestion
+* Story 16.1 (CR-ST-003): Local VMS boundary and evidence scaffold
+* Story 16.2 (CR-ST-004): SafeTask Event Envelope
