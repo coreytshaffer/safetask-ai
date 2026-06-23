@@ -175,3 +175,4 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.5 (CR-ST-007): Ledger Integrity Hash Chain
 * Story 16.6 (CR-ST-008): Retention Sweeper Dry-Run
 * Story 16.7 (CR-ST-009): Human Review CLI
+* Story 16.8 (CR-ST-010): README / Operator Quickstart / Safety Boundary Check
