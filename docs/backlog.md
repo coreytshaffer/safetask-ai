@@ -181,3 +181,4 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.11 (CR-ST-013): Adapter Contract Design
 * Story 16.12 (CR-ST-014): Adapter Contract Validation Model
 * Story 16.13 (CR-ST-015): Adapter Payload Dry-Run CLI
+* Story 16.14 (CR-ST-016): Drop-Folder Adapter Design
