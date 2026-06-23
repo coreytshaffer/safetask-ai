@@ -16,8 +16,12 @@ class TestDemoGenerator(unittest.TestCase):
         script_path = os.path.join(os.path.dirname(__file__), "..", "examples", "create_demo_ledger.py")
         env = os.environ.copy()
         env["PYTHONPATH"] = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        subprocess.run(["python", script_path, "--output", self.ledger_path], env=env, check=True)
-        
+        try:
+            subprocess.run(["python", script_path, "--output", self.ledger_path], env=env, check=True, capture_output=True, text=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Demo generator failed. STDOUT:\n{e.stdout}\nSTDERR:\n{e.stderr}")
+            raise
+
         self.assertTrue(os.path.exists(self.ledger_path))
 
         ledger = EvidenceLedger(self.ledger_path)
