@@ -171,3 +171,5 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.1 (CR-ST-003): Local VMS boundary and evidence scaffold
 * Story 16.2 (CR-ST-004): SafeTask Event Envelope
 * Story 16.3 (CR-ST-005): Local Evidence Ledger
+* Story 16.4 (CR-ST-006): Ledger Replay and Review State
+* Story 16.5 (CR-ST-007): Ledger Integrity Hash Chain
