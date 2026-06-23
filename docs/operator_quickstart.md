@@ -49,3 +49,9 @@ Simulate receiving an event payload from an external adapter. This strictly vali
 ```powershell
 python -m safetask.cli adapter-dry-run --payload examples/adapter_payload_demo.json
 ```
+
+### Dry-Run Drop-Folder Import
+Scan a local directory of incoming adapter JSON payloads, evaluating each against the SafeTask contract. This produces a deterministic report of valid and invalid files, but **does not** append to the ledger, move files, or delete anything.
+```powershell
+python -m safetask.cli drop-folder-dry-run --incoming .safetask/drop_folder/incoming/
+```

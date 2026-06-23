@@ -104,5 +104,30 @@ class TestCLI(unittest.TestCase):
         with self.assertRaises(SystemExit):
             self.run_cli("adapter-dry-run", "--payload", payload_path)
 
+    def test_drop_folder_dry_run_cli(self):
+        incoming_dir = os.path.join(self.temp_dir.name, "incoming")
+        os.makedirs(incoming_dir)
+
+        payload_path = os.path.join(incoming_dir, "001.json")
+        with open(payload_path, "w") as f:
+            f.write("""
+            {
+              "adapter_name": "test-adapter",
+              "adapter_version": "1.0",
+              "source_system": "drop_folder",
+              "source_event_id": "test_evt_1",
+              "camera_id": "cam_1",
+              "event_type": "motion",
+              "start_time": "2026-06-23T12:00:00Z",
+              "evidence_references": {"clip_path": "/clip.mp4"},
+              "local_processing_required": true
+            }
+            """)
+
+        output = self.run_cli("drop-folder-dry-run", "--incoming", incoming_dir)
+        self.assertIn("Status: VALID", output)
+        self.assertIn("normalized_event_id: test_evt_1", output)
+        self.assertIn("ledger_written: no", output)
+
 if __name__ == "__main__":
     unittest.main()

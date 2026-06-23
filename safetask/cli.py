@@ -43,9 +43,13 @@ def main(argv=None):
     p_adapter = subparsers.add_parser("adapter-dry-run", help="Dry-run validate an adapter payload JSON")
     p_adapter.add_argument("--payload", required=True, help="Path to the proposed adapter payload JSON")
 
+    # drop-folder-dry-run
+    p_drop = subparsers.add_parser("drop-folder-dry-run", help="Dry-run validate a folder of adapter payload JSONs")
+    p_drop.add_argument("--incoming", required=True, help="Path to the incoming folder")
+
     args = parser.parse_args(argv)
 
-    if args.command != "adapter-dry-run":
+    if args.command not in ["adapter-dry-run", "drop-folder-dry-run"]:
         ledger = EvidenceLedger(args.ledger)
 
     if args.command == "verify-ledger":
@@ -109,6 +113,29 @@ def main(argv=None):
             print("Adapter payload: INVALID")
             print(f"Error: {e}")
             sys.exit(1)
+
+    elif args.command == "drop-folder-dry-run":
+        from safetask.drop_folder import dry_run_incoming_folder
+
+        results = dry_run_incoming_folder(args.incoming)
+        print(f"Drop Folder Dry-Run Report: {args.incoming}")
+        print("-" * 40)
+
+        for result in results:
+            print(f"File: {result.file_path}")
+            print(f"Status: {result.status.upper()}")
+
+            if result.status == "valid":
+                print(f"normalized_event_id: {result.normalized_event_id}")
+                print(f"source_system: {result.source_system}")
+                print(f"camera_id: {result.camera_id}")
+                print(f"event_type: {result.event_type}")
+            else:
+                print(f"Reason: {result.reason}")
+
+            print(f"ledger_written: no")
+            print(f"files_moved: no")
+            print("-" * 40)
 
 if __name__ == "__main__":
     main()
