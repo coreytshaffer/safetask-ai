@@ -53,18 +53,12 @@ class TestEvidenceLedger(unittest.TestCase):
             self.assertEqual(r.event_id, "evt_1")
 
     def test_reconstruct_event_state(self):
-        # Create event
         rec1 = self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {"source": "frigate"})
-        # Add note
         self.ledger.append_record("evt_1", ActionType.NOTE_ADDED, {"text": "person detected"})
-        # Change review status
         self.ledger.append_record("evt_1", ActionType.REVIEW_STATUS_CHANGED, {"status": "reviewed"})
-        # Add another note
         self.ledger.append_record("evt_1", ActionType.NOTE_ADDED, {"text": "all clear"})
-        # Change retention policy
         rec5 = self.ledger.append_record("evt_1", ActionType.RETENTION_POLICY_CHANGED, {"policy": "delete_after_review"})
 
-        # Interleave another event
         self.ledger.append_record("evt_2", ActionType.EVENT_CREATED, {})
 
         state = self.ledger.reconstruct_event_state("evt_1")
@@ -77,7 +71,6 @@ class TestEvidenceLedger(unittest.TestCase):
 
     def test_malformed_ledger_line(self):
         self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
-        # Corrupt the file
         with open(self.ledger_path, "a", encoding="utf-8") as f:
             f.write("this is not json\n")
 
@@ -92,6 +85,77 @@ class TestEvidenceLedger(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             self.ledger.read_records()
         self.assertIn("Malformed record data", str(context.exception))
+
+    def test_empty_ledger_verification(self):
+        self.assertTrue(self.ledger.verify_integrity())
+
+    def test_valid_one_record_chain(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
+        self.assertTrue(self.ledger.verify_integrity())
+
+    def test_valid_multi_record_chain(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
+        self.ledger.append_record("evt_1", ActionType.NOTE_ADDED, {"text": "note"})
+        self.ledger.append_record("evt_2", ActionType.EVENT_CREATED, {})
+        self.assertTrue(self.ledger.verify_integrity())
+
+    def test_tampered_payload_detection(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {"important": "data"})
+        self.ledger.append_record("evt_2", ActionType.EVENT_CREATED, {})
+
+        # Tamper payload of the first record
+        with open(self.ledger_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+
+        record_data = json.loads(lines[0])
+        record_data["payload"]["important"] = "tampered"
+        lines[0] = json.dumps(record_data) + "\n"
+
+        with open(self.ledger_path, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+
+        with self.assertRaisesRegex(ValueError, "Payload tampered at record 1"):
+            self.ledger.verify_integrity()
+
+    def test_tampered_previous_hash_detection(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
+        self.ledger.append_record("evt_2", ActionType.EVENT_CREATED, {})
+
+        # Tamper previous_hash of the second record
+        with open(self.ledger_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+
+        record_data = json.loads(lines[1])
+        record_data["previous_hash"] = "tampered_hash"
+
+        # Recompute record_hash so payload tamper doesn't fire first
+        # We need a proper LedgerRecord to compute hash to strictly trigger previous_hash check
+        tampered_record = LedgerRecord.from_json(json.dumps(record_data))
+        tampered_record.record_hash = tampered_record.compute_hash()
+
+        lines[1] = tampered_record.to_json() + "\n"
+
+        with open(self.ledger_path, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+
+        with self.assertRaisesRegex(ValueError, "Hash chain broken at record 2"):
+            self.ledger.verify_integrity()
+
+    def test_missing_hash_field_detection(self):
+        self.ledger.append_record("evt_1", ActionType.EVENT_CREATED, {})
+
+        with open(self.ledger_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+
+        record_data = json.loads(lines[0])
+        record_data["record_hash"] = ""
+        lines[0] = json.dumps(record_data) + "\n"
+
+        with open(self.ledger_path, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+
+        with self.assertRaisesRegex(ValueError, "Missing hash fields at record 1"):
+            self.ledger.verify_integrity()
 
 if __name__ == '__main__':
     unittest.main()

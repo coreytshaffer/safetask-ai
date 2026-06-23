@@ -173,3 +173,4 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.3 (CR-ST-005): Local Evidence Ledger
 * Story 16.4 (CR-ST-006): Ledger Replay and Review State
 * Story 16.5 (CR-ST-007): Ledger Integrity Hash Chain
+* Story 16.6 (CR-ST-008): Ledger Retention Sweeper

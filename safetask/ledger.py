@@ -1,3 +1,4 @@
+import hashlib
 import json
 import uuid
 from dataclasses import dataclass, asdict, field
@@ -19,6 +20,8 @@ class LedgerRecord:
     event_id: str
     action_type: ActionType
     payload: Dict[str, Any]
+    previous_hash: str = "GENESIS"
+    record_hash: str = ""
 
     def __post_init__(self):
         try:
@@ -26,6 +29,13 @@ class LedgerRecord:
                 self.action_type = ActionType(self.action_type)
         except ValueError as e:
             raise ValueError(f"Unknown action type: {self.action_type}") from e
+
+    def compute_hash(self) -> str:
+        d = asdict(self)
+        d.pop('record_hash', None)
+        d['timestamp'] = self.timestamp.isoformat()
+        canonical_json = json.dumps(d, sort_keys=True, separators=(',', ':'))
+        return hashlib.sha256(canonical_json.encode('utf-8')).hexdigest()
 
     def to_json(self) -> str:
         d = asdict(self)
@@ -58,17 +68,24 @@ class EventReviewState:
 class EvidenceLedger:
     def __init__(self, file_path: Union[str, Path]):
         self.file_path = Path(file_path)
-        # Ensure directory exists
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
 
     def append_record(self, event_id: str, action_type: Union[ActionType, str], payload: Dict[str, Any]) -> LedgerRecord:
+        previous_hash = "GENESIS"
+        if self.file_path.exists():
+            records = self.read_records()
+            if records:
+                previous_hash = records[-1].record_hash
+
         record = LedgerRecord(
             timestamp=datetime.now(),
             record_id=str(uuid.uuid4()),
             event_id=event_id,
             action_type=ActionType(action_type),
-            payload=payload
+            payload=payload,
+            previous_hash=previous_hash
         )
+        record.record_hash = record.compute_hash()
 
         with self.file_path.open("a", encoding="utf-8") as f:
             f.write(record.to_json() + "\n")
@@ -115,3 +132,25 @@ class EvidenceLedger:
             state.updated_at = record.timestamp
 
         return state
+
+    def verify_integrity(self) -> bool:
+        records = self.read_records()
+        if not records:
+            return True
+
+        expected_previous_hash = "GENESIS"
+
+        for i, record in enumerate(records, start=1):
+            if not record.previous_hash or not record.record_hash:
+                raise ValueError(f"Missing hash fields at record {i}")
+
+            if record.previous_hash != expected_previous_hash:
+                raise ValueError(f"Hash chain broken at record {i}: previous_hash mismatch")
+
+            computed_hash = record.compute_hash()
+            if record.record_hash != computed_hash:
+                raise ValueError(f"Payload tampered at record {i}: record_hash mismatch")
+
+            expected_previous_hash = record.record_hash
+
+        return True
