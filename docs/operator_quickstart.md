@@ -43,3 +43,9 @@ Evaluate whether an event is currently eligible for physical deletion based on i
 ```powershell
 python -m safetask.cli retention-dry-run --ledger .safetask/evidence.jsonl --event-id evt_001
 ```
+
+### Validate Proposed Adapter Payload
+Simulate receiving an event payload from an external adapter. This strictly validates the JSON against the SafeTask contract and outputs the normalized Event properties without appending it to the ledger.
+```powershell
+python -m safetask.cli adapter-dry-run --payload examples/adapter_payload_demo.json
+```

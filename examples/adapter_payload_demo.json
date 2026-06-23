@@ -1,0 +1,25 @@
+{
+  "adapter_name": "safetask-drop-folder-adapter",
+  "adapter_version": "0.1.0",
+  "source_system": "drop_folder",
+  "source_event_id": "demo_adapter_evt_001",
+  "camera_id": "demo_backdoor",
+  "event_type": "motion",
+  "start_time": "2026-06-23T12:00:00Z",
+  "end_time": "2026-06-23T12:01:00Z",
+  "evidence_references": {
+    "clip_path": "/local/storage/demo_backdoor_001.mp4",
+    "snapshot_path": "/local/storage/demo_backdoor_001.jpg"
+  },
+  "confidence": 0.95,
+  "local_processing_required": true,
+  "prohibited_capability_flags": [
+    "no_face_recognition",
+    "no_alpr",
+    "no_biometrics",
+    "no_weapon_detection",
+    "no_law_enforcement_workflow",
+    "no_auto_escalation",
+    "no_cloud"
+  ]
+}

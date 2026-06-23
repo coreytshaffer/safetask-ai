@@ -39,9 +39,14 @@ def main(argv=None):
     p_dry_run = subparsers.add_parser("retention-dry-run", help="Evaluate retention eligibility")
     add_common_args(p_dry_run)
 
+    # adapter-dry-run
+    p_adapter = subparsers.add_parser("adapter-dry-run", help="Dry-run validate an adapter payload JSON")
+    p_adapter.add_argument("--payload", required=True, help="Path to the proposed adapter payload JSON")
+
     args = parser.parse_args(argv)
 
-    ledger = EvidenceLedger(args.ledger)
+    if args.command != "adapter-dry-run":
+        ledger = EvidenceLedger(args.ledger)
 
     if args.command == "verify-ledger":
         try:
@@ -79,7 +84,31 @@ def main(argv=None):
         print(f"Current Review Status: {report.current_review_status}")
         print(f"Retention Policy: {report.retention_policy}")
         print(f"Eligible for Deletion: {report.eligible_for_deletion}")
-        print(f"Reason: {report.reason}")
+    elif args.command == "adapter-dry-run":
+        import json
+        from safetask.adapters import AdapterPayload, AdapterValidationError
+
+        try:
+            with open(args.payload, 'r') as f:
+                data = json.load(f)
+
+            payload = AdapterPayload(**data)
+            event = payload.to_event()
+
+            print("Adapter payload: VALID")
+            print(f"source_system: {event.source_system}")
+            print(f"source_event_id: {payload.source_event_id}")
+            print(f"normalized_event_id: {event.event_id}")
+            print(f"camera_id: {event.camera_id}")
+            print(f"event_type: {event.event_type}")
+            print(f"review_status: {event.human_review_status.value}")
+            print(f"retention_policy: {event.retention_policy.value}")
+            print("ledger_written: no")
+
+        except Exception as e:
+            print("Adapter payload: INVALID")
+            print(f"Error: {e}")
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()
