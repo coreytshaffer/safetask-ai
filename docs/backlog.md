@@ -179,3 +179,4 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.9 (CR-ST-011): Smoke-Demo Fixture
 * Story 16.10 (CR-ST-012): Project Stability Checkpoint
 * Story 16.11 (CR-ST-013): Adapter Contract Design
+* Story 16.12 (CR-ST-014): Adapter Contract Validation Model
