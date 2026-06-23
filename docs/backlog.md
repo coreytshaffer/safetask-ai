@@ -185,3 +185,4 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.15 (CR-ST-017): Drop-Folder Adapter Dry-Run Import
 * Story 16.16 (CR-ST-018): Upstream Source Assessment
 * Story 16.17 (CR-ST-019): Generic Drop-Folder Explicit Import Plan
+* Story 16.18 (CR-ST-020): Drop-Folder Explicit Import CLI
