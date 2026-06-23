@@ -6,20 +6,15 @@ SafeTask focuses on the **evidence ledger**: human review, notes, tags, retentio
 
 ## Architecture Diagram
 
-```text
-Cameras
-  ↓
-Local VMS / NVR
-  Frigate / ZoneMinder / Shinobi / Synology / future adapter
-  ↓
-SafeTask Adapter Layer
-  normalized events, clips, metadata
-  ↓
-SafeTask Evidence Ledger
-  human review, notes, tags, retention policy
-  ↓
-Household Dashboard
-  “what happened?”, “what needs review?”, “what can be deleted?”
+```mermaid
+flowchart TD
+    A[Cameras] --> B[Local VMS / NVR]
+    B --> C[Synthetic Demo / Future Adapter]
+    C --> D(SafeTask Event Envelope)
+    D --> E[(Evidence Ledger)]
+    E --> F{Ledger Replay & Review State}
+    F --> G[Retention Dry-Run]
+    F --> H[Human Review CLI]
 ```
 
 ## Possible Future VMS Substrates

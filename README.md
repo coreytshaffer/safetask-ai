@@ -34,11 +34,20 @@ SafeTask operates under a strict set of ethical and functional boundaries:
 
 ## Architecture Summary
 The system expects data to arrive via an upstream local VMS boundary.
-```text
-Local VMS → SafeTask Event Envelope → Evidence Ledger → Event Review State → Operator Action
+
+```mermaid
+flowchart LR
+    A[Synthetic Demo / Future VMS Adapter] --> B(SafeTask Event Envelope)
+    B --> C[(Evidence Ledger)]
+    C --> D{Ledger Replay & Review State}
+    D --> E[Human Review CLI]
+    D --> F[Retention Dry-Run]
 ```
+
 SafeTask itself purely manages the post-VMS workflow—verifying evidence validity, accepting human operator reviews, maintaining an audit-ready hash chain, and determining lifecycle expiration.
 
+## Current Status
+SafeTask has successfully completed its core proof-of-concept phase. The foundational Event, Ledger, and Retention rules are established, and the Human Review CLI provides a stable interaction layer. SafeTask is now stabilizing its current non-destructive capabilities before expanding adapter boundaries.
 ## Quickstart
 
 ### Verification

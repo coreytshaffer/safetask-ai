@@ -178,3 +178,4 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.8 (CR-ST-010): README / Operator Quickstart / Safety Boundary Check
 * Story 16.9 (CR-ST-011): Smoke-Demo Fixture
 * Story 16.10 (CR-ST-012): Project Stability Checkpoint
+* Story 16.11 (CR-ST-013): Adapter Contract Design
