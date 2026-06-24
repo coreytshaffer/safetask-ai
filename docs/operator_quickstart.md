@@ -26,6 +26,29 @@ Append a human observation to an event record:
 python -m safetask.cli add-note --ledger .safetask/evidence.jsonl --event-id evt_001 --note "Subject identified as family dog."
 ```
 
+### 3. Import Payloads (Dry-Run by Default)
+
+Once you verify payloads are valid, you can explicitly import them. By default, this runs as a dry-run to show what would happen.
+
+```powershell
+python -m safetask.cli drop-folder-import --incoming data/incoming/ --ledger data/ledger.jsonl
+```
+
+To actually commit the valid payloads to the ledger, append the `--commit` flag. This will explicitly append `event_created` actions for valid, non-duplicate payloads.
+
+```powershell
+python -m safetask.cli drop-folder-import --incoming data/incoming/ --ledger data/ledger.jsonl --commit
+```
+
+*Note: Files are not moved or deleted by the import command.*
+
+### 4. Review the State of an Event
+
+You can query the current state of an event from the ledger. This returns a snapshot of the latest statuses and all notes.
+```powershell
+python -m safetask.cli review-state --ledger .safetask/evidence.jsonl --event-id evt_001
+```
+
 ### Set Review Status
 Update the human review status of the event (`pending`, `reviewed`, `dismissed`, `retained`):
 ```powershell
