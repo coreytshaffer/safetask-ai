@@ -47,6 +47,12 @@ def main(argv=None):
     p_drop = subparsers.add_parser("drop-folder-dry-run", help="Dry-run validate a folder of adapter payload JSONs")
     p_drop.add_argument("--incoming", required=True, help="Path to the incoming folder")
 
+    # drop-folder-import
+    p_import = subparsers.add_parser("drop-folder-import", help="Import validated adapter payloads into the ledger")
+    p_import.add_argument("--incoming", required=True, help="Path to the incoming folder")
+    p_import.add_argument("--ledger", required=True, help="Path to the ledger file")
+    p_import.add_argument("--commit", action="store_true", help="Commit valid payloads to the ledger. Dry-run if omitted.")
+
     args = parser.parse_args(argv)
 
     if args.command not in ["adapter-dry-run", "drop-folder-dry-run"]:
@@ -133,9 +139,41 @@ def main(argv=None):
             else:
                 print(f"Reason: {result.reason}")
 
-            print(f"ledger_written: no")
-            print(f"files_moved: no")
-            print("-" * 40)
+        print(f"ledger_written: no")
+        print(f"files_moved: no")
+        print("-" * 40)
+
+    elif args.command == "drop-folder-import":
+        from safetask.drop_folder import import_incoming_folder
+
+        mode = "COMMIT" if args.commit else "DRY-RUN"
+        print(f"Drop Folder Import Report ({mode}): {args.incoming}")
+        print("-" * 40)
+
+        results = import_incoming_folder(args.incoming, ledger, commit=args.commit)
+
+        valid_count = 0
+        invalid_count = 0
+        duplicate_count = 0
+        imported_count = 0
+
+        for result in results:
+            if result.status == "valid":
+                valid_count += 1
+                if result.ledger_written:
+                    imported_count += 1
+            elif result.status == "invalid":
+                invalid_count += 1
+            elif result.status == "duplicate":
+                duplicate_count += 1
+
+        print(f"valid_count: {valid_count}")
+        print(f"invalid_count: {invalid_count}")
+        print(f"duplicate_count: {duplicate_count}")
+        print(f"imported_count: {imported_count}")
+        print(f"ledger_written: {'yes' if imported_count > 0 else 'no'}")
+        print("files_moved: no")
+        print("-" * 40)
 
 if __name__ == "__main__":
     main()

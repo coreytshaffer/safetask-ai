@@ -80,5 +80,70 @@ class TestDropFolder(unittest.TestCase):
         self.assertTrue(results[0].file_path.endswith("a.json"))
         self.assertTrue(results[1].file_path.endswith("b.json"))
 
+    def test_import_incoming_folder_dry_run(self):
+        from safetask.ledger import EvidenceLedger
+        ledger_path = os.path.join(self.temp_dir.name, "ledger.jsonl")
+        ledger = EvidenceLedger(ledger_path)
+
+        payload = {
+            "adapter_name": "test", "adapter_version": "1.0", "source_system": "drop_folder",
+            "source_event_id": "test_1", "camera_id": "cam_1", "event_type": "motion",
+            "start_time": "2026-06-23T12:00:00Z", "evidence_references": {"clip_path": "/clip.mp4"},
+            "local_processing_required": True
+        }
+        with open(os.path.join(self.incoming_dir, "001.json"), "w") as f:
+            json.dump(payload, f)
+
+        from safetask.drop_folder import import_incoming_folder
+        results = import_incoming_folder(self.incoming_dir, ledger, commit=False)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].status, "valid")
+        self.assertFalse(results[0].ledger_written)
+        self.assertEqual(len(ledger.read_records()), 0)
+
+    def test_import_incoming_folder_commit(self):
+        from safetask.ledger import EvidenceLedger
+        ledger_path = os.path.join(self.temp_dir.name, "ledger.jsonl")
+        ledger = EvidenceLedger(ledger_path)
+
+        payload = {
+            "adapter_name": "test", "adapter_version": "1.0", "source_system": "drop_folder",
+            "source_event_id": "test_1", "camera_id": "cam_1", "event_type": "motion",
+            "start_time": "2026-06-23T12:00:00Z", "evidence_references": {"clip_path": "/clip.mp4"},
+            "local_processing_required": True
+        }
+        with open(os.path.join(self.incoming_dir, "001.json"), "w") as f:
+            json.dump(payload, f)
+
+        from safetask.drop_folder import import_incoming_folder
+        results = import_incoming_folder(self.incoming_dir, ledger, commit=True)
+        self.assertEqual(len(results), 1)
+        self.assertTrue(results[0].ledger_written)
+        self.assertEqual(len(ledger.read_records()), 1)
+        self.assertEqual(ledger.read_records()[0].action_type, "event_created")
+        self.assertTrue(ledger.verify_integrity())
+
+    def test_import_incoming_folder_duplicate_check(self):
+        from safetask.ledger import EvidenceLedger, ActionType
+        ledger_path = os.path.join(self.temp_dir.name, "ledger.jsonl")
+        ledger = EvidenceLedger(ledger_path)
+        ledger.append_record("test_1", ActionType.EVENT_CREATED, {})
+
+        payload = {
+            "adapter_name": "test", "adapter_version": "1.0", "source_system": "drop_folder",
+            "source_event_id": "test_1", "camera_id": "cam_1", "event_type": "motion",
+            "start_time": "2026-06-23T12:00:00Z", "evidence_references": {"clip_path": "/clip.mp4"},
+            "local_processing_required": True
+        }
+        with open(os.path.join(self.incoming_dir, "001.json"), "w") as f:
+            json.dump(payload, f)
+
+        from safetask.drop_folder import import_incoming_folder
+        results = import_incoming_folder(self.incoming_dir, ledger, commit=True)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].status, "duplicate")
+        self.assertFalse(results[0].ledger_written)
+        self.assertEqual(len(ledger.read_records()), 1)
+
 if __name__ == "__main__":
     unittest.main()

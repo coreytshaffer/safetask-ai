@@ -129,5 +129,48 @@ class TestCLI(unittest.TestCase):
         self.assertIn("normalized_event_id: test_evt_1", output)
         self.assertIn("ledger_written: no", output)
 
+    def test_cli_drop_folder_import(self):
+        import json
+        with tempfile.TemporaryDirectory() as td:
+            incoming_dir = os.path.join(td, "incoming")
+            os.makedirs(incoming_dir)
+            ledger_file = os.path.join(td, "ledger.jsonl")
+
+            payload1 = {
+                "adapter_name": "test", "adapter_version": "1.0", "source_system": "drop_folder",
+                "source_event_id": "test_1", "camera_id": "cam_1", "event_type": "motion",
+                "start_time": "2026-06-23T12:00:00Z", "evidence_references": {"clip_path": "/clip.mp4"},
+                "local_processing_required": True
+            }
+            with open(os.path.join(incoming_dir, "001.json"), "w") as f:
+                json.dump(payload1, f)
+
+            payload2 = {"invalid": "payload"}
+            with open(os.path.join(incoming_dir, "002.json"), "w") as f:
+                json.dump(payload2, f)
+
+            # Dry-run
+            stdout = self.run_cli("drop-folder-import", "--incoming", str(incoming_dir), "--ledger", str(ledger_file))
+            self.assertIn("Drop Folder Import Report (DRY-RUN)", stdout)
+            self.assertIn("valid_count: 1", stdout)
+            self.assertIn("invalid_count: 1", stdout)
+            self.assertIn("duplicate_count: 0", stdout)
+            self.assertIn("imported_count: 0", stdout)
+            self.assertIn("ledger_written: no", stdout)
+            self.assertFalse(os.path.exists(ledger_file))
+
+            # Commit
+            stdout = self.run_cli("drop-folder-import", "--incoming", str(incoming_dir), "--ledger", str(ledger_file), "--commit")
+            self.assertIn("Drop Folder Import Report (COMMIT)", stdout)
+            self.assertIn("valid_count: 1", stdout)
+            self.assertIn("imported_count: 1", stdout)
+            self.assertIn("ledger_written: yes", stdout)
+            self.assertTrue(os.path.exists(ledger_file))
+
+            # Commit again (duplicate check)
+            stdout = self.run_cli("drop-folder-import", "--incoming", str(incoming_dir), "--ledger", str(ledger_file), "--commit")
+            self.assertIn("duplicate_count: 1", stdout)
+            self.assertIn("imported_count: 0", stdout)
+
 if __name__ == "__main__":
     unittest.main()
