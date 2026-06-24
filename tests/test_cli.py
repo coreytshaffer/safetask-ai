@@ -172,5 +172,27 @@ class TestCLI(unittest.TestCase):
             self.assertIn("duplicate_count: 1", stdout)
             self.assertIn("imported_count: 0", stdout)
 
+    def test_cli_drop_folder_import_malformed_ledger(self):
+        import json
+        with tempfile.TemporaryDirectory() as td:
+            incoming_dir = os.path.join(td, "incoming")
+            os.makedirs(incoming_dir)
+            ledger_file = os.path.join(td, "ledger.jsonl")
+
+            with open(ledger_file, "w") as f:
+                f.write("not a json\n")
+
+            payload1 = {
+                "adapter_name": "test", "adapter_version": "1.0", "source_system": "drop_folder",
+                "source_event_id": "test_1", "camera_id": "cam_1", "event_type": "motion",
+                "start_time": "2026-06-23T12:00:00Z", "evidence_references": {"clip_path": "/clip.mp4"},
+                "local_processing_required": True
+            }
+            with open(os.path.join(incoming_dir, "001.json"), "w") as f:
+                json.dump(payload1, f)
+
+            with self.assertRaises(SystemExit):
+                self.run_cli("drop-folder-import", "--incoming", str(incoming_dir), "--ledger", str(ledger_file), "--commit")
+
 if __name__ == "__main__":
     unittest.main()

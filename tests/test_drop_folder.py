@@ -145,5 +145,35 @@ class TestDropFolder(unittest.TestCase):
         self.assertFalse(results[0].ledger_written)
         self.assertEqual(len(ledger.read_records()), 1)
 
+    def test_import_incoming_folder_malformed_ledger(self):
+        from safetask.ledger import EvidenceLedger
+        ledger_path = os.path.join(self.temp_dir.name, "ledger.jsonl")
+        with open(ledger_path, "w") as f:
+            f.write("not a json\n")
+
+        ledger = EvidenceLedger(ledger_path)
+
+        payload = {
+            "adapter_name": "test", "adapter_version": "1.0", "source_system": "drop_folder",
+            "source_event_id": "test_1", "camera_id": "cam_1", "event_type": "motion",
+            "start_time": "2026-06-23T12:00:00Z", "evidence_references": {"clip_path": "/clip.mp4"},
+            "local_processing_required": True
+        }
+        with open(os.path.join(self.incoming_dir, "001.json"), "w") as f:
+            json.dump(payload, f)
+
+        from safetask.drop_folder import import_incoming_folder
+        with self.assertRaises(ValueError):
+            import_incoming_folder(self.incoming_dir, ledger, commit=True)
+
+    def test_import_incoming_folder_empty(self):
+        from safetask.ledger import EvidenceLedger
+        ledger_path = os.path.join(self.temp_dir.name, "ledger.jsonl")
+        ledger = EvidenceLedger(ledger_path)
+
+        from safetask.drop_folder import import_incoming_folder
+        results = import_incoming_folder(self.incoming_dir, ledger, commit=True)
+        self.assertEqual(len(results), 0)
+
 if __name__ == "__main__":
     unittest.main()

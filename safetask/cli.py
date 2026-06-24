@@ -150,7 +150,11 @@ def main(argv=None):
         print(f"Drop Folder Import Report ({mode}): {args.incoming}")
         print("-" * 40)
 
-        results = import_incoming_folder(args.incoming, ledger, commit=args.commit)
+        try:
+            results = import_incoming_folder(args.incoming, ledger, commit=args.commit)
+        except ValueError as e:
+            print(f"Import failed: Ledger integrity error: {e}")
+            sys.exit(1)
 
         valid_count = 0
         invalid_count = 0

@@ -63,6 +63,9 @@ def import_incoming_folder(folder_path: str, ledger: 'EvidenceLedger', commit: b
     if not os.path.isdir(folder_path):
         return results
 
+    # Fail early if ledger is malformed or corrupted
+    ledger.verify_integrity()
+
     # Get all .json files in deterministic order
     files = sorted([f for f in os.listdir(folder_path) if f.endswith(".json")])
 
