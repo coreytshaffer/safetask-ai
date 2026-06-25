@@ -13,7 +13,7 @@ To maintain clear ethical, privacy, and technical boundaries, the following feat
 
 ## Technical Boundaries
 
-* **No bypassing vendor restrictions:** We will not attempt to reverse engineer cloud camera services (e.g., VicoHome, VisionWell) or bypass vendor restrictions to force local streaming.
+* **No bypassing vendor restrictions:** We will not attempt to reverse engineer cloud camera services or bypass vendor restrictions to force local streaming.
 * **Local-first/private-use framing only:** SafeTask operates locally.
 * **No cloud dependency claims:** The core architecture must not require cloud processing.
 * **Human-reviewed alerts only:** All alerts and escalations require a human in the loop.

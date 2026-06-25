@@ -35,13 +35,9 @@ SafeTask requires active attestation that adapters are not performing prohibited
 ## Compatibility Expectations
 
 SafeTask is designed to eventually accept normalized payloads from:
-- **Frigate-like local event sources**: MQTT or webhook-based local AI detection.
-- **ZoneMinder-like local event sources**: Traditional CCTV event logs.
-- **Shinobi-like local event sources**: Lightweight NVR webhooks.
-- **Synology-like local event sources**: NAS-native surveillance event webhooks.
+- **Local event sources**: MQTT or webhook-based local AI detection.
+- **Traditional event sources**: CCTV event logs.
 - **Generic file/drop-folder sources**: Scripts watching a local folder for MP4s/JPGs.
-
-> **Note on VicoHome / VisionWell**: VicoHome is explicitly listed as uncertain/future-only. SafeTask makes no claims of compatibility with closed cloud-based ecosystems.
 
 ## Synthetic Adapter Payload Example
 

@@ -23,6 +23,17 @@ class TestRenderer(unittest.TestCase):
         self.assertTrue(result)
         self.assertTrue(os.path.exists(self.output_image_path))
 
+        # Pixel check refinement
+        with Image.open(self.output_image_path) as out_img:
+            out_img = out_img.convert("RGB")
+            # Pixel inside bbox (should be black)
+            inside_pixel = out_img.getpixel((75, 75))
+            self.assertEqual(inside_pixel, (0, 0, 0))
+            
+            # Pixel outside bbox (should be white, the original color)
+            outside_pixel = out_img.getpixel((10, 10))
+            self.assertEqual(outside_pixel, (255, 255, 255))
+
     def test_missing_image_fails_closed(self):
         targets = [{"region": {"bbox": [50, 50, 100, 100]}}]
         with self.assertRaises(FileNotFoundError):

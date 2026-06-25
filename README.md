@@ -4,15 +4,20 @@ SafeTask-AI is a private, local-first household safety workbench for human-revie
 
 It is not a surveillance platform, law-enforcement tool, biometric identification system, public monitoring service, or automated escalation system.
 
+## Project Status: Prototype
+**WARNING**: SafeTask-AI is a research prototype. It is **not** production security software. It does not provide real-time alerting, physical security guarantees, or emergency dispatch capabilities. Do not rely on it for life safety or property protection.
+
 ## Safety and Privacy Boundaries
 
 SafeTask operates under a strict set of ethical and functional boundaries:
-- **No biometrics**
 - **No ALPR (Automated License Plate Recognition)**
 - **No face recognition**
+- **No suspicious-person detection**
+- **No video tracking**
+- **No law-enforcement automation**
+- **No emergency automation**
+- **No biometrics**
 - **No weapon detection**
-- **No automated escalation**
-- **No law-enforcement workflow**
 - **No public surveillance deployment**
 - **No cloud dependency**
 - **No deletion execution** (Dry-run evaluation only)
@@ -24,13 +29,13 @@ SafeTask operates under a strict set of ethical and functional boundaries:
 - **Ledger Integrity Hash Chain**: Deterministic verification of ledger mutations to prevent silent tampering.
 - **Retention Sweeper (Dry-Run)**: Evaluates retention eligibility for stored events according to retention policy rules, without executing destruction of files.
 - **Human Review CLI**: A command-line tool for local operators to inspect states, add notes, update policies, and perform dry-runs.
+- **Privacy-Preserving Export Pipeline**: Static image redaction prototype to ensure hazards can be exported while obscuring private details.
 
 ## Current Non-Capabilities
-- Does not ingest directly from cameras (no RTSP, ONVIF, VicoHome, Frigate, or Synology integrations yet).
+- Does not ingest directly from cameras (no direct RTSP, ONVIF, or vendor API integrations).
 - Does not execute physical file deletions.
 - No Graphical User Interface (GUI), TUI, web server, or dashboards.
 - No network broadcasting or alerting channels.
-- No claims of VicoHome or other camera system compatibility.
 
 ## Architecture Summary
 The system expects data to arrive via an upstream local VMS boundary.

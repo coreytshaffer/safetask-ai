@@ -21,13 +21,8 @@ flowchart TD
 
 | Option                            | Best Use | Notes |
 | --------------------------------- | ---: | --- |
-| **Frigate**                       | Best likely future fit | Local AI object detection, MQTT, Home Assistant ecosystem, hardware accelerator support. |
-| **ZoneMinder**                    | Mature, traditional CCTV/NVR | Full-featured open-source surveillance system, but should be kept private/VPN-only if used. |
-| **Shinobi**                       | Lightweight/dev-friendly NVR | Open-source, Node.js-based, performance-oriented NVR. |
-| **Synology Surveillance Station** | NAS-native option | Less open, but practical if you use a Synology NAS. |
-
-**Note on VicoHome / VisionWell:**
-Existing VicoHome cameras may or may not be usable locally. Treat them as an uncertain future compatibility investigation, not as a current dependency. We will not attempt to bypass vendor camera restrictions or reverse engineer cloud services.
+| **Local Open Source VMS** | Best likely future fit | Local AI object detection, MQTT, Home Assistant ecosystem, hardware accelerator support. |
+| **Traditional CCTV/NVR**  | Mature CCTV | Full-featured traditional systems, but should be kept private/VPN-only if used. |
 
 ## Adapter Contract: Future Event Ingestion
 

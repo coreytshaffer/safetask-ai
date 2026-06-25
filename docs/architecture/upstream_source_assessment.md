@@ -29,7 +29,7 @@ Any adapter claiming these capabilities or failing to provide the required "no" 
 | **Kerberos Agent** | Yes | Yes | Webhook / MQTT | Yes | Yes | Low | 3 | 3.0 |
 | **Scrypted** | Core (Plugins closed) | Yes | Webhook / Plugins | Yes | Yes (CoreML/OpenVINO) | Medium (Licensing) | 2 | 2.5 |
 | **Agent DVR / iSpy** | No (Freemium) | Yes | Webhook / API | Yes | Yes | High (Closed Source) | 1 | 1.5 |
-| **VicoHome** | No | No (Cloud) | Closed API | Yes | N/A | Very High (Cloud) | 1 | 1.0 |
+| **Cloud Cameras** | No | No (Cloud) | Closed API | Yes | N/A | Very High (Cloud) | 1 | 1.0 |
 
 ## Candidate Details
 
@@ -60,7 +60,7 @@ Any adapter claiming these capabilities or failing to provide the required "no" 
 - **Status:** Mixed Licensing / Closed Source.
 - **Governance Risk:** Medium to High. While local, their lack of full open-source licensing makes them awkward bedfellows for a fully verifiable, private safety workbench. Defer integration.
 
-### 6. VicoHome & Cloud Cameras
+### 6. Cloud Cameras
 - **Status:** Closed Source, Cloud-Dependent.
 - **Governance Risk:** Extreme. SafeTask explicitly prohibits cloud dependencies. Defer entirely.
 
@@ -69,4 +69,4 @@ Any adapter claiming these capabilities or failing to provide the required "no" 
 1. **Safest First Adapter Path:** Implement the **Generic Drop-Folder Explicit Import Plan**. This hardens the airlock boundary before any network traffic is digested.
 2. **Best First VMS Target:** **Frigate**. Its MQTT event stream is robust, and its lack of built-in biometric identification makes it the most ethically aligned open-source NVR.
 3. **Best Advanced-Vision Exploration Path:** **Viseron**, provided the adapter enforces aggressive filtering against its LPR/Face plugins.
-4. **Highest-Risk Path to Defer:** **VicoHome** and any cloud-based API integrations.
+4. **Highest-Risk Path to Defer:** Cloud-based API integrations.

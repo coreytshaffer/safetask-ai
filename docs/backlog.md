@@ -201,3 +201,8 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 18.4 (CR-ST-029): Runtime schema validation helper reused by ingestion/export paths (Completed)
 * Story 18.5 (CR-ST-030): Simulated flame/smoke claim routing through redaction gate (Completed)
 * Story 18.6 (CR-ST-031): Static Image Redaction Renderer Prototype (Completed)
+
+### Epic 19: Public Release Preparation
+* Story 19.1 (CR-ST-032): Public Release Safety Audit (Completed)
+* Story 19.2 (CR-ST-033): Public README and Reviewer Quickstart
+* Story 19.3 (CR-ST-034): GitHub Metadata and Release Checklist
