@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "source_event_id": "cam02-20260625-103500",
+  "source_id": "cam02-south",
+  "captured_at": "2026-06-25T17:35:00Z",
+  "claim_type": "possible_flame",
+  "confidence": 0.95,
+  "frame_reference": "simulated://frames/flame-002.jpg",
+  "hazard_region": {
+    "bbox": [50, 50, 150, 150]
+  },
+  "review_required": true,
+  "export_allowed": false
+}

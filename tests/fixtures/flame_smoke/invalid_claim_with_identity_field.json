@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "source_event_id": "cam01-20260625-104500",
+  "source_id": "cam01-north",
+  "captured_at": "2026-06-25T17:45:00Z",
+  "claim_type": "possible_smoke",
+  "confidence": 0.85,
+  "frame_reference": "simulated://frames/smoke-004.jpg",
+  "hazard_region": {
+    "bbox": [100, 100, 200, 200]
+  },
+  "review_required": true,
+  "export_allowed": false,
+  "face_embedding": [0.1, 0.2, 0.3]
+}
