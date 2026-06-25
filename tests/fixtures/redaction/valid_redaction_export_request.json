@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "source_event_id": "cam01-20260625-101422",
+  "export_request_id": "req-890",
+  "requested_at": "2026-06-25T17:15:00Z",
+  "request_reason": "Provide evidence to incident commander",
+  "source_frame_reference": "/safezone/internal/frames/cam01-20260625-101422.jpg",
+  "hazard_region_to_preserve": {
+    "bbox": [150, 300, 250, 450]
+  },
+  "redaction_targets": [
+    {
+      "target_type": "human_figure",
+      "region": {
+        "bbox": [500, 600, 550, 800]
+      }
+    },
+    {
+      "target_type": "license_plate_region",
+      "region": {
+        "bbox": [700, 800, 750, 820]
+      }
+    }
+  ],
+  "export_format": "jpeg",
+  "review_required": true
+}

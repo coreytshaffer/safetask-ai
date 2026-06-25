@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "source_event_id": "cam01-20260625-101422",
+  "source_id": "cam01-north-drive",
+  "captured_at": "invalid_date_format",
+  "claim_type": "car_accident",
+  "confidence": 1.5,
+  "hazard_region": {},
+  "review_required": false
+}

@@ -29,4 +29,9 @@ This taxonomy outlines the standard event types that SafeTask processes. These e
 * `human_masked_nonessential`
 * `identity_details_removed`
 * `hazard_region_preserved`
+
+### Redaction Pipeline States
+* `redaction_target_detected`
+* `redaction_applied`
 * `redaction_review_required`
+* `redaction_failed_export_blocked`

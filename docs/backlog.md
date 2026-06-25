@@ -193,3 +193,7 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 17.1 (CR-ST-023): Hazard-First Safety Doctrine (Docs/Governance Phase)
 * Story 17.2 (CR-ST-024): Privacy-Preserving Export Redaction Doctrine and Design
 * Story 17.3 (CR-ST-025): Assess flame/smoke detection as the first candidate hazard module
+
+### Epic 18: Prototype Data Models and Schema
+* Story 18.1 (CR-ST-026): Define Redaction Export and Flame/Smoke Payload Schemas (Schema Definition Completed)
+* Story 18.2 (CR-ST-027): Implement Redaction Engine Integration (Blocked - Pending Core Dependencies)

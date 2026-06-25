@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Redaction Export Record",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "export_request_id": {
+      "type": "string"
+    },
+    "source_event_id": {
+      "type": "string"
+    },
+    "redacted_export_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "redaction_status": {
+      "type": "string",
+      "enum": [
+        "redaction_applied"
+      ]
+    },
+    "export_allowed": {
+      "type": "boolean"
+    },
+    "redacted_frame_reference": {
+      "type": "string"
+    },
+    "redaction_summary": {
+      "type": "string"
+    },
+    "hazard_region_preserved": {
+      "type": "object"
+    },
+    "original_retention_until": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "review_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "export_request_id",
+    "source_event_id",
+    "redacted_export_id",
+    "created_at",
+    "redaction_status",
+    "export_allowed",
+    "redacted_frame_reference",
+    "redaction_summary",
+    "hazard_region_preserved",
+    "original_retention_until",
+    "review_status"
+  ],
+  "if": {
+    "properties": {
+      "redaction_status": { "const": "redaction_applied" }
+    },
+    "required": ["redaction_status"]
+  },
+  "then": {
+    "properties": {
+      "export_allowed": { "const": true }
+    }
+  },
+  "not": {
+    "anyOf": [
+      { "required": ["plate_text"] },
+      { "required": ["license_plate"] },
+      { "required": ["ocr_text"] },
+      { "required": ["face_id"] },
+      { "required": ["face_embedding"] },
+      { "required": ["person_id"] },
+      { "required": ["track_id"] },
+      { "required": ["vehicle_id"] },
+      { "required": ["recognized_identity"] }
+    ]
+  },
+  "additionalProperties": false
+}

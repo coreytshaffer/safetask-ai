@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Redaction Export Request",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "source_event_id": {
+      "type": "string"
+    },
+    "export_request_id": {
+      "type": "string"
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "request_reason": {
+      "type": "string"
+    },
+    "source_frame_reference": {
+      "type": "string"
+    },
+    "hazard_region_to_preserve": {
+      "type": "object"
+    },
+    "redaction_targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "target_type": {
+            "type": "string",
+            "enum": [
+              "human_figure",
+              "face_region",
+              "license_plate_region",
+              "vehicle_identifier",
+              "address_or_signage",
+              "screen_or_document",
+              "interior_private_area",
+              "other_private_detail"
+            ]
+          },
+          "region": {
+            "type": "object"
+          }
+        },
+        "required": ["target_type", "region"],
+        "additionalProperties": false
+      }
+    },
+    "export_format": {
+      "type": "string"
+    },
+    "review_required": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "source_event_id",
+    "export_request_id",
+    "requested_at",
+    "request_reason",
+    "source_frame_reference",
+    "hazard_region_to_preserve",
+    "redaction_targets",
+    "export_format"
+  ],
+  "not": {
+    "anyOf": [
+      { "required": ["plate_text"] },
+      { "required": ["license_plate"] },
+      { "required": ["ocr_text"] },
+      { "required": ["face_id"] },
+      { "required": ["face_embedding"] },
+      { "required": ["person_id"] },
+      { "required": ["track_id"] },
+      { "required": ["vehicle_id"] },
+      { "required": ["recognized_identity"] }
+    ]
+  }
+}
