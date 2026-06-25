@@ -3,6 +3,7 @@ import json
 import os
 import jsonschema
 from jsonschema.exceptions import ValidationError
+from safetask.redaction import validate_geometry
 
 class TestSchemas(unittest.TestCase):
     def setUp(self):
@@ -14,21 +15,9 @@ class TestSchemas(unittest.TestCase):
         with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
 
-    def _validate_geometry(self, instance):
-        if isinstance(instance, dict):
-            if 'bbox' in instance and isinstance(instance['bbox'], list) and len(instance['bbox']) == 4:
-                xmin, ymin, xmax, ymax = instance['bbox']
-                if xmin >= xmax or ymin >= ymax:
-                    raise ValidationError(f"Invalid bbox geometry: xmin({xmin}) must be < xmax({xmax}) and ymin({ymin}) must be < ymax({ymax})")
-            for k, v in instance.items():
-                self._validate_geometry(v)
-        elif isinstance(instance, list):
-            for item in instance:
-                self._validate_geometry(item)
-
     def _validate(self, instance, schema):
         jsonschema.validate(instance=instance, schema=schema)
-        self._validate_geometry(instance)
+        validate_geometry(instance)
 
     def test_flame_smoke_claim(self):
         schema = self._load_json(os.path.join(self.schemas_dir, 'flame_smoke_claim.schema.json'))
