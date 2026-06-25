@@ -187,3 +187,9 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 16.17 (CR-ST-019): Generic Drop-Folder Explicit Import Plan
 * Story 16.18 (CR-ST-020): Drop-Folder Explicit Import CLI
 * Story 16.19 (CR-ST-021): Drop-Folder Import Stabilization and Idempotency Review
+* Story 16.20 (CR-ST-022): Stabilization Baseline and Regression Harness
+
+### Epic 17: Hazard-First Safety Doctrine
+* Story 17.1 (CR-ST-023): Hazard-First Safety Doctrine (Docs/Governance Phase)
+* Story 17.2 (CR-ST-024): Privacy-Preserving Export Redaction Doctrine and Design
+* Story 17.3 (CR-ST-025): Assess flame/smoke detection as the first candidate hazard module

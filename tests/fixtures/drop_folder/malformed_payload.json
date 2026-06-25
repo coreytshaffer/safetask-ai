@@ -1,0 +1,12 @@
+{
+    "adapter_name": "test-adapter",
+    "adapter_version": "1.0",
+    "source_system": "drop_folder",
+    "source_event_id": "fixture_event_malformed",
+    "camera_id": "cam_front",
+    "event_type": "motion",
+    "start_time": "NOT A VALID DATE",
+    "evidence_references": {"clip_path": "/clips/002.mp4"},
+    "local_processing_required": true,
+    "capability_claims": ["prohibited_claim"]
+}
