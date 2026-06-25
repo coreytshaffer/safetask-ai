@@ -196,4 +196,5 @@ Reports, evidence references, retention status, and after-action items are prese
 
 ### Epic 18: Prototype Data Models and Schema
 * Story 18.1 (CR-ST-026): Define Redaction Export and Flame/Smoke Payload Schemas (Schema Definition Completed)
-* Story 18.2 (CR-ST-027): Implement Redaction Engine Integration (Blocked - Pending Core Dependencies)
+* Story 18.2 (CR-ST-027): Harden schema versioning and geometry contracts (Hardened)
+* Story 18.3 (CR-ST-028): Redaction engine dry-run stub

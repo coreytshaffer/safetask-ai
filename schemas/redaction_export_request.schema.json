@@ -2,9 +2,49 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Redaction Export Request",
   "type": "object",
+  "$defs": {
+    "geometry": {
+      "type": "object",
+      "properties": {
+        "bbox": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "Pixel coordinates [x_min, y_min, x_max, y_max] from top-left origin. x_min < x_max, y_min < y_max."
+        },
+        "polygon": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 0 },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "region_type": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        { "required": ["bbox"] },
+        { "required": ["polygon"] }
+      ]
+    }
+  },
   "properties": {
     "schema_version": {
-      "type": "string"
+      "type": "string",
+      "const": "1.0"
     },
     "source_event_id": {
       "type": "string"
@@ -23,7 +63,7 @@
       "type": "string"
     },
     "hazard_region_to_preserve": {
-      "type": "object"
+      "$ref": "#/$defs/geometry"
     },
     "redaction_targets": {
       "type": "array",
@@ -44,7 +84,7 @@
             ]
           },
           "region": {
-            "type": "object"
+            "$ref": "#/$defs/geometry"
           }
         },
         "required": ["target_type", "region"],
@@ -81,5 +121,6 @@
       { "required": ["vehicle_id"] },
       { "required": ["recognized_identity"] }
     ]
-  }
+  },
+  "additionalProperties": false
 }

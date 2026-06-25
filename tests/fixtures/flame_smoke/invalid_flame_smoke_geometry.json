@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "source_event_id": "cam01-20260625-101422",
+  "source_id": "cam01-north-drive",
+  "captured_at": "2026-06-25T17:14:22Z",
+  "claim_type": "possible_flame",
+  "confidence": 0.89,
+  "frame_reference": "/safezone/internal/frames/cam01-20260625-101422.jpg",
+  "hazard_region": {
+    "bbox": [150, 300, 250],
+    "label": "flame"
+  },
+  "review_required": true,
+  "export_allowed": false,
+  "retention": "7_days",
+  "notes": "Invalid bbox missing y_max."
+}
