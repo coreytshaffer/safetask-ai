@@ -1,77 +1,53 @@
 # SafeTask-AI
 
-SafeTask-AI is a private, local-first household safety workbench for human-reviewed event records, notes, retention decisions, and tamper-evident evidence logs.
-
-It is not a surveillance platform, law-enforcement tool, biometric identification system, public monitoring service, or automated escalation system.
+SafeTask is a hazard-first, local-first safety evidence pipeline prototype. It demonstrates schema validation, human-review gates, fail-closed redaction, and privacy-preserving export controls using synthetic fixtures. It is not production security software and does not perform surveillance detection, ALPR, face recognition, identity tracking, or emergency automation.
 
 ## Project Status: Prototype
 **WARNING**: SafeTask-AI is a research prototype. It is **not** production security software. It does not provide real-time alerting, physical security guarantees, or emergency dispatch capabilities. Do not rely on it for life safety or property protection.
 
-## Safety and Privacy Boundaries
+## Core Safety Doctrine
+- **"Detect hazards, not identities."**
+- **"Export the hazard, not the bystander."**
+- **"Safety evidence may be useful, but privacy failure blocks sharing."**
 
-SafeTask operates under a strict set of ethical and functional boundaries:
+## Intentional Non-Capabilities (Safety Boundaries)
+To ensure the system remains a privacy-preserving workbench rather than a surveillance tool, the following capabilities are explicitly **excluded**:
 - **No ALPR (Automated License Plate Recognition)**
 - **No face recognition**
 - **No suspicious-person detection**
-- **No video tracking**
-- **No law-enforcement automation**
-- **No emergency automation**
-- **No biometrics**
+- **No video tracking or identity association across frames**
+- **No law-enforcement automation or direct integration**
+- **No emergency escalation automation**
+- **No biometrics or gait analysis**
 - **No weapon detection**
 - **No public surveillance deployment**
-- **No cloud dependency**
-- **No deletion execution** (Dry-run evaluation only)
+- **No cloud dependencies for core architecture**
+- **No real camera ingestion** (Currently accepts only mocked JSON payloads)
 
 ## Current Implemented Capabilities
-- **Event Schema**: A rigidly defined standard for generic event envelopes (`safetask.events`).
+- **Strict Schema Validation**: A rigidly defined standard for generic event envelopes and claims (`safetask.events`).
 - **Evidence Ledger**: An append-only JSONL data store to securely record events and human actions (`safetask.ledger`).
 - **Ledger Replay and Review State**: Reconstruction of an event's active state based on ledger history.
 - **Ledger Integrity Hash Chain**: Deterministic verification of ledger mutations to prevent silent tampering.
-- **Retention Sweeper (Dry-Run)**: Evaluates retention eligibility for stored events according to retention policy rules, without executing destruction of files.
+- **Privacy-Preserving Export Pipeline**: Static image redaction prototype to ensure hazards can be exported while obscuring private details. Fails closed on any invalid geometry.
 - **Human Review CLI**: A command-line tool for local operators to inspect states, add notes, update policies, and perform dry-runs.
-- **Privacy-Preserving Export Pipeline**: Static image redaction prototype to ensure hazards can be exported while obscuring private details.
 
-## Current Non-Capabilities
-- Does not ingest directly from cameras (no direct RTSP, ONVIF, or vendor API integrations).
-- Does not execute physical file deletions.
-- No Graphical User Interface (GUI), TUI, web server, or dashboards.
-- No network broadcasting or alerting channels.
+## Simulated Pipeline Explanation
+SafeTask currently relies on synthetic JSON fixtures to prove out its logic. The simulated pipeline functions as a series of strict gates:
+1. **Schema Check**: Incoming claims must match exact JSONSchema definitions.
+2. **Review Check**: Ambiguous hazards are forced into a manual human review state.
+3. **Redaction Gate**: Exporting evidence requires passing through a strict redaction gate. Valid bounds yield opaque masks over sensitive regions; invalid requests instantly fail closed, blocking export entirely.
 
-## Architecture Summary
-The system expects data to arrive via an upstream local VMS boundary.
+## Reviewer Quickstart
 
-```mermaid
-flowchart LR
-    A[Synthetic Demo / Future VMS Adapter] --> B(SafeTask Event Envelope)
-    B --> C[(Evidence Ledger)]
-    C --> D{Ledger Replay & Review State}
-    D --> E[Human Review CLI]
-    D --> F[Retention Dry-Run]
-```
+Check out the [Reviewer Quickstart](docs/reviewer_quickstart.md) to explore the system using synthetic data.
 
-SafeTask itself purely manages the post-VMS workflow—verifying evidence validity, accepting human operator reviews, maintaining an audit-ready hash chain, and determining lifecycle expiration.
-
-## Current Status
-SafeTask has successfully completed its core proof-of-concept phase. The foundational Event, Ledger, and Retention rules are established, and the Human Review CLI provides a stable interaction layer. SafeTask is now stabilizing its current non-destructive capabilities before expanding adapter boundaries.
-## Quickstart
-
-### Verification
-Run the core test suite to ensure the baseline dependencies work correctly:
+### Quick Install & Test
 ```powershell
+pip install -r requirements.txt
 python -m unittest discover tests
+python -m compileall safetask tests
 ```
 
-### CLI
-Interact with an existing local ledger:
-
-1. **Verify Integrity**:
-```powershell
-python -m safetask.cli verify-ledger --ledger .safetask/evidence.jsonl
-```
-
-2. **Check Review State**:
-```powershell
-python -m safetask.cli review-state --ledger .safetask/evidence.jsonl --event-id <EVENT_ID>
-```
-
-For more details, see the [Operator Quickstart](docs/operator_quickstart.md).
+## Public Release Safety Note
+This repository has been audited for public release. It contains **no real images**, **no real incidents**, **no camera paths**, and **no local private footage**. All tests rely exclusively on synthetic JSON structures and in-memory mock images.

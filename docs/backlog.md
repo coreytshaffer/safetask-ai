@@ -204,5 +204,5 @@ Reports, evidence references, retention status, and after-action items are prese
 
 ### Epic 19: Public Release Preparation
 * Story 19.1 (CR-ST-032): Public Release Safety Audit (Completed)
-* Story 19.2 (CR-ST-033): Public README and Reviewer Quickstart
+* Story 19.2 (CR-ST-033): Public README and Reviewer Quickstart (Completed)
 * Story 19.3 (CR-ST-034): GitHub Metadata and Release Checklist
