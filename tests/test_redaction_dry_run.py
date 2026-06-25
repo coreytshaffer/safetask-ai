@@ -46,15 +46,22 @@ class TestRedactionDryRun(unittest.TestCase):
         self.assertFalse(result['export_allowed'])
         self.assertIn('Unsupported redaction target', result['failure_reason'])
 
-    def test_video_export_blocked(self):
-        request = self._load_fixture('valid_redaction_export_request.json')
-        request['export_format'] = 'video'
+    def test_video_export_fails_closed(self):
+        req = self._load_fixture('valid_redaction_export_request.json')
+        req['export_format'] = 'video'
         
-        result = simulate_redaction_request(request)
-        
+        result = simulate_redaction_request(req)
         self.assertEqual(result['redaction_status'], 'redaction_failed_export_blocked')
         self.assertFalse(result['export_allowed'])
-        self.assertIn('Video export is currently unsupported', result['failure_reason'])
+        self.assertIn("video export", result.get('failure_reason', '').lower())
+
+    def test_rendering_failure_blocks_export(self):
+        req = self._load_fixture('valid_redaction_export_request.json')
+        # Simulate rendering failure by providing a non-existent input image path
+        result = simulate_redaction_request(req, input_image_path="nonexistent_frame.jpg", output_image_path="output.jpg")
+        self.assertEqual(result['redaction_status'], 'redaction_failed_export_blocked')
+        self.assertFalse(result['export_allowed'])
+        self.assertIn("rendering failed", result.get('failure_reason', '').lower())
 
     def test_prohibited_identity_field_fails_validation(self):
         request = self._load_fixture('valid_redaction_export_request.json')

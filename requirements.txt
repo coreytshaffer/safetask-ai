@@ -4,3 +4,4 @@ requests
 reportlab
 PyPDF2
 jsonschema>=4.0
+Pillow>=10.0.0

@@ -1,8 +1,9 @@
 import uuid
 from datetime import datetime, timezone
 from safetask.schema_validation import validate_payload
+from safetask.renderer import apply_redaction_masks
 
-def simulate_redaction_request(request_payload):
+def simulate_redaction_request(request_payload, input_image_path=None, output_image_path=None):
     """
     Dry-run stub for redaction engine.
     Validates request, checks for unsupported targets, and returns either a
@@ -35,7 +36,18 @@ def simulate_redaction_request(request_payload):
                 f"Unsupported redaction target type: {target_type}"
             )
             
-    # 4. Success path (simulated)
+    # 4. Optional Rendering
+    if input_image_path and output_image_path:
+        try:
+            apply_redaction_masks(input_image_path, output_image_path, targets)
+        except Exception as e:
+            return _build_failure_event(
+                export_request_id,
+                source_event_id,
+                f"Redaction rendering failed: {e}"
+            )
+
+    # 5. Success path (simulated)
     record = {
         "schema_version": "1.0",
         "export_request_id": export_request_id,
