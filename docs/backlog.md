@@ -198,5 +198,5 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 18.1 (CR-ST-026): Define Redaction Export and Flame/Smoke Payload Schemas (Schema Definition Completed)
 * Story 18.2 (CR-ST-027): Harden schema versioning and geometry contracts (Hardened)
 * Story 18.3 (CR-ST-028): Redaction engine dry-run stub (Completed)
-* Story 18.4 (CR-ST-029): Runtime schema validation helper reused by ingestion/export paths
+* Story 18.4 (CR-ST-029): Runtime schema validation helper reused by ingestion/export paths (Completed)
 * Story 18.5 (CR-ST-030): Simulated flame/smoke claim routing through redaction gate

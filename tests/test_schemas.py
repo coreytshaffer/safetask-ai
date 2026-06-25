@@ -1,9 +1,8 @@
 import unittest
 import json
 import os
-import jsonschema
 from jsonschema.exceptions import ValidationError
-from safetask.redaction import validate_geometry
+from safetask.schema_validation import validate_payload
 
 class TestSchemas(unittest.TestCase):
     def setUp(self):
@@ -15,67 +14,63 @@ class TestSchemas(unittest.TestCase):
         with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
 
-    def _validate(self, instance, schema):
-        jsonschema.validate(instance=instance, schema=schema)
-        validate_geometry(instance)
-
     def test_flame_smoke_claim(self):
-        schema = self._load_json(os.path.join(self.schemas_dir, 'flame_smoke_claim.schema.json'))
+        schema_name = 'flame_smoke_claim.schema.json'
         
         # Valid
         valid_data = self._load_json(os.path.join(self.fixtures_dir, 'flame_smoke', 'valid_flame_smoke_claim.json'))
-        self._validate(valid_data, schema)
+        validate_payload(valid_data, schema_name)
         
         # Ambiguous but valid schema-wise
         ambig_data = self._load_json(os.path.join(self.fixtures_dir, 'flame_smoke', 'ambiguous_smoke_claim.json'))
-        self._validate(ambig_data, schema)
+        validate_payload(ambig_data, schema_name)
         
         # Invalid (general)
         invalid_data = self._load_json(os.path.join(self.fixtures_dir, 'flame_smoke', 'invalid_flame_smoke_claim.json'))
         with self.assertRaises(ValidationError):
-            self._validate(invalid_data, schema)
+            validate_payload(invalid_data, schema_name)
             
         # Invalid (geometry missing y_max)
         invalid_geom = self._load_json(os.path.join(self.fixtures_dir, 'flame_smoke', 'invalid_flame_smoke_geometry.json'))
         with self.assertRaises(ValidationError):
-            self._validate(invalid_geom, schema)
+            validate_payload(invalid_geom, schema_name)
 
     def test_redaction_export_request(self):
-        schema = self._load_json(os.path.join(self.schemas_dir, 'redaction_export_request.schema.json'))
+        schema_name = 'redaction_export_request.schema.json'
         
         # Valid
         valid_data = self._load_json(os.path.join(self.fixtures_dir, 'redaction', 'valid_redaction_export_request.json'))
-        self._validate(valid_data, schema)
+        validate_payload(valid_data, schema_name)
 
     def test_redaction_export_record(self):
-        schema = self._load_json(os.path.join(self.schemas_dir, 'redaction_export_record.schema.json'))
+        schema_name = 'redaction_export_record.schema.json'
         
         # Valid
         valid_data = self._load_json(os.path.join(self.fixtures_dir, 'redaction', 'valid_redacted_export_record.json'))
-        self._validate(valid_data, schema)
+        validate_payload(valid_data, schema_name)
         self.assertTrue(valid_data['export_allowed'])
         
         # Invalid containing plate text
         invalid_plate = self._load_json(os.path.join(self.fixtures_dir, 'redaction', 'invalid_redaction_contains_plate_text.json'))
         with self.assertRaises(ValidationError):
-            self._validate(invalid_plate, schema)
+            validate_payload(invalid_plate, schema_name)
 
         # Invalid containing face embedding
         invalid_face = self._load_json(os.path.join(self.fixtures_dir, 'redaction', 'invalid_redaction_contains_face_embedding.json'))
         with self.assertRaises(ValidationError):
-            self._validate(invalid_face, schema)
+            validate_payload(invalid_face, schema_name)
             
         # Invalid geometry (semantic error x_min > x_max)
         invalid_geom = self._load_json(os.path.join(self.fixtures_dir, 'redaction', 'invalid_redaction_geometry.json'))
         with self.assertRaises(ValidationError):
-            self._validate(invalid_geom, schema)
+            validate_payload(invalid_geom, schema_name)
 
     def test_redaction_failure_event(self):
-        schema = self._load_json(os.path.join(self.schemas_dir, 'redaction_failure_event.schema.json'))
+        schema_name = 'redaction_failure_event.schema.json'
         
         # Valid fail-closed event
         valid_fail = self._load_json(os.path.join(self.fixtures_dir, 'redaction', 'redaction_failed_export_blocked.json'))
-        self._validate(valid_fail, schema)
+        validate_payload(valid_fail, schema_name)
         
         # Ensure export_allowed is strictly false in this schema via the fixture
         self.assertFalse(valid_fail['export_allowed'])
