@@ -3,6 +3,60 @@ import json
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
+from safetask.core.provenance import (
+    CATALOG_PATH, REPOSITORY_ROOT, eligible_for_review, read_catalog, resolve_provenance,
+)
+
+
+class PolicyUnavailable(ValueError):
+    def __init__(self, status, message, http_status=409):
+        super().__init__(message)
+        self.status, self.http_status = status, http_status
+
+
+def reviewed_pack(path, *, catalog_path=CATALOG_PATH, repository_root=REPOSITORY_ROOT):
+    """Schema approval AND content-bound repository review are both required."""
+    raw = Path(path).read_bytes()
+    payload = json.loads(raw)
+    errors = validate_approved_pack(payload)
+    if errors:
+        raise PolicyUnavailable("no_reviewed_sources", "Pack does not meet the approved-pack contract")
+    provenance = resolve_provenance(path, raw, payload, catalog_path=catalog_path, repository_root=repository_root)
+    if not eligible_for_review(provenance) or provenance.source_kind != "external_source":
+        raise PolicyUnavailable("no_reviewed_sources", "No matching reviewed external source record")
+    record = next(r for r in read_catalog(catalog_path) if r["review_id"] == provenance.review_id)
+    domains = record.get("official_source_domains")
+    if (not isinstance(domains, list) or not domains
+            or any(not isinstance(d, str) or not d or "/" in d or ":" in d for d in domains)
+            or set(payload["official_source_domains"]) != set(domains)
+            or any(not _is_allowed_source_url(url, domains)
+                   for url in [payload["source_url"], *[e["source_url"] for e in payload["entries"]]])):
+        raise PolicyUnavailable("no_reviewed_sources", "Source domain is not permitted by the review record")
+    return {
+        "schema_version": 1, "status": "reviewed_sources",
+        "provenance": provenance.to_dict(), "provenance_label": provenance.label,
+        "entries": [{**entry, "provenance": provenance.to_dict(), "provenance_label": provenance.label}
+                    for entry in normalize_entries(payload)],
+    }
+
+
+def policy_response(domain, *, domain_root=None, catalog_path=CATALOG_PATH, repository_root=REPOSITORY_ROOT):
+    """Shared non-cacheable HTTP boundary; no raw-file fallback."""
+    try:
+        if domain == "gaming":
+            raise PolicyUnavailable("retired", "Legacy gaming corpus retired; no reviewed sources supplied", 410)
+        if not domain or not domain.replace("-", "").replace("_", "").isalnum():
+            raise PolicyUnavailable("not_found", "Unknown policy domain", 404)
+        root = Path(domain_root or REPOSITORY_ROOT / "safetask/domains").resolve()
+        path = (root / domain / "regulations.json").resolve()
+        path.relative_to(root)
+        if not path.is_file():
+            raise PolicyUnavailable("not_found", "Policy pack not found", 404)
+        return 200, reviewed_pack(path, catalog_path=catalog_path, repository_root=repository_root)
+    except PolicyUnavailable as exc:
+        return exc.http_status, {"status": exc.status, "message": str(exc), "entries": []}
+    except (OSError, ValueError, TypeError, KeyError, AttributeError):
+        return 409, {"status": "no_reviewed_sources", "message": "Policy pack unavailable or invalid", "entries": []}
 
 
 LEGACY_ENTRY_FIELDS = {"code", "title", "summary", "keywords"}
@@ -219,6 +273,11 @@ def main() -> int:
 
     payload = load_json(args.path)
     errors = validate_approved_pack(payload) if args.approved else validate_pack(payload)
+    if args.approved and not errors:
+        try:
+            reviewed_pack(args.path)
+        except (ValueError, OSError, KeyError, TypeError, AttributeError) as exc:
+            errors.append(str(exc))
     if errors:
         print(f"Invalid regulation pack: {args.path}")
         for error in errors:
@@ -226,7 +285,8 @@ def main() -> int:
         return 1
 
     entries = normalize_entries(payload)
-    print(f"Valid regulation pack: {args.path} ({len(entries)} entries)")
+    status = "Reviewed source record" if args.approved else "Structurally valid (not an approval)"
+    print(f"{status}: {args.path} ({len(entries)} entries)")
     return 0
 
 
