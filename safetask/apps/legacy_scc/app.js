@@ -19,7 +19,7 @@
 
 function exportToPDF(inc) {
   // Populate the hidden print template
-  document.getElementById('printTitle').innerText = inc.title || 'Official Incident Report';
+  document.getElementById('printTitle').innerText = inc.title || 'Draft Incident Report';
   document.getElementById('printId').innerText = inc.id;
   document.getElementById('printDate').innerText = inc.date;
   document.getElementById('printLocation').innerText = 'Casino Floor'; // Mock
@@ -51,8 +51,9 @@ function emailReport(inc) {
   // Feature Request: Email Integration
   // For the prototype, we trigger a standard mailto: link pre-filled with the incident summary
   // In a full implementation, this would trigger an SMTP POST to the python backend.
-  const subject = encodeURIComponent(`SafeTask Sealed Report: ${inc.title || inc.id}`);
-  let body = `Official Incident Report: ${inc.title || inc.id}\n`;
+  const subject = encodeURIComponent(`SafeTask Draft Report: ${inc.title || inc.id}`);
+  let body = `Draft Incident Report: ${inc.title || inc.id}\n`;
+  body += `Policy sources and regulatory applicability have not been verified.\n`;
   body += `Date: ${inc.date}\n`;
   body += `Cryptographic Seal: ${inc.evidence_hash}\n\n`;
   body += `Narrative:\n${inc.summary || ''}\n\n`;
@@ -304,7 +305,7 @@ window.fetchAuditorDashboard = async function() {
 
 // Override exportToPDF to stamp the authorization if present
 window.exportToPDF = async function(inc) {
-  document.getElementById('printTitle').innerText = inc.title || 'Official Incident Report';
+  document.getElementById('printTitle').innerText = inc.title || 'Draft Incident Report';
   document.getElementById('printId').innerText = inc.id;
   document.getElementById('printDate').innerText = inc.date;
   document.getElementById('printLocation').innerText = inc.location || 'Casino Floor';
@@ -521,7 +522,7 @@ async function generateEvidenceLink(incidentId) {
 
 // Override exportToPDF to handle Telephonic display
 window.exportToPDF = async function(inc) {
-  document.getElementById('printTitle').innerText = inc.title || 'Official Incident Report';
+  document.getElementById('printTitle').innerText = inc.title || 'Draft Incident Report';
   document.getElementById('printId').innerText = inc.id;
   document.getElementById('printDate').innerText = inc.date;
   document.getElementById('printLocation').innerText = inc.location || 'Casino Floor';

@@ -26,7 +26,9 @@ def main():
         "serve", "check", "index", "search", "dictate", "map", 
         "export", "gdal", "analyze", "folium", "cite", "sync", "identify"
     ]:
-        subparsers.add_parser(action)
+        action_parser = subparsers.add_parser(action)
+        if action == "search":
+            action_parser.add_argument("query", help="Source search query")
 
     # New preprocess-spatial command
     parser_preprocess = subparsers.add_parser('preprocess-spatial', help='Preprocess a spatial file (e.g. reproject to EPSG:4326 and simplify)')
@@ -72,13 +74,13 @@ def main():
         print(json.dumps(indexer.index_directory(args.docs_dir)))
 
     elif args.action == "search":
-        if not args.text:
+        if not args.query:
             print("Error: search action requires text argument as query")
             return
-        print(f"Searching for: '{args.text}'\n")
+        print(f"Searching for: '{args.query}'\n")
         retriever = DocumentRetriever(docs_dir=args.docs_dir)
         try:
-            cards = retriever.search(args.text)
+            cards = retriever.search(args.query)
         except RetrievalUnavailable as exc:
             print(f"Retrieval status: {exc.status}")
             return
