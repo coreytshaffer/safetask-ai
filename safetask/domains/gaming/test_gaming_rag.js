@@ -5,13 +5,14 @@ const path = require('path');
 let regulationsDatabase = [];
 
 function loadRegulations() {
-  const regPath = path.normalize(path.join(__dirname, 'regulations.json'));
-  if (!regPath.startsWith(__dirname)) {
+  const regPath = path.normalize(path.join(__dirname, '../../../tests/fixtures/synthetic/gaming_policies.json'));
+  if (!regPath.startsWith(path.resolve(__dirname, '../../../tests/fixtures/synthetic'))) {
     throw new Error("Invalid path");
   }
   const data = fs.readFileSync(regPath, 'utf8');
   regulationsDatabase = JSON.parse(data);
-  console.log(`Loaded ${regulationsDatabase.length} regulations for testing.`);
+  if (regulationsDatabase.some(r => r.source_kind !== "synthetic" || r.review_status !== "unreviewed" || r.fixture_marker !== "SAFETASK_SYNTHETIC_FIXTURE")) throw new Error("Fixtures must remain synthetic and unreviewed");
+  console.log(`Loaded ${regulationsDatabase.length} synthetic entries for testing.`);
 }
 
 function scanRegulations(inputText) {
@@ -34,6 +35,8 @@ function scanRegulations(inputText) {
       matched.push({
         code: reg.code,
         title: reg.title,
+        source_kind: reg.source_kind,
+        review_status: reg.review_status,
         score: matchScore
       });
     }
@@ -50,15 +53,15 @@ try {
   const testCases = [
     {
       input: "dealer failed to clear hands at blackjack table 4",
-      expectedCodes: ["SICS Section 3.1.4"]
+      expectedCodes: ["SYN-GAMING-001"]
     },
     {
       input: "patron faked a slip and fall in liquid near the slot machine bank",
-      expectedCodes: ["Legal & Risk Policy: Constructive Knowledge"]
+      expectedCodes: ["SYN-GAMING-002"]
     },
     {
       input: "unauthorized access to the main cage vault and door propped open",
-      expectedCodes: ["NIGC MICS 25 CFR § 543.21"]
+      expectedCodes: ["SYN-GAMING-003"]
     }
   ];
 
@@ -66,7 +69,7 @@ try {
   testCases.forEach((tc, idx) => {
     console.log(`\n---------------------------------------------\nTest Case ${idx + 1}: "${tc.input}"`);
     const results = scanRegulations(tc.input);
-    console.log("Matched Standards:", results.map(r => `${r.code} (Score: ${r.score})`));
+    console.log("Matched synthetic test entries:", results.map(r => `${r.code} (Score: ${r.score})`));
     
     // Check if expected codes are in matched list
     const matchedCodes = results.map(r => r.code);
