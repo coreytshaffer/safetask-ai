@@ -118,6 +118,27 @@ def test_upload_is_disabled_before_read_or_write(flask_module, monkeypatch, no_n
         doc_processor.append_to_database("TEST", "Test", "Test", [])
 
 
+@pytest.mark.parametrize("change", ["revoked", "modified"])
+def test_pack_review_changed_during_read_fails_closed(pack_env, monkeypatch, change, no_network):
+    path, catalog, payload, kwargs = pack_env
+    register(path, catalog, path.parents[2])
+    real = packs.resolve_provenance
+    calls = []
+    def change_after_first_check(*args, **options):
+        result = real(*args, **options)
+        if not calls:
+            calls.append(True)
+            if change == "revoked":
+                catalog.write_text('{"schema_version":1,"sources":[]}')
+            else:
+                path.write_text(path.read_text() + " ")
+        return result
+    monkeypatch.setattr(packs, "resolve_provenance", change_after_first_check)
+    status, body = packs.policy_response("test-domain", **kwargs)
+    assert status == 409
+    assert body["entries"] == []
+
+
 @pytest.fixture
 def incident_module(monkeypatch, rig, tmp_path):
     from rag import retriever as module

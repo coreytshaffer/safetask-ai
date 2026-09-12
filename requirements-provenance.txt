@@ -1,0 +1,14 @@
+# Focused A01/A02 runtime and deterministic Python verification dependencies.
+# Full vision/GIS/LLM application dependencies remain in their existing files.
+chromadb==1.5.9
+fastapi==0.141.1
+python-multipart>=0.0.22
+PyYAML>=6,<7
+pypdf>=5
+Flask>=3,<4
+flask-cors>=6,<7
+requests>=2,<3
+reportlab>=4,<5
+PyPDF2==3.0.1
+pytest>=8,<10
+jsonschema>=4,<5

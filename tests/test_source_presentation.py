@@ -85,3 +85,18 @@ def test_legacy_pdf_marks_every_page_as_unreviewed(tmp_path, monkeypatch, no_net
         assert "UNREVIEWED DRAFT" in text
         assert "Policy sources and regulatory applicability have not been verified." in text
         assert "OFFICIAL CASINO SURVEILLANCE REPORT" not in text
+
+
+@pytest.mark.parametrize("reviewed", [False, True])
+def test_serialized_metadata_matches_contract_and_rejects_synthetic_review(rig, reviewed):
+    import jsonschema
+    source, catalog, indexer, retriever = rig
+    if reviewed:
+        register(source, catalog, source.parent.parent)
+    indexer.index_directory()
+    meta = retriever.search("neutral")[0].to_dict()["metadata"]
+    schema = json.loads((ROOT / "data/schema.json").read_text())
+    jsonschema.validate(meta, schema, format_checker=jsonschema.FormatChecker())
+    meta["provenance"].update(source_kind="synthetic", review_status="reviewed")
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(meta, schema)

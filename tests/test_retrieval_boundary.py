@@ -117,3 +117,41 @@ def test_unreviewed_lookup_is_labelled_and_excluded_from_review(rig):
     assert retriever.search("neutral", reviewed_only=True) == []
     with pytest.raises(RetrievalUnavailable):
         retriever.validate_card(card)
+
+
+def test_pdf_units_keep_current_hash_page_and_review(rig):
+    from reportlab.pdfgen import canvas
+    source, catalog, indexer, retriever = rig
+    source.unlink()
+    pdf = source.with_suffix(".pdf")
+    writer = canvas.Canvas(str(pdf))
+    for page in range(2):
+        writer.drawString(50, 700, f"Neutral source page {page + 1}")
+        writer.showPage()
+    writer.save()
+    register(pdf, catalog, pdf.parent.parent)
+    assert indexer.index_directory()["indexed_units"] == 2
+    cards = retriever.search("neutral", n_results=2, reviewed_only=True)
+    assert {card.metadata.page for card in cards} == {1, 2}
+    assert len({card.metadata.provenance.content_sha256 for card in cards}) == 1
+    assert all(str(card.metadata.page) in card.content for card in cards)
+
+
+def test_rebuild_during_query_fails_closed(rig, monkeypatch):
+    source, catalog, indexer, retriever = rig
+    indexer.index_directory()
+    collection = retriever._collection()
+    query = collection.query
+    def rebuild(**kwargs):
+        result = query(**kwargs)
+        indexer.index_directory()
+        return result
+    monkeypatch.setattr(collection, "query", rebuild)
+    get_collection = retriever._collection
+    calls = []
+    def first_old_then_current():
+        calls.append(True)
+        return collection if len(calls) == 1 else get_collection()
+    monkeypatch.setattr(retriever, "_collection", first_old_then_current)
+    with pytest.raises(RetrievalUnavailable, match="changed"):
+        retriever.search("neutral")

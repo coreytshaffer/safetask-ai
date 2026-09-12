@@ -24,7 +24,9 @@ def reviewed_pack(path, *, catalog_path=CATALOG_PATH, repository_root=REPOSITORY
     provenance = resolve_provenance(path, raw, payload, catalog_path=catalog_path, repository_root=repository_root)
     if not eligible_for_review(provenance) or provenance.source_kind != "external_source":
         raise PolicyUnavailable("no_reviewed_sources", "No matching reviewed external source record")
-    record = next(r for r in read_catalog(catalog_path) if r["review_id"] == provenance.review_id)
+    record = next((r for r in read_catalog(catalog_path) if r["review_id"] == provenance.review_id), None)
+    if record is None:
+        raise PolicyUnavailable("no_reviewed_sources", "Source review was revoked during retrieval")
     domains = record.get("official_source_domains")
     if (not isinstance(domains, list) or not domains
             or any(not isinstance(d, str) or not d or "/" in d or ":" in d for d in domains)
@@ -32,6 +34,10 @@ def reviewed_pack(path, *, catalog_path=CATALOG_PATH, repository_root=REPOSITORY
             or any(not _is_allowed_source_url(url, domains)
                    for url in [payload["source_url"], *[e["source_url"] for e in payload["entries"]]])):
         raise PolicyUnavailable("no_reviewed_sources", "Source domain is not permitted by the review record")
+    current_raw = Path(path).read_bytes()
+    current = resolve_provenance(path, current_raw, payload, catalog_path=catalog_path, repository_root=repository_root)
+    if current_raw != raw or current != provenance:
+        raise PolicyUnavailable("no_reviewed_sources", "Source or review changed during retrieval")
     return {
         "schema_version": 1, "status": "reviewed_sources",
         "provenance": provenance.to_dict(), "provenance_label": provenance.label,
