@@ -106,6 +106,35 @@ def test_all_three_serving_boundaries(pack_env, flask_module, monkeypatch, serve
     assert bool(body["entries"]) == reviewed
 
 
+@pytest.mark.parametrize("server", ["legacy_scc", "surveillance_command_center"])
+@pytest.mark.parametrize("query", ["", "?version=old"])
+def test_retired_gaming_get_head_parity(server, query, no_network):
+    module = importlib.import_module("safetask.apps." + server + ".server")
+
+    def request(method):
+        handler = object.__new__(module.ProxyHTTPRequestHandler)
+        handler.wfile = io.BytesIO()
+        headers, statuses = {}, []
+        handler.send_response = statuses.append
+        handler.send_header = lambda key, value: headers.update({key: value})
+        handler.end_headers = lambda: None
+        handler.command = method
+        handler.path = "/policy-packs/gaming/regulations.json" + query
+        getattr(handler, "do_" + method)()
+        return statuses, headers, handler.wfile.getvalue()
+
+    get_statuses, get_headers, get_body = request("GET")
+    head_statuses, head_headers, head_body = request("HEAD")
+    assert get_statuses == head_statuses == [410]
+    assert get_headers == head_headers
+    assert head_headers["Cache-Control"] == "no-store"
+    assert head_headers["Content-Type"] == "application/json"
+    assert head_headers["Content-Length"] == str(len(get_body))
+    assert json.loads(get_body)["status"] == "retired"
+    assert json.loads(get_body)["entries"] == []
+    assert head_body == b""
+
+
 def test_upload_is_disabled_before_read_or_write(flask_module, monkeypatch, no_network):
     from safetask.core import doc_processor
     monkeypatch.setattr(doc_processor, "extract_text_from_pdf", lambda *a: pytest.fail("file read"))

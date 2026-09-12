@@ -26,7 +26,7 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         # Suppress default request logger to keep console logs clean
         pass
 
-    def send_regulation_pack(self, domain: str) -> None:
+    def send_regulation_pack(self, domain: str, *, head_only: bool = False) -> None:
         status, payload = policy_response(domain, domain_root=DOMAIN_PACKS_DIR)
         body = json.dumps(payload).encode("utf-8")
         self.send_response(status)
@@ -34,7 +34,8 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(body)
+        if not head_only:
+            self.wfile.write(body)
 
     def do_OPTIONS(self):
         # Respond to CORS preflight requests
@@ -110,6 +111,12 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_proxy()
         else:
             super().do_GET()
+
+    def do_HEAD(self):
+        if self.path.split("?", 1)[0] == "/policy-packs/gaming/regulations.json":
+            self.send_regulation_pack("gaming", head_only=True)
+        else:
+            super().do_HEAD()
 
     def do_POST(self):
         if self.path.startswith("/api/"):

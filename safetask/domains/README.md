@@ -2,7 +2,11 @@
 
 Domain packs keep SafeTask source-bound and jurisdiction-aware.
 
-The current `gaming` folder is the legacy demo pack used by the prototype UI. Future public regulatory packs should use stable IDs that name both domain and jurisdiction, such as:
+The legacy generic gaming corpus is retired. Synthetic gaming material in `tests/fixtures/synthetic/gaming_policies.json` is test-only and does not supply policy to the UI.
+
+Structurally valid regulation packs do not automatically become reviewed authority. Reviewed use also requires a matching repository-controlled trusted review record in `policy/reviewed_sources.json`, bound to the pack's path and current content hash. The shipped catalog contains no approved real-world sources.
+
+Future public regulatory packs should use stable IDs that name both domain and jurisdiction, such as:
 
 - `gaming-us-tribal`
 - `gaming-us-nv`

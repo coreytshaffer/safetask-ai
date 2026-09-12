@@ -80,7 +80,7 @@ from parsing. These do not change authentication, reviewer permissions or custod
 
 ## Deployment and data/cache migration
 
-1. Deploy all four commits together after human review. Do not publish an
+1. Deploy all remediation commits together after human review. Do not publish an
    intermediate commit. Stop old application processes before updating a local
    installation; do not continue running an old binary against the new checkout.
 2. Install the focused dependencies in the application's environment. Run with
