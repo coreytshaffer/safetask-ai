@@ -28,3 +28,9 @@ triagecore/
 __pycache__/
 *.pyc
 .triagecore/
+
+# A01/A02: disposable indexes and retired distribution must never be republished.
+data/chroma_db/
+src/data/chroma_db/
+field_aware_mvp.zip
+!requirements-provenance.txt

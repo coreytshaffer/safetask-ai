@@ -16,7 +16,11 @@ def add_watermark(canvas, doc):
     # Translate and rotate to put diagonal watermark
     canvas.translate(doc.pagesize[0]/2, doc.pagesize[1]/2)
     canvas.rotate(45)
-    canvas.drawCentredString(0, 0, "CONFIDENTIAL - TGRA USE ONLY")
+    canvas.drawCentredString(0, 0, "UNREVIEWED DRAFT")
+    canvas.restoreState()
+    canvas.saveState()
+    canvas.setFont('Helvetica', 9)
+    canvas.drawString(40, 24, "Policy sources and regulatory applicability have not been verified.")
     canvas.restoreState()
 
 def generate_incident_pdf(incident_id, output_path):
@@ -66,12 +70,14 @@ def generate_incident_pdf(incident_id, output_path):
     story = []
 
     # Header
-    story.append(Paragraph("OFFICIAL CASINO SURVEILLANCE REPORT", title_style))
+    story.append(Paragraph("DRAFT INCIDENT REPORT", title_style))
     story.append(Paragraph(f"<b>Incident ID:</b> {incident['id']}", meta_style))
     story.append(Paragraph(f"<b>Timestamp:</b> {incident['date']}", meta_style))
     story.append(Paragraph(f"<b>Classification:</b> {incident['category']} | <b>Severity:</b> {incident['severity']}", meta_style))
     story.append(Paragraph(f"<b>Edge Hash:</b> {incident.get('hash', 'N/A')}", meta_style))
     story.append(Spacer(1, 0.25 * inch))
+
+    story.append(Paragraph("Unreviewed legacy narrative. Policy sources and regulatory applicability have not been verified.", body_style))
 
     # Narrative
     story.append(Paragraph("NARRATIVE", styles['Heading2']))

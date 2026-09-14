@@ -4,12 +4,14 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from review_engine.harness.checker import CyberneticHarness
 from logger import logger
 from notebook.db import NotebookDB
 from notebook.parser import DictationParser
 from rag.indexer import DocumentIndexer
-from rag.retriever import DocumentRetriever
+from rag.retriever import DocumentRetriever, RetrievalUnavailable
 from analysis.spatial_preprocessor import SpatialPreprocessor
 
 
@@ -24,7 +26,9 @@ def main():
         "serve", "check", "index", "search", "dictate", "map", 
         "export", "gdal", "analyze", "folium", "cite", "sync", "identify"
     ]:
-        subparsers.add_parser(action)
+        action_parser = subparsers.add_parser(action)
+        if action == "search":
+            action_parser.add_argument("query", help="Source search query")
 
     # New preprocess-spatial command
     parser_preprocess = subparsers.add_parser('preprocess-spatial', help='Preprocess a spatial file (e.g. reproject to EPSG:4326 and simplify)')
@@ -67,21 +71,27 @@ def main():
         logger.info("Indexing documents started via CLI.")
         print("Indexing documents...")
         indexer = DocumentIndexer()
-        indexer.index_directory(args.docs_dir)
+        print(json.dumps(indexer.index_directory(args.docs_dir)))
 
     elif args.action == "search":
-        if not args.text:
+        if not args.query:
             print("Error: search action requires text argument as query")
             return
-        print(f"Searching for: '{args.text}'\n")
-        retriever = DocumentRetriever()
-        cards = retriever.search(args.text)
+        print(f"Searching for: '{args.query}'\n")
+        retriever = DocumentRetriever(docs_dir=args.docs_dir)
+        try:
+            cards = retriever.search(args.query)
+        except RetrievalUnavailable as exc:
+            print(f"Retrieval status: {exc.status}")
+            return
+        print(f"Retrieval status: ready ({len(cards)} results)")
 
         for idx, card in enumerate(cards):
             print(f"--- Result {idx+1} ---")
             print(f"Title: {card.metadata.title}")
-            print(f"Source: {card.metadata.source} ({card.metadata.authority_level})")
-            print(f"Freshness: {card.metadata.freshness_date}")
+            print(f"Provenance: {card.metadata.provenance.label}")
+            print(f"Source: {card.metadata.source}; scope: {card.metadata.provenance.scope or 'unverified'}")
+            print(f"Source-declared date (not a freshness check): {card.metadata.freshness_date}")
             print(f"Snippet: {card.content[:200]}...")
             print()
 

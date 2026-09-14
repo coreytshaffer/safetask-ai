@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SafeTask AI — Casino Surveillance Agent Portal</title>
   <!-- SEO Tags -->
-  <meta name="description" content="Surveillance Agent Command Center for real-time monitoring, MICS compliance, and incident generation.">
+  <meta name="description" content="Surveillance Agent Command Center for demonstration monitoring and draft incident generation with no reviewed policy sources.">
   <meta name="theme-color" content="#0a192f">
   
   <!-- Premium Typography -->
@@ -19,15 +19,15 @@
   <!-- Manifest for PWA -->
   <link rel="manifest" href="manifest.json">
 </head>
-<body>
+<body data-provenance-version="2">
   <!-- Print Header (Hidden on UI, visible on Print) -->
   <div class="print-header-block">
     <div class="print-title-area">
-      <h1>TRIBAL GAMING REGULATORY AUTHORITY</h1>
+      <h1>SAFETASK DEMONSTRATION DRAFT</h1>
       <h2>CASINO SURVEILLANCE COMPLIANCE & INVESTIGATIONS</h2>
     </div>
     <div class="print-logo-box">
-      <span>NIGC MICS COMPLIANT</span>
+      <span>POLICY SOURCES NOT VERIFIED</span>
     </div>
   </div>
   <div class="print-disclaimer only-print">
@@ -217,15 +217,15 @@
             <div class="control-card glass flex-column">
               <div class="card-header-row">
                 <h3>Active Investigation Context</h3>
-                <span class="active-badge" id="incRagBadge">0 Regulations Matched</span>
+                <span class="active-badge" id="incRagBadge">No reviewed sources</span>
               </div>
-              <p class="section-desc">When an anomaly is selected, the MICS/TICS rules will be pulled automatically to anchor the generated incident.</p>
+              <p class="section-desc">Policy lookup is unavailable in this legacy demonstration. An authorized reviewer must select applicable sources.</p>
               
               <!-- Matched Regulations List -->
               <div class="matched-regs-list" id="incidentMatchedRegs">
                 <div class="empty-regs-state">
                   <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                  <p>Awaiting anomaly selection to evaluate standard codes and check MICS requirements.</p>
+                  <p>No reviewed policy sources are supplied.</p>
                 </div>
               </div>
             </div>
@@ -265,9 +265,9 @@
           <div class="output-container glass hidden" id="incidentOutputSection">
             <div class="output-header">
               <div class="output-title-block">
-                <div class="badge badge-high" id="outputIncOshaBadge">MICS Violation</div>
+                <div class="badge badge-high" id="outputIncOshaBadge">Unreviewed draft</div>
                 <h2 id="outputIncTitle">AUTOMATED INCIDENT PACKAGE</h2>
-                <p>Subject to NIGC MICS Record Keeping. Video cryptographically hashed.</p>
+                <p>Policy applicability has not been verified. Video cryptographically hashed.</p>
               </div>
               <div class="output-actions">
                 <button class="btn btn-secondary" onclick="sealEvidencePackage()">
@@ -362,7 +362,7 @@
             <!-- Left Panel: Input & Settings -->
             <div class="control-card glass">
               <h3>Report Field Incident</h3>
-              <p class="section-desc">Log a workplace incident, patron dispute, or policy violation. SafeTask AI will classify the event and compile a legally defensible report.</p>
+              <p class="section-desc">Log a workplace incident, patron dispute, or policy violation. SafeTask AI will classify the event and compile a unreviewed draft report.</p>
               
               <!-- Observation Timeline UI -->
               <div class="timeline-container" style="margin-bottom: 24px; padding: 16px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: var(--border-radius-md);">
@@ -410,16 +410,16 @@
             <!-- Right Panel: Matched Regulations & AI Drawer -->
             <div class="control-card glass flex-column">
               <div class="card-header-row">
-                <h3>MICS/TICS Anti-Hallucination RAG</h3>
-                <span class="active-badge" id="ragBadge">0 Regulations Matched</span>
+                <h3>Policy Source Status</h3>
+                <span class="active-badge" id="ragBadge">No reviewed sources</span>
               </div>
-              <p class="section-desc">Client-side lookup scans inputs against **MICS and SICS** standards to anchor AI output.</p>
+              <p class="section-desc">The legacy policy corpus is retired. Generated text has no verified regulatory grounding.</p>
               
               <!-- Matched Regulations List -->
               <div class="matched-regs-list" id="jhaMatchedRegs">
                 <div class="empty-regs-state">
                   <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                  <p>Type incident details to trigger matched regulatory sections in real time.</p>
+                  <p>No reviewed regulatory sections are available.</p>
                 </div>
               </div>
             </div>
@@ -442,7 +442,7 @@
               <div class="output-title-block">
                 <div class="badge badge-high" id="outputRiskBadge">High Risk</div>
                 <h2 id="outputTaskName">Incident Report Draft</h2>
-                <p>Regulatory Standard Anchor: Casino Surveillance MICS</p>
+                <p>Policy source status: unavailable</p>
               </div>
               <div class="output-actions">
                 <button class="btn btn-secondary" onclick="sealEvidencePackage()">
@@ -486,7 +486,7 @@
                 </div>
                 <div class="analysis-card">
                   <h4>Contact Slate</h4>
-                  <p class="card-hint-text">Required escalation matrix based on MICS thresholds.</p>
+                  <p class="card-hint-text">Draft contact list; no regulatory escalation determination.</p>
                   <ul class="capa-checklist" id="jhaContactSlate">
                     <!-- JS loaded -->
                   </ul>
@@ -667,12 +667,12 @@
               
               <!-- Epic 8 Toggle -->
               <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.5); padding: 4px; border-radius: 8px;">
-                <button id="btnModePolicy" class="btn primary-btn" style="padding: 4px 12px; font-size: 11px;" onclick="setResearchMode('policy')">Policy AI</button>
+                <button disabled id="btnModePolicy" class="btn primary-btn" style="padding: 4px 12px; font-size: 11px;" onclick="setResearchMode('policy')">Policy AI</button>
                 <button id="btnModeRecall" class="btn nav-btn" style="padding: 4px 12px; font-size: 11px;" onclick="setResearchMode('recall')">Incident Recall</button>
               </div>
             </div>
             
-            <p id="researchDesc" class="section-desc" style="margin-bottom: 10px;">Ask questions regarding MICS/TICS policies or compliance procedures. The AI will pull from the offline regulations database.</p>
+            <p id="researchDesc" class="section-desc" style="margin-bottom: 10px;">Policy research is unavailable. General model output is unverified and has no reviewed policy sources.</p>
             
             <!-- Chat Window (Policy AI) -->
             <div id="chatHistory" class="chat-history-window" style="flex-grow: 1; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: var(--border-radius-md); padding: 16px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 12px;">
@@ -705,7 +705,7 @@
               <h3>Admin Governance Console</h3>
             </div>
             
-            <p class="section-desc" style="margin-bottom: 16px;">Ingest and manage offline policy documents (MICS, TICS, and Casino SOPs).</p>
+            <p class="section-desc" style="margin-bottom: 16px;">Direct policy publication is disabled. Uploads cannot create reviewed authority.</p>
             
             <div style="display: flex; gap: 20px; height: 100%;">
               <!-- Upload Form -->
@@ -713,17 +713,17 @@
                 <h4 style="margin-bottom: 16px; color: var(--accent-cyan);">Ingest New Policy</h4>
                 <div style="margin-bottom: 12px;">
                   <label style="display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Policy Code</label>
-                  <input type="text" id="adminPolicyCode" placeholder="e.g. MICS-501" style="width: 100%; padding: 8px; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); color: white;">
+                  <input type="text" disabled id="adminPolicyCode" placeholder="Publication disabled" style="width: 100%; padding: 8px; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); color: white;">
                 </div>
                 <div style="margin-bottom: 12px;">
                   <label style="display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Policy Title</label>
-                  <input type="text" id="adminPolicyTitle" placeholder="e.g. Table Drop Procedures" style="width: 100%; padding: 8px; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); color: white;">
+                  <input type="text" disabled id="adminPolicyTitle" placeholder="e.g. Table Drop Procedures" style="width: 100%; padding: 8px; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); color: white;">
                 </div>
                 <div style="margin-bottom: 20px;">
                   <label style="display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Policy Document (PDF)</label>
-                  <input type="file" id="adminPolicyFile" accept=".pdf" style="width: 100%; padding: 8px; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px dashed var(--border-color); color: white; cursor: pointer;">
+                  <input type="file" disabled id="adminPolicyFile" accept=".pdf" style="width: 100%; padding: 8px; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px dashed var(--border-color); color: white; cursor: pointer;">
                 </div>
-                <button class="btn primary-btn" style="width: 100%;" onclick="uploadPolicy()">Ingest Policy</button>
+                <button class="btn primary-btn" style="width: 100%;" disabled >Publication Disabled</button>
                 <div id="uploadStatus" style="margin-top: 12px; font-size: 12px; text-align: center;"></div>
               </div>
 
@@ -915,7 +915,7 @@
 
               <!-- IMPORTANT NOTE FOR RESEARCH HUB -->
               <div style="margin-top: 15px; padding: 12px; border-left: 4px solid var(--accent-amber); background: rgba(245, 158, 11, 0.1); border-radius: 4px; font-size: 13px; color: var(--text-secondary);">
-                <strong>Performance Recommendation:</strong> For advanced Investigative Research and multi-turn chat against the regulations, we highly recommend loading a larger model like <strong>NVIDIA Nemotron</strong> (e.g., Llama-3.1-Nemotron-70B or Nemotron-Mini) in LM Studio. Smaller 3B reasoning models excel at data formatting but may struggle with deep legal reasoning.
+                General model output is unverified. Model selection does not establish policy provenance or legal applicability.
               </div>
 
               <div class="server-status-info glass-dense" id="serverInfoBox" style="margin-top: 20px;">
@@ -932,40 +932,10 @@
               </div>
             </div>
 
-            <!-- Configuration Guide -->
+            <!-- Retired policy corpus: no preloaded authority -->
             <div class="control-card glass">
-              <h3>Offline Regulatory Reference Engine</h3>
-              <p class="section-desc">SafeTask AI uses a compressed offline keyword index matching Casino Surveillance MICS/TICS/SICS safety orders.</p>
-              
-              <div class="regulations-index-preview">
-                <h4>Pre-Loaded Regulatory Reference Subparts</h4>
-                <div class="reg-bullets">
-                  <div class="bullet-item">
-                    <h5>NIGC MICS 25 CFR § 543.21</h5>
-                    <p>Surveillance Systems & Access logging.</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>SICS Section 3.1.4</h5>
-                    <p>Table Games: Dealer Procedures (Hand Clearing).</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>SICS Section 4.1</h5>
-                    <p>Table Drop Procedures (3 officer requirement).</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>TICS Section 9.1</h5>
-                    <p>Incident Reporting Requirements (Camera #s, timestamps).</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>Constructive Knowledge Policy</h5>
-                    <p>Slip & Fall Liability and Intentional hazards.</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>TICS Section 5.5</h5>
-                    <p>Secure Door Integrity and alarmed doors.</p>
-                  </div>
-                </div>
-              </div>
+              <h3>Policy Sources Unavailable</h3>
+              <p>No reviewed policy sources are included in this demonstration. Legacy gaming fixtures have been retired.</p>
             </div>
 
           </div>
@@ -1015,7 +985,7 @@
 
               <!-- IMPORTANT NOTE FOR RESEARCH HUB -->
               <div style="margin-top: 15px; padding: 12px; border-left: 4px solid var(--accent-amber); background: rgba(245, 158, 11, 0.1); border-radius: 4px; font-size: 13px; color: var(--text-secondary);">
-                <strong>Performance Recommendation:</strong> For advanced Investigative Research and multi-turn chat against the regulations, we highly recommend loading a larger model like <strong>NVIDIA Nemotron</strong> (e.g., Llama-3.1-Nemotron-70B or Nemotron-Mini) in LM Studio. Smaller 3B reasoning models excel at data formatting but may struggle with deep legal reasoning.
+                General model output is unverified. Model selection does not establish policy provenance or legal applicability.
               </div>
 
               <div class="server-status-info glass-dense" id="serverInfoBox" style="margin-top: 20px;">
@@ -1032,40 +1002,10 @@
               </div>
             </div>
 
-            <!-- Configuration Guide -->
+            <!-- Retired policy corpus: no preloaded authority -->
             <div class="control-card glass">
-              <h3>Offline Regulatory Reference Engine</h3>
-              <p class="section-desc">SafeTask AI uses a compressed offline keyword index matching Casino Surveillance MICS/TICS/SICS safety orders.</p>
-              
-              <div class="regulations-index-preview">
-                <h4>Pre-Loaded Regulatory Reference Subparts</h4>
-                <div class="reg-bullets">
-                  <div class="bullet-item">
-                    <h5>NIGC MICS 25 CFR § 543.21</h5>
-                    <p>Surveillance Systems & Access logging.</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>SICS Section 3.1.4</h5>
-                    <p>Table Games: Dealer Procedures (Hand Clearing).</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>SICS Section 4.1</h5>
-                    <p>Table Drop Procedures (3 officer requirement).</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>TICS Section 9.1</h5>
-                    <p>Incident Reporting Requirements (Camera #s, timestamps).</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>Constructive Knowledge Policy</h5>
-                    <p>Slip & Fall Liability and Intentional hazards.</p>
-                  </div>
-                  <div class="bullet-item">
-                    <h5>TICS Section 5.5</h5>
-                    <p>Secure Door Integrity and alarmed doors.</p>
-                  </div>
-                </div>
-              </div>
+              <h3>Policy Sources Unavailable</h3>
+              <p>No reviewed policy sources are included in this demonstration. Legacy gaming fixtures have been retired.</p>
             </div>
 
           </div>
@@ -1075,39 +1015,39 @@
         <section class="tab-pane" id="tabAdmin">
           <div class="grid-layout">
             <div class="control-card glass">
-              <h3>Deploy New Regulatory Document</h3>
-              <p class="section-desc">Upload a PDF policy bulletin. The system will extract the raw text deterministically to ensure chain-of-custody compliance and inject it into the offline RAG database across all terminals.</p>
+              <h3>Policy Publication Disabled</h3>
+              <p class="section-desc">Uploads cannot create reviewed authority or publish to an offline corpus.</p>
               
               <div class="form-group" style="margin-top: 15px;">
-                <label>Regulation Code (e.g. MICS 543.21)</label>
-                <input type="text" id="adminCodeInput" placeholder="Enter formal code">
+                <label>Policy code (publication disabled)</label>
+                <input type="text" disabled id="adminCodeInput" placeholder="Enter formal code">
               </div>
 
               <div class="form-group">
                 <label>Policy Title</label>
-                <input type="text" id="adminTitleInput" placeholder="Enter policy title">
+                <input type="text" disabled id="adminTitleInput" placeholder="Enter policy title">
               </div>
 
               <div class="form-group">
-                <label>Upload Official Document (.pdf)</label>
-                <div class="upload-zone" id="adminUploadZone" onclick="document.getElementById('adminFileInput').click()">
+                <label>Document upload disabled</label>
+                <div class="upload-zone" id="adminUploadZone" >
                   <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                   <p>Click to select PDF or drag and drop</p>
-                  <input type="file" id="adminFileInput" accept=".pdf" style="display:none;" onchange="handleAdminFileSelect(event)">
+                  <input type="file" disabled id="adminFileInput" accept=".pdf" style="display:none;" >
                 </div>
                 <div id="adminFileName" style="margin-top: 8px; font-size: 12px; color: var(--accent-cyan);"></div>
               </div>
 
-              <button class="btn btn-primary" style="margin-top: 15px;" onclick="uploadPolicy()">
-                Deploy to Knowledge Base
+              <button class="btn btn-primary" style="margin-top: 15px;" disabled >
+                Publication Disabled
               </button>
 
               <div id="adminUploadStatus" style="margin-top: 15px; font-size: 13px; font-weight: bold;"></div>
             </div>
 
             <div class="control-card glass">
-              <h3>Chain-of-Custody Guarantee</h3>
-              <p class="section-desc">To satisfy auditing requirements, uploaded documents are <strong>NOT</strong> parsed by generative AI models. Text is extracted deterministically to prevent hallucination of regulatory codes.</p>
+              <h3>Policy Publication Status</h3>
+              <p class="section-desc">Text extraction does not establish source authority. Direct publication is disabled in this demonstration.</p>
               <div class="reg-card" style="margin-top: 20px;">
                 <div class="reg-card-header">
                   <span class="reg-card-code">AUDIT TRAIL</span>
@@ -1216,6 +1156,11 @@
       </div>
     </div>
 
+    <aside id="provenance-migration" role="status" style="position:fixed;bottom:0;left:0;right:0;background:#14243a;color:white;padding:12px;z-index:99999">
+      <span id="provenance-migration-status">Policy cache migration is not yet verified. Save your work before reloading.</span>
+      <button id="provenance-reload" type="button" hidden>Reload after saving work</button>
+    </aside>
+    <script src="provenance-migration.js"></script>
     <script src="app.js"></script>
     <script>
         setInterval(() => {

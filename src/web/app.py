@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 from fastapi import FastAPI, HTTPException, UploadFile, File
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -23,7 +23,7 @@ from review_engine.harness.checker import CyberneticHarness
 from notebook.db import NotebookDB
 from notebook.parser import DictationParser
 from qgis_runner.runner import QGISRunner
-from rag.retriever import DocumentRetriever
+from rag.retriever import DocumentRetriever, RetrievalUnavailable
 from safetask.api.router import router as safetask_router
 
 app = FastAPI(title="FieldAware Dashboard")
@@ -112,9 +112,11 @@ async def process_dictation(req: DictateRequest):
 async def search_docs(req: SearchRequest):
     try:
         cards = retriever.search(req.query, n_results=3)
-        return {"results": cards}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"results": [card.to_dict() for card in cards], "retrieval_status": "ready"}
+    except Exception as exc:
+        status = exc.status if isinstance(exc, RetrievalUnavailable) else "retrieval_unavailable"
+        return JSONResponse({"results": [], "retrieval_status": status}, status_code=503,
+                            headers={"Cache-Control": "no-store"})
 
 
 @app.post("/api/flag")
@@ -248,10 +250,8 @@ async def action_index(req: ActionRequest):
     try:
         from rag.indexer import DocumentIndexer
         indexer = DocumentIndexer()
-        # Note: the indexer currently doesn't return the count, but it logs it.
-        # We can just call index_directory.
-        indexer.index_directory()
-        return {"status": "success", "message": "Document repository indexing complete."}
+        result = indexer.index_directory()
+        return {**result, "message": f"Provenance index rebuilt: {result['indexed_units']} units."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

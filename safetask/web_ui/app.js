@@ -296,10 +296,15 @@ Only return the JSON array, no other text.`;
         document.getElementById('packet-desc').textContent = packet.details.description;
         document.getElementById('packet-escalation').textContent = packet.escalation_prompt;
 
+        document.getElementById('packet-source-status').textContent = (packet.policy_sources_status || 'retrieval_unavailable') + ': ' + (packet.source_notice || 'Source review unavailable.');
         const policyList = document.getElementById('policy-list');
         policyList.innerHTML = ''; // clear
 
-        if (packet.recommended_review && packet.recommended_review.length > 0) {
+        const policies = packet.recommended_review || [];
+        const valid = policies.every(pol => pol.provenance?.provenance_version === 1 &&
+            pol.provenance.review_status === 'reviewed' && pol.provenance.review_id &&
+            ['external_source', 'facility_policy'].includes(pol.provenance.source_kind));
+        if (valid && packet.policy_sources_status === 'reviewed_sources' && policies.length > 0) {
             function escapeHTML(str) {
                 if (!str) return '';
                 return str.toString()
@@ -309,22 +314,20 @@ Only return the JSON array, no other text.`;
                     .replace(/"/g, '&quot;')
                     .replace(/'/g, '&#039;');
             }
-            packet.recommended_review.forEach(pol => {
+            policies.forEach(pol => {
                 const card = document.createElement('div');
                 card.className = 'glass-panel policy-card require_review';
                 card.style.marginBottom = '1rem';
                 card.innerHTML = `
                     <h4><i class="ph ph-file-text"></i> ${escapeHTML(pol.title)}</h4>
-                    <p class="meta" style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem;">Source: ${escapeHTML(pol.source)} | Page: ${escapeHTML(pol.page)}</p>
+                    <p class="meta" style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem;">${escapeHTML(pol.provenance_label || 'Source review unavailable')}<br>Source: ${escapeHTML(pol.source)} | Page: ${escapeHTML(pol.page ?? 'Not applicable')}<br>Scope: ${escapeHTML(pol.provenance.scope)} | Review: ${escapeHTML(pol.provenance.review_id)}</p>
                     <p style="color: var(--text-main); line-height: 1.5; font-size: 0.95rem;">"${escapeHTML(pol.excerpt)}"</p>
-                    <div style="margin-top: 1rem;">
-                        <button class="btn secondary-btn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="alert('Opening PDF viewer to page ${escapeHTML(pol.page)}')"><i class="ph ph-arrow-square-out"></i> Open Document</button>
-                    </div>
+                    <p>Source locator: ${escapeHTML(pol.provenance.source_locator)}</p>
                 `;
                 policyList.appendChild(card);
             });
         } else {
-            policyList.innerHTML = '<p>No specific policies found for this incident type.</p>';
+            policyList.textContent = 'No reviewed sources are available for presentation. An authorized reviewer must select applicable sources.';
         }
     }
 
@@ -1031,6 +1034,7 @@ Only return the JSON array, no other text.`;
             loginScreen.style.display = 'flex';
             mainAppContainer.style.display = 'none';
         });
+    }
     // Epic 19: Vision Analytics Simulation
     const cvOverlay = document.getElementById('cv-overlay');
     const cvEventLog = document.getElementById('cv-event-log');

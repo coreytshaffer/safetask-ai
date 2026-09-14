@@ -2,16 +2,164 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "id": { "type": "string" },
-    "title": { "type": "string" },
-    "topic": { "type": "string" },
-    "source": { "type": "string" },
-    "jurisdiction": { "type": "string" },
-    "freshness_date": { "type": "string", "format": "date" },
-    "authority_level": { 
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "freshness_date": {
       "type": "string",
-      "enum": ["official_regulation", "agency_guidance", "scientific_paper", "internal_protocol", "draft"]
+      "description": "Source-declared date or Unknown; never a currentness check."
+    },
+    "authority_level": {
+      "type": "string",
+      "enum": [
+        "official_regulation",
+        "agency_guidance",
+        "scientific_paper",
+        "internal_protocol",
+        "draft"
+      ],
+      "description": "Legacy descriptive field only. Never grants review or authority."
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "provenance_version",
+        "source_id",
+        "source_kind",
+        "review_status",
+        "content_sha256",
+        "review_id",
+        "source_locator",
+        "issuer",
+        "scope",
+        "source_version",
+        "reviewed_at"
+      ],
+      "properties": {
+        "provenance_version": {
+          "const": 1
+        },
+        "source_id": {
+          "type": "string"
+        },
+        "source_kind": {
+          "enum": [
+            "synthetic",
+            "external_source",
+            "facility_policy",
+            "unknown"
+          ]
+        },
+        "review_status": {
+          "enum": [
+            "unreviewed",
+            "reviewed"
+          ]
+        },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "review_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_locator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issuer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "review_status": {
+                "const": "reviewed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source_kind": {
+                "enum": [
+                  "external_source",
+                  "facility_policy"
+                ]
+              },
+              "review_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_locator": {
+                "type": "string",
+                "minLength": 1
+              },
+              "issuer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reviewed_at": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
     }
   },
-  "required": ["id", "title", "source", "authority_level"]
+  "required": [
+    "id",
+    "title",
+    "source",
+    "provenance"
+  ]
 }

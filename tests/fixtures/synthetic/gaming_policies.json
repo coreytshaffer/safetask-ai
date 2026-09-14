@@ -1,0 +1,29 @@
+[
+  {
+    "code": "SYN-GAMING-001",
+    "title": "Synthetic dealer keyword example",
+    "fixture_marker": "SAFETASK_SYNTHETIC_FIXTURE",
+    "source_kind": "synthetic",
+    "review_status": "unreviewed",
+    "keywords": ["dealer", "hands", "blackjack"],
+    "summary": "Fictional keyword matching example only; no required dealer procedure."
+  },
+  {
+    "code": "SYN-GAMING-002",
+    "title": "Synthetic incident keyword example",
+    "fixture_marker": "SAFETASK_SYNTHETIC_FIXTURE",
+    "source_kind": "synthetic",
+    "review_status": "unreviewed",
+    "keywords": ["slip", "fall", "liquid"],
+    "summary": "Fictional incident vocabulary only; no liability conclusion."
+  },
+  {
+    "code": "SYN-GAMING-003",
+    "title": "Synthetic access keyword example",
+    "fixture_marker": "SAFETASK_SYNTHETIC_FIXTURE",
+    "source_kind": "synthetic",
+    "review_status": "unreviewed",
+    "keywords": ["access", "cage", "vault", "door"],
+    "summary": "Fictional access vocabulary only; no regulation or facility rule."
+  }
+]

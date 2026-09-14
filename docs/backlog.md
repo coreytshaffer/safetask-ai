@@ -101,6 +101,7 @@ Reports, evidence references, retention status, and after-action items are prese
 * Story 0.2: Align launcher with full backend
 * Story 0.3: Add domain-specific test suites
 * Story 0.4: Update commercial safety copy
+* Story 0.5: Atomic incident packet persistence (deferred from A01/A02 remediation). Incident packet persistence is not atomic. Serialization or disk-write failure can leave a truncated output file. This does not bypass provenance or restore policy authority, but persistence should eventually use an atomic write/replace pattern.
 
 ### Epic 1: SafeTask Core domain architecture
 * Story 1.1: Create core plus domain pack structure

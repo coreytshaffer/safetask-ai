@@ -15,6 +15,9 @@ APP_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, "..", "..", ".."))
 DOMAIN_PACKS_DIR = os.path.join(PROJECT_ROOT, "safetask", "domains")
 
+sys.path.insert(0, PROJECT_ROOT)
+from safetask.core.regulation_pack import policy_response
+
 def is_safe_pack_name(pack_name: str) -> bool:
     return pack_name.replace("-", "").replace("_", "").isalnum()
 
@@ -23,29 +26,16 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         # Suppress default request logger to keep console logs clean
         pass
 
-    def send_regulation_pack(self, domain: str) -> None:
-        if not is_safe_pack_name(domain):
-            self.send_error(404, "Unknown policy domain")
-            return
-
-        base_dir = os.path.abspath(DOMAIN_PACKS_DIR)
-        file_path = os.path.abspath(os.path.join(base_dir, domain, "regulations.json"))
-        if not file_path.startswith(base_dir):
-            self.send_error(403, "Forbidden: Invalid domain path")
-            return
-            
-        if not os.path.exists(file_path):
-            self.send_error(404, "Regulation pack not found")
-            return
-
-        with open(file_path, "rb") as file:
-            body = file.read()
-
-        self.send_response(200)
+    def send_regulation_pack(self, domain: str, *, head_only: bool = False) -> None:
+        status, payload = policy_response(domain, domain_root=DOMAIN_PACKS_DIR)
+        body = json.dumps(payload).encode("utf-8")
+        self.send_response(status)
         self.send_header("Content-Type", "application/json")
+        self.send_header("Cache-Control", "no-store")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(body)
+        if not head_only:
+            self.wfile.write(body)
 
     def do_OPTIONS(self):
         # Respond to CORS preflight requests
@@ -121,6 +111,12 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_proxy()
         else:
             super().do_GET()
+
+    def do_HEAD(self):
+        if self.path.split("?", 1)[0] == "/policy-packs/gaming/regulations.json":
+            self.send_regulation_pack("gaming", head_only=True)
+        else:
+            super().do_HEAD()
 
     def do_POST(self):
         if self.path.startswith("/api/"):

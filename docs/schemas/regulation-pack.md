@@ -2,6 +2,11 @@
 
 Regulation packs are source-bound jurisdiction modules used by SafeTask RAG. They keep legal or policy source material separate from report-writing examples, operational guidance, and AI-generated drafts.
 
+Current release: the generic gaming corpus is retired. No pack is approved by
+this repository's empty review catalog. The schema below describes a contract;
+source-owned approval fields do not grant reviewed status. See
+[the provenance and migration boundary](../provenance-boundary.md).
+
 ## Design Rule
 
 For multilingual jurisdictions, SafeTask must preserve three separate layers:
@@ -66,3 +71,9 @@ python -m safetask.core.regulation_pack path\to\regulations.json --approved
 ```
 
 The default mode checks structure and allows draft templates. The `--approved` mode requires `review_status` to be `approved`, requires `source_policy` to be `official_public_sources_only`, requires the Macau-style source review model, rejects placeholder reviewer fields, requires source URLs to match declared official domains, and requires entry confidence to be `reviewed_operational_interpretation`.
+
+Additionally, `--approved` and all three policy HTTP servers require a matching
+repository-controlled review record for the current bytes and path. The record,
+not the pack, supplies the permitted source domains. Responses carry the derived
+provenance on the envelope and each entry and use `Cache-Control: no-store`.
+Direct upload publication is disabled. Schema validation by itself is not an approval.

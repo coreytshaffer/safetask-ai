@@ -5,7 +5,7 @@ import requests
 from flask import Flask, request, jsonify, send_from_directory, send_file
 from flask_cors import CORS
 from safetask.core import db
-from safetask.core import doc_processor
+from safetask.core.regulation_pack import policy_response
 from safetask.core import pdf_engine
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -30,11 +30,8 @@ def index():
 
 @app.route('/policy-packs/<domain>/regulations.json')
 def regulation_pack(domain):
-    if not is_safe_pack_name(domain):
-        return jsonify({"error": "Unknown policy domain"}), 404
-
-    domain_dir = os.path.join(DOMAIN_PACKS_DIR, domain)
-    return send_from_directory(domain_dir, "regulations.json")
+    status, payload = policy_response(domain, domain_root=DOMAIN_PACKS_DIR)
+    return jsonify(payload), status, {"Cache-Control": "no-store"}
 
 @app.route('/<path:path>')
 def static_files(path):
@@ -157,11 +154,6 @@ def search():
     results = db.search_incidents(query)
     return jsonify(results)
 
-@app.route('/api/subjects', methods=['GET'])
-def get_subjects():
-    subjects = db.get_subjects()
-    return jsonify(subjects)
-
 @app.route('/api/incidents', methods=['POST'])
 def save_incident():
     data = request.json
@@ -184,28 +176,8 @@ def export_pdf(incident_id):
 
 @app.route('/api/policies/upload', methods=['POST'])
 def upload_policy():
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part"}), 400
-    file = request.files['file']
-    code = request.form.get('code')
-    title = request.form.get('title')
-
-    if file.filename == '' or not code or not title:
-        return jsonify({"error": "Missing file, code, or title"}), 400
-
-    try:
-        # Save temp
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-            file.save(tmp.name)
-            tmp_path = tmp.name
-
-        # Process deterministically
-        new_policy = doc_processor.process_upload(tmp_path, code, title)
-        os.remove(tmp_path)
-
-        return jsonify({"status": "success", "policy": new_policy}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    return jsonify({"status": "publication_disabled", "entries": [],
+                    "message": "Uploads cannot publish reviewed policy"}), 410, {"Cache-Control": "no-store"}
 
 if __name__ == '__main__':
     print("Starting SafeTask AI Server on http://localhost:8080")

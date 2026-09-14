@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from rag.retriever import DocumentRetriever
+    from rag.retriever import DocumentRetriever, RetrievalUnavailable
     retriever = DocumentRetriever()
 except Exception as e:
     retriever = None
@@ -51,39 +51,34 @@ async def report_incident(report: IncidentReport):
     # 1. Save incident locally (for MVP, we just return it as part of the packet)
     incident_id = f"INC-{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}"
     
-    # 2. Use RAG to fetch relevant safety guidelines based on description
+    # Build the complete reviewed result atomically. Errors never invent guidance.
     policies = []
-    if retriever:
+    source_status = "retrieval_unavailable"
+    if retriever is not None:
         try:
-            # We construct a query based on the incident description
-            query = f"Safety policy, reporting criteria, or procedure for: {report.description} {report.equipment_involved}"
-            rag_results = retriever.search(query, n_results=3)
-            for res in rag_results:
-                policies.append({
-                    "title": res.get("title", "Unknown Policy"),
-                    "excerpt": res.get("snippet", ""),
-                    "source": res.get("source", ""),
-                    "page": res.get("page", 1)
-                })
-        except Exception as e:
-            print(f"RAG search failed: {e}")
-
-    # Fallback/mock policies if RAG is empty or failed
-    if not policies:
-        policies.append({
-            "title": "OSHA Severe Injury Reporting",
-            "excerpt": "Employers must report any worker fatality within 8 hours and any amputation, loss of an eye, or hospitalization of a worker within 24 hours.",
-            "source": "OSHA 1904.39",
-            "page": 1
-        })
+            query = f"Safety policy or procedure for: {report.description} {report.equipment_involved}"
+            cards = retriever.search(query, n_results=3, reviewed_only=True)
+            verified = [retriever.validate_card(card) for card in cards]
+            policies = [{
+                "title": card.metadata.title, "excerpt": card.content,
+                "source": card.metadata.source, "page": card.metadata.page,
+                "provenance": card.metadata.provenance.to_dict(),
+                "provenance_label": card.metadata.provenance.label,
+            } for card in verified]
+            source_status = "reviewed_sources" if policies else "no_reviewed_sources"
+        except Exception as exc:
+            policies = []
+            source_status = "index_required" if getattr(exc, "status", None) == "index_required" else "retrieval_unavailable"
 
     packet = {
         "incident_id": incident_id,
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "status": "Awaiting Safety Officer Review",
-        "details": report.dict(),
+        "details": report.model_dump(),
         "recommended_review": policies,
-        "escalation_prompt": "Does this incident involve hospitalization, amputation, or eye loss? If so, review OSHA reporting criteria immediately."
+        "policy_sources_status": source_status,
+        "source_notice": "Source review does not establish applicability to this incident. An authorized reviewer must select applicable sources.",
+        "escalation_prompt": "Refer this draft to an authorized safety reviewer; no regulatory escalation determination has been made."
     }
 
     # Optional: Save to a local JSON file or DB

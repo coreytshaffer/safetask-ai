@@ -190,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if(!query) return;
 
         searchBtn.innerHTML = `<i class="ph ph-spinner ph-spin"></i>`;
+        searchResults.textContent = "Retrieving current sources...";
         
         try {
             const res = await fetch("/api/search", {
@@ -200,8 +201,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             
             searchResults.innerHTML = "";
+            if (!res.ok || data.retrieval_status !== "ready") {
+                searchResults.textContent = "Source retrieval: " + (data.retrieval_status || "retrieval_unavailable");
+                return;
+            }
             if(data.results.length === 0) {
-                searchResults.innerHTML = "<p>No documents found.</p>";
+                searchResults.textContent = "Retrieval ready: no matching current sources.";
                 return;
             }
 
@@ -210,14 +215,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="result-card">
                         <h3>${escapeHTML(card.metadata.title)}</h3>
                         <div class="meta" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">
-                            Source: ${escapeHTML(card.metadata.source)} | Authority: ${escapeHTML(card.metadata.authority_level)}
+                            ${escapeHTML(card.metadata.provenance_label || 'Unreviewed reference - not reviewed authority')}<br>
+                            Source: ${escapeHTML(card.metadata.source)} | Scope: ${escapeHTML(card.metadata.provenance?.scope || 'Unverified')}
                         </div>
                         <p>${escapeHTML(card.content)}</p>
                     </div>
                 `;
             });
         } catch (e) {
-            alert("Search failed.");
+            searchResults.textContent = "Source retrieval: retrieval_unavailable";
         } finally {
             searchBtn.innerHTML = `<i class="ph ph-magnifying-glass"></i> Search`;
         }
