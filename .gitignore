@@ -34,3 +34,15 @@ data/chroma_db/
 src/data/chroma_db/
 field_aware_mvp.zip
 !requirements-provenance.txt
+
+# A03a: local runtime state is created on demand, never distributed.
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite*
+*.pyo
+/data/logs/
+/src/data/logs/
+/data/notes/
+/data/clear-lake-watch-repo/
