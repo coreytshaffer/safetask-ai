@@ -43,7 +43,7 @@ A full facility surveillance operations platform with policy ingestion, evidence
 
 ## Setup Instructions
 
-1. Ensure Python 3.10+ is installed.
+1. Install Python 3.11 or newer for SafeTask. Pillow 13.0.0 dropped Python 3.10 support.
 2. Clone the repository.
 3. Create and activate a local virtual environment:
    ```powershell
@@ -52,7 +52,7 @@ A full facility surveillance operations platform with policy ingestion, evidence
    ```
 4. Install the required dependencies:
    ```bash
-   python -m pip install -r requirements.txt
+   python -m pip install -r requirements-safetask.txt
    ```
 5. Start your local LLM server (e.g., LM Studio) on `http://127.0.0.1:1234/v1`.
 6. Start the FastAPI backend from the repository root:
