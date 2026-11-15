@@ -50,16 +50,16 @@ A full facility surveillance operations platform with policy ingestion, evidence
    python -m venv .venv
    .\.venv\Scripts\Activate.ps1
    ```
-4. Install the required dependencies:
+4. Install the SafeTask and FieldAware dependencies for the dashboard:
    ```bash
-   python -m pip install -r requirements-safetask.txt
+   python -m pip install -r requirements-safetask.txt -r requirements-fieldaware.txt
    ```
 5. Start your local LLM server (e.g., LM Studio) on `http://127.0.0.1:1234/v1`.
 6. Start the FastAPI backend from the repository root:
    ```powershell
-   python src/web/app.py
+   python src/cli.py serve
    ```
-7. Navigate to `http://localhost:8080` in your web browser.
+7. Open [SafeTask](http://127.0.0.1:8000/safetask) in your web browser.
 
 ## Validation
 
